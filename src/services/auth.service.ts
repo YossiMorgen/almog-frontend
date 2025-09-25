@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from '@angular/fire/auth';
+import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User as FirebaseUser } from '@angular/fire/auth';
 import { Subject, BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   private setupAuthStateListener(): void {
-    onAuthStateChanged(this.auth, async (firebaseUser: User | null) => {
+    onAuthStateChanged(this.auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         console.log('Firebase user authenticated:', firebaseUser);
         await this.handleUserProfile(firebaseUser);
@@ -86,10 +86,10 @@ export class AuthService {
     }
   }
 
-  getToken(): string | null {
+  async getToken(): Promise<string | null> {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      return currentUser.accessToken;
+      return await currentUser.getIdToken();
     }
     return null;
   }
@@ -102,7 +102,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  private async handleUserProfile(firebaseUser: User): Promise<void> {
+  private async handleUserProfile(firebaseUser: FirebaseUser): Promise<void> {
     try {
       console.log('Handling user profile for Firebase user:', firebaseUser);
       
