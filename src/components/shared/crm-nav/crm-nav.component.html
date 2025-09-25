@@ -1,0 +1,31 @@
+<nav class="bg-white shadow">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a routerLink="/crm" class="text-xl font-semibold text-gray-900">Swimming School CRM</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a routerLink="/home" class="text-sm text-gray-700 hover:text-gray-900">Home</a>
+        <a routerLink="/crm" class="text-sm text-gray-700 hover:text-gray-900">Dashboard</a>
+        <a routerLink="/crm/students" class="text-sm text-gray-700 hover:text-gray-900">Students</a>
+        <a routerLink="/crm/courses" class="text-sm text-gray-700 hover:text-gray-900">Courses</a>
+        <a routerLink="/crm/classes" class="text-sm text-gray-700 hover:text-gray-900">Classes</a>
+        <span class="text-sm text-gray-700">{{ currentUser?.name || 'User' }}</span>
+        <img 
+          *ngIf="currentUser?.picture" 
+          [src]="currentUser!.picture" 
+          [alt]="currentUser!.name || 'User'"
+          class="h-8 w-8 rounded-full"
+        >
+        <button
+          (click)="signOut()"
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+        >
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+

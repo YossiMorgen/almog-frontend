@@ -1,0 +1,101 @@
+  <div class="page-header">
+    <h1 class="page-title">Seasons</h1>
+    <button mat-raised-button color="primary" (click)="createSeason()">
+      <mat-icon>add</mat-icon>
+      Add New Season
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search seasons...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading seasons...</p>
+      </div>
+
+      <div *ngIf="!loading && seasons.length === 0" class="no-data">
+        <mat-icon>calendar_today</mat-icon>
+        <p>No seasons found</p>
+      </div>
+
+      <table mat-table [dataSource]="seasons" matSort *ngIf="!loading && seasons.length > 0" class="seasons-table">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('name')">Name</th>
+          <td mat-cell *matCellDef="let season">{{ season.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('year')">Year</th>
+          <td mat-cell *matCellDef="let season">{{ season.year }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="start_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('start_date')">Start Date</th>
+          <td mat-cell *matCellDef="let season">{{ formatDate(season.start_date) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="end_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('end_date')">End Date</th>
+          <td mat-cell *matCellDef="let season">{{ formatDate(season.end_date) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="is_active">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('is_active')">Status</th>
+          <td mat-cell *matCellDef="let season">
+            <mat-chip [color]="season.is_active ? 'accent' : 'primary'" selected>
+              {{ getActiveStatusText(season.is_active) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('created_at')">Created</th>
+          <td mat-cell *matCellDef="let season">{{ formatDate(season.created_at) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let season">
+            <button mat-icon-button (click)="viewSeason(season)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editSeason(season)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="viewCourses(season)" matTooltip="View Courses">
+              <mat-icon>school</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>

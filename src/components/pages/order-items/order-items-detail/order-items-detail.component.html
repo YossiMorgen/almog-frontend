@@ -1,0 +1,97 @@
+  <div class="page-header">
+    <div class="header-content">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 class="page-title">Order Item Details</h1>
+    </div>
+    <button mat-raised-button color="primary" (click)="editOrderItem()">
+      <mat-icon>edit</mat-icon>
+      Edit Order Item
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading order item...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="orderItem && !loading" class="detail-content">
+    <mat-card class="main-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>shopping_cart</mat-icon>
+          Order Item #{{ orderItem.id }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          Created on {{ formatDateTime(orderItem.created_at) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-section">
+            <h3>Order Information</h3>
+            <div class="info-item">
+              <span class="label">Order ID:</span>
+              <span class="value">{{ orderItem.order_id }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Item Information</h3>
+            <div class="info-item">
+              <span class="label">Item Type:</span>
+              <mat-chip [color]="getItemTypeColor(orderItem.item_type)" selected>
+                {{ getItemTypeDisplay(orderItem.item_type) }}
+              </mat-chip>
+            </div>
+            <div class="info-item">
+              <span class="label">Item ID:</span>
+              <span class="value">{{ orderItem.item_id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Quantity:</span>
+              <span class="value">{{ orderItem.quantity }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Pricing Information</h3>
+            <div class="info-item">
+              <span class="label">Unit Price:</span>
+              <span class="value price">{{ formatPrice(orderItem.unit_price) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Subtotal:</span>
+              <span class="value price">{{ formatPrice(calculateSubtotal()) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Discount Amount:</span>
+              <span class="value price">{{ formatPrice(orderItem.discount_amount) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Tax Amount:</span>
+              <span class="value price">{{ formatPrice(orderItem.tax_amount) }}</span>
+            </div>
+            <div class="info-item total">
+              <span class="label">Total Price:</span>
+              <span class="value price total">{{ formatPrice(orderItem.total_price) }}</span>
+            </div>
+          </div>
+
+          <div class="info-section" *ngIf="orderItem.notes">
+            <h3>Notes</h3>
+            <div class="notes-content">
+              {{ orderItem.notes }}
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

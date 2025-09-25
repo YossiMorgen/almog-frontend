@@ -1,0 +1,82 @@
+  <div class="page-header">
+    <h1 class="page-title">{{ permissionId == null ? 'Add New Permission' : 'Edit Permission' }}</h1>
+    <div class="header-actions">
+      <button mat-button (click)="onCancel()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Permissions
+      </button>
+    </div>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="permissionForm" (ngSubmit)="submitForm()">
+        <div *ngIf="loading" class="loading-container">
+          <mat-spinner></mat-spinner>
+          <p>Loading...</p>
+        </div>
+
+        <div *ngIf="error" class="error-container">
+          <mat-icon color="warn">error</mat-icon>
+          <p>{{ error }}</p>
+        </div>
+
+      <div class="form-grid">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Permission Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter permission name">
+          <mat-error *ngIf="permissionForm.get('name')?.hasError('required')">
+            Permission name is required
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('name')?.hasError('minlength')">
+            Permission name must be at least 2 characters
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('name')?.hasError('maxlength')">
+            Permission name must not exceed 100 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Module</mat-label>
+          <input matInput formControlName="module" placeholder="Enter module name">
+          <mat-error *ngIf="permissionForm.get('module')?.hasError('required')">
+            Module is required
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('module')?.hasError('minlength')">
+            Module must be at least 1 character
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('module')?.hasError('maxlength')">
+            Module must not exceed 50 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Action</mat-label>
+          <input matInput formControlName="action" placeholder="Enter action">
+          <mat-error *ngIf="permissionForm.get('action')?.hasError('required')">
+            Action is required
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('action')?.hasError('minlength')">
+            Action must be at least 1 character
+          </mat-error>
+          <mat-error *ngIf="permissionForm.get('action')?.hasError('maxlength')">
+            Action must not exceed 50 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" placeholder="Enter permission description" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            {{ loading ? 'Saving...' : (permissionId ? 'Update Permission' : 'Create Permission') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>

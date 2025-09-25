@@ -1,0 +1,84 @@
+  <div class="page-header">
+    <h1 class="page-title">Permissions</h1>
+    <button mat-raised-button color="primary" (click)="createPermission()">
+      <mat-icon>add</mat-icon>
+      Add New Permission
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search permissions...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading permissions...</p>
+      </div>
+
+      <div *ngIf="!loading && permissions.length === 0" class="no-data">
+        <mat-icon>security</mat-icon>
+        <p>No permissions found</p>
+      </div>
+
+      <table mat-table [dataSource]="permissions" matSort *ngIf="!loading && permissions.length > 0" class="permissions-table">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('name')">Name</th>
+          <td mat-cell *matCellDef="let permission">{{ permission.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="module">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('module')">Module</th>
+          <td mat-cell *matCellDef="let permission">{{ getModuleDisplay(permission.module) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('action')">Action</th>
+          <td mat-cell *matCellDef="let permission">{{ getActionDisplay(permission.action) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let permission">{{ getDescriptionDisplay(permission.description) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let permission">
+            <button mat-icon-button (click)="viewPermission(permission)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editPermission(permission)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>

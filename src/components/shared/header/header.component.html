@@ -1,0 +1,123 @@
+<mat-toolbar color="primary">
+  <span class="app-title" routerLink="/crm">Swimming School CRM</span>
+  
+  <span class="spacer"></span>
+  
+  <div class="nav-links">
+    <button mat-button routerLink="/home">Home</button>
+    <button mat-button routerLink="/crm">Dashboard</button>
+    
+    <!-- Students & Courses -->
+    <button mat-button [matMenuTriggerFor]="academicMenu">
+      <mat-icon>school</mat-icon>
+      Academic
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #academicMenu="matMenu">
+      <button mat-menu-item routerLink="/crm/seasons">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Seasons</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/students">
+        <mat-icon>person</mat-icon>
+        <span>Students</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/courses">
+        <mat-icon>book</mat-icon>
+        <span>Courses</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/classes">
+        <mat-icon>class</mat-icon>
+        <span>Classes</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/course-enrollments">
+        <mat-icon>assignment</mat-icon>
+        <span>Enrollments</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/student-classes">
+        <mat-icon>group</mat-icon>
+        <span>Student Classes</span>
+      </button>
+    </mat-menu>
+
+    <!-- Business -->
+    <button mat-button [matMenuTriggerFor]="businessMenu">
+      <mat-icon>business</mat-icon>
+      Business
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #businessMenu="matMenu">
+      <button mat-menu-item routerLink="/crm/products">
+        <mat-icon>inventory_2</mat-icon>
+        <span>Products</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/orders">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Orders</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/order-items">
+        <mat-icon>list</mat-icon>
+        <span>Order Items</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/payments">
+        <mat-icon>payment</mat-icon>
+        <span>Payments</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/payment-installments">
+        <mat-icon>schedule</mat-icon>
+        <span>Payment Installments</span>
+      </button>
+    </mat-menu>
+
+    <!-- Administration -->
+    <button mat-button [matMenuTriggerFor]="adminMenu">
+      <mat-icon>admin_panel_settings</mat-icon>
+      Admin
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item routerLink="/crm/users">
+        <mat-icon>people</mat-icon>
+        <span>Users</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/roles">
+        <mat-icon>security</mat-icon>
+        <span>Roles</span>
+      </button>
+      <button mat-menu-item routerLink="/crm/permissions">
+        <mat-icon>lock</mat-icon>
+        <span>Permissions</span>
+      </button>
+    </mat-menu>
+  </div>
+  
+  <span class="spacer"></span>
+  
+  <div class="user-section">
+    <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle Theme">
+      <mat-icon>{{ (themeService.isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+    <span class="user-name">{{ currentUser?.name || profile?.name || '' }}</span>
+    <img 
+      *ngIf="currentUser?.picture || profile?.picture" 
+      [src]="currentUser!.picture || profile?.picture" 
+      [alt]="currentUser!.name || profile?.name || 'User'"
+      class="user-avatar"
+    >
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    
+    <mat-menu #userMenu="matMenu">
+      <button *ngIf="currentUser || profile" mat-menu-item (click)="signOut()">
+        <mat-icon>logout</mat-icon>
+        <span>Sign Out</span>
+      </button>
+      <button *ngIf="!currentUser && !profile" mat-menu-item (click)="signIn()">
+        <mat-icon>login</mat-icon>
+        <span>Sign In</span>
+      </button>
+    </mat-menu>
+
+  </div>
+</mat-toolbar>

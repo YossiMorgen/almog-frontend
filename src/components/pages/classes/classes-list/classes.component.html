@@ -1,0 +1,103 @@
+  <div class="page-header">
+    <h1 class="page-title">Classes</h1>
+    <button mat-raised-button color="primary" (click)="createClass()">
+      <mat-icon>add</mat-icon>
+      Add New Class
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search classes...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading classes...</p>
+      </div>
+
+      <div *ngIf="!loading && classes.length === 0" class="no-data">
+        <mat-icon>event_busy</mat-icon>
+        <p>No classes found</p>
+      </div>
+
+      <table mat-table [dataSource]="classes" matSort *ngIf="!loading && classes.length > 0" class="classes-table">
+        <ng-container matColumnDef="class_number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('class_number')">Class #</th>
+          <td mat-cell *matCellDef="let classData">{{ classData.class_number }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="course_id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('course_id')">Course ID</th>
+          <td mat-cell *matCellDef="let classData">{{ classData.course_id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="class_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('class_date')">Date</th>
+          <td mat-cell *matCellDef="let classData">{{ formatDate(classData.class_date) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let classData">{{ formatTime(classData.start_time) }} - {{ formatTime(classData.end_time) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('location')">Location</th>
+          <td mat-cell *matCellDef="let classData">{{ classData.location || 'Not specified' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="instructor_id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('instructor_id')">Instructor</th>
+          <td mat-cell *matCellDef="let classData">{{ classData.instructor_id || 'Not assigned' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('status')">Status</th>
+          <td mat-cell *matCellDef="let classData">
+            <mat-chip [color]="classData.status === 'scheduled' ? 'primary' : 'warn'" selected>
+              {{ getStatusText(classData.status) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let classData">
+            <button mat-icon-button (click)="viewClass(classData)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editClass(classData)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>

@@ -1,0 +1,42 @@
+.container {
+  max-width: 1200px;
+}
+
+.table th {
+  position: relative;
+}
+
+.table th:hover {
+  background-color: #f9fafb;
+}
+
+.table th::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #6b7280;
+  opacity: 0.5;
+}
+
+.table th:hover::after {
+  opacity: 1;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}

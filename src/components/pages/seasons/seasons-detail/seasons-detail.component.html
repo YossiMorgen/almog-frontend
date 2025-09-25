@@ -1,0 +1,82 @@
+  <div class="page-header">
+    <button mat-icon-button (click)="goBack()" matTooltip="Go Back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="page-title">Season Details</h1>
+    <button mat-raised-button color="primary" (click)="editSeason()">
+      <mat-icon>edit</mat-icon>
+      Edit Season
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading season...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="season && !loading" class="season-details">
+    <mat-card class="main-card">
+      <mat-card-header>
+        <mat-card-title>{{ season.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip [color]="getActiveStatusColor(season.is_active)" selected>
+            {{ getActiveStatusText(season.is_active) }}
+          </mat-chip>
+        </mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="details-grid">
+          <div class="detail-item">
+            <label>Season Name:</label>
+            <span>{{ season.name }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label>Year:</label>
+            <span>{{ season.year }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label>Start Date:</label>
+            <span>{{ formatDate(season.start_date) }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label>End Date:</label>
+            <span>{{ formatDate(season.end_date) }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="season.registration_start_date">
+            <label>Registration Start:</label>
+            <span>{{ formatDate(season.registration_start_date) }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="season.registration_end_date">
+            <label>Registration End:</label>
+            <span>{{ formatDate(season.registration_end_date) }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label>Status:</label>
+            <span>{{ season.is_active ? 'Active' : 'Inactive' }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <label>Created:</label>
+            <span>{{ formatDateTime(season.created_at) }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="season.updated_at">
+            <label>Last Updated:</label>
+            <span>{{ formatDateTime(season.updated_at) }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

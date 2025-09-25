@@ -1,0 +1,115 @@
+  <div class="page-header">
+    <h1 class="page-title">{{ orderId == null ? 'Add New Order' : 'Edit Order' }}</h1>
+    <div class="header-actions">
+      <button mat-button (click)="onCancel()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Orders
+      </button>
+    </div>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="orderForm" (ngSubmit)="submitForm()">
+        <div *ngIf="loading" class="loading-container">
+          <mat-spinner></mat-spinner>
+          <p>Loading...</p>
+        </div>
+
+        <div *ngIf="error" class="error-container">
+          <mat-icon color="warn">error</mat-icon>
+          <p>{{ error }}</p>
+        </div>
+
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Order Number</mat-label>
+            <input matInput formControlName="order_number" placeholder="Enter order number (optional)">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Student</mat-label>
+            <mat-select formControlName="student_id">
+              <mat-option *ngFor="let student of students" [value]="student.id">
+                {{ student.first_name }} {{ student.last_name }} (ID: {{ student.id }})
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orderForm.get('student_id')?.hasError('required')">
+              Student is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Subtotal</mat-label>
+            <input matInput type="number" formControlName="subtotal" placeholder="Enter subtotal">
+            <mat-error *ngIf="orderForm.get('subtotal')?.hasError('required')">
+              Subtotal is required
+            </mat-error>
+            <mat-error *ngIf="orderForm.get('subtotal')?.hasError('min')">
+              Subtotal must be at least 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tax Amount</mat-label>
+            <input matInput type="number" formControlName="tax_amount" placeholder="Enter tax amount">
+            <mat-error *ngIf="orderForm.get('tax_amount')?.hasError('required')">
+              Tax amount is required
+            </mat-error>
+            <mat-error *ngIf="orderForm.get('tax_amount')?.hasError('min')">
+              Tax amount must be at least 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Discount Amount</mat-label>
+            <input matInput type="number" formControlName="discount_amount" placeholder="Enter discount amount">
+            <mat-error *ngIf="orderForm.get('discount_amount')?.hasError('required')">
+              Discount amount is required
+            </mat-error>
+            <mat-error *ngIf="orderForm.get('discount_amount')?.hasError('min')">
+              Discount amount must be at least 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Total Amount</mat-label>
+            <input matInput type="number" formControlName="total_amount" placeholder="Total amount" readonly>
+            <mat-error *ngIf="orderForm.get('total_amount')?.hasError('required')">
+              Total amount is required
+            </mat-error>
+            <mat-error *ngIf="orderForm.get('total_amount')?.hasError('min')">
+              Total amount must be at least 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orderForm.get('status')?.hasError('required')">
+              Status is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes" placeholder="Enter order notes" rows="3"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            {{ loading ? 'Saving...' : (orderId ? 'Update Order' : 'Create Order') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+

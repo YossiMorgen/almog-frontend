@@ -1,0 +1,109 @@
+  <div class="page-header">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Enrollments
+    </button>
+    <h1 class="page-title">Enrollment Details</h1>
+    <button mat-raised-button color="primary" (click)="editEnrollment()" *ngIf="enrollment">
+      <mat-icon>edit</mat-icon>
+      Edit Enrollment
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading enrollment...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <mat-card *ngIf="enrollment && !loading" class="enrollment-detail-card">
+    <mat-card-header>
+      <mat-card-title>Enrollment #{{ enrollment.id }}</mat-card-title>
+      <mat-card-subtitle>{{ student?.first_name }} {{ student?.last_name }} - {{ course?.name }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="enrollment-info-grid">
+        <div class="info-section">
+          <h3>Student Information</h3>
+          <div class="info-item">
+            <span class="label">Student:</span>
+            <span class="value">{{ student?.first_name }} {{ student?.last_name }}</span>
+          </div>
+          <div class="info-item" *ngIf="student?.email">
+            <span class="label">Email:</span>
+              <span class="value">{{ student?.email }}</span>
+          </div>
+          <div class="info-item" *ngIf="student?.phone">
+            <span class="label">Phone:</span>
+            <span class="value">{{ student?.phone }}</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Course Information</h3>
+          <div class="info-item">
+            <span class="label">Course:</span>
+            <span class="value">{{ course?.name }}</span>
+          </div>
+          <div class="info-item" *ngIf="course?.level">
+            <span class="label">Level:</span>
+            <span class="value">{{ course?.level }}</span>
+          </div>
+          <div class="info-item" *ngIf="course?.day_of_week">
+            <span class="label">Day:</span>
+            <span class="value">{{ course?.day_of_week }}</span>
+          </div>
+          <div class="info-item" *ngIf="course?.start_time && course?.end_time">
+            <span class="label">Time:</span>
+            <span class="value">{{ course?.start_time }} - {{ course?.end_time }}</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Enrollment Details</h3>
+          <div class="info-item">
+            <span class="label">Enrollment Date:</span>
+            <span class="value">{{ formatDate(enrollment.enrollment_date) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Status:</span>
+            <mat-chip [color]="enrollment.status === 'enrolled' ? 'primary' : enrollment.status === 'waitlisted' ? 'accent' : 'warn'" selected>
+              {{ getStatusText(enrollment.status) }}
+            </mat-chip>
+          </div>
+        </div>
+
+        <div class="info-section full-width" *ngIf="enrollment.notes">
+          <h3>Notes</h3>
+          <p class="notes">{{ enrollment.notes }}</p>
+        </div>
+
+        <div class="info-section">
+          <h3>System Information</h3>
+          <div class="info-item" *ngIf="enrollment.created_at">
+            <span class="label">Created:</span>
+            <span class="value">{{ enrollment.created_at | date:'medium' }}</span>
+          </div>
+          <div class="info-item" *ngIf="enrollment.updated_at">
+            <span class="label">Last Updated:</span>
+            <span class="value">{{ enrollment.updated_at | date:'medium' }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button (click)="goBack()">
+        Back to Enrollments
+      </button>
+      <button mat-raised-button color="primary" (click)="editEnrollment()">
+        <mat-icon>edit</mat-icon>
+        Edit Enrollment
+      </button>
+    </mat-card-actions>
+  </mat-card>

@@ -1,0 +1,99 @@
+  <div class="page-header">
+    <h1 class="page-title">Products</h1>
+    <button mat-raised-button color="primary" (click)="createProduct()">
+      <mat-icon>add</mat-icon>
+      Add New Product
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search products...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading products...</p>
+      </div>
+
+      <div *ngIf="!loading && products.length === 0" class="no-data">
+        <mat-icon>inventory_2</mat-icon>
+        <p>No products found</p>
+      </div>
+
+      <table mat-table [dataSource]="products" matSort *ngIf="!loading && products.length > 0" class="products-table">
+        <ng-container matColumnDef="sku">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('sku')">SKU</th>
+          <td mat-cell *matCellDef="let product">{{ product.sku }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('name')">Name</th>
+          <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('category')">Category</th>
+          <td mat-cell *matCellDef="let product">{{ product.category || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('price')">Price</th>
+          <td mat-cell *matCellDef="let product">{{ formatPrice(product.price) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="stock_quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('stock_quantity')">Stock</th>
+          <td mat-cell *matCellDef="let product">{{ product.stock_quantity || 0 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('is_active')">Status</th>
+          <td mat-cell *matCellDef="let product">
+            <mat-chip [color]="product.is_active ? 'primary' : 'warn'" selected>
+              {{ getStatusText(product.is_active) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let product">
+            <button mat-icon-button (click)="viewProduct(product)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editProduct(product)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>
+

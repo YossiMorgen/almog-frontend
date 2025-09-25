@@ -1,0 +1,98 @@
+  <div class="page-header">
+    <h1 class="page-title">Students</h1>
+    <button mat-raised-button color="primary" (click)="createStudent()">
+      <mat-icon>add</mat-icon>
+      Add New Student
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search students...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading students...</p>
+      </div>
+
+      <div *ngIf="!loading && students.length === 0" class="no-data">
+        <mat-icon>people_outline</mat-icon>
+        <p>No students found</p>
+      </div>
+
+      <table mat-table [dataSource]="students" matSort *ngIf="!loading && students.length > 0" class="students-table">
+        <ng-container matColumnDef="student_code">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('student_code')">Code</th>
+          <td mat-cell *matCellDef="let student">{{ student.student_code || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('first_name')">Name</th>
+          <td mat-cell *matCellDef="let student">{{ student.first_name }} {{ student.last_name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('email')">Email</th>
+          <td mat-cell *matCellDef="let student">{{ student.email || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('phone')">Phone</th>
+          <td mat-cell *matCellDef="let student">{{ student.phone || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="parent_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('parent_name')">Parent</th>
+          <td mat-cell *matCellDef="let student">{{ student.parent_name || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('is_active')">Status</th>
+          <td mat-cell *matCellDef="let student">
+            <mat-chip [color]="student.is_active ? 'primary' : 'warn'" selected>
+              {{ getStatusText(student.is_active) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let student">
+            <button mat-icon-button (click)="viewStudent(student)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editStudent(student)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>

@@ -1,0 +1,111 @@
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <button mat-button (click)="goBack()" class="back-button">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Payment Installments
+        </button>
+        <h1 class="page-title">Payment Installment #{{ paymentInstallment?.installment_number }}</h1>
+        <p class="page-subtitle">Payment ID: {{ paymentInstallment?.payment_id }}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="editPaymentInstallment()">
+        <mat-icon>edit</mat-icon>
+        Edit Payment Installment
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading payment installment details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="paymentInstallment && !loading" class="detail-cards">
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Payment Information</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip [color]="getStatusColor(paymentInstallment.status)" selected>
+            {{ getStatusText(paymentInstallment.status) }}
+          </mat-chip>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Payment ID</label>
+            <p>{{ paymentInstallment.payment_id }}</p>
+          </div>
+          <div class="info-item">
+            <label>Installment Number</label>
+            <p>{{ paymentInstallment.installment_number }}</p>
+          </div>
+          <div class="info-item">
+            <label>Amount</label>
+            <p>{{ formatAmount(paymentInstallment.amount) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Payment Method</label>
+            <p>{{ getPaymentMethodDisplay(paymentInstallment.payment_method) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Payment Date</label>
+            <p>{{ formatDate(paymentInstallment.payment_date) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Status</label>
+            <p>{{ getStatusText(paymentInstallment.status) }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Transaction Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Transaction Reference</label>
+            <p>{{ paymentInstallment.transaction_reference || 'Not provided' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Notes</label>
+            <p class="description">{{ paymentInstallment.notes || 'No notes provided' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Processed At</label>
+            <p>{{ formatDateTime(paymentInstallment.processed_at) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Processed By</label>
+            <p>{{ paymentInstallment.processed_by || 'Not processed yet' }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>System Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Created At</label>
+            <p>{{ formatDateTime(paymentInstallment.created_at) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Last Updated</label>
+            <p>{{ formatDateTime(paymentInstallment.updated_at) }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

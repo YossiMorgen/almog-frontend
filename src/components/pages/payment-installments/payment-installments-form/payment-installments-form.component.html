@@ -1,0 +1,106 @@
+  <div class="page-header">
+    <h1 class="page-title">{{ installmentId ? 'Edit Payment Installment' : 'Create Payment Installment' }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>{{ installmentId ? 'Loading payment installment...' : 'Creating payment installment...' }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <mat-card class="form-card" *ngIf="!loading">
+    <mat-card-content>
+      <form [formGroup]="installmentForm" (ngSubmit)="submitForm()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Payment ID *</mat-label>
+            <input matInput type="number" formControlName="payment_id" placeholder="Enter payment ID">
+            <mat-error *ngIf="installmentForm.get('payment_id')?.hasError('required')">
+              Payment ID is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Installment Number *</mat-label>
+            <input matInput type="number" formControlName="installment_number" placeholder="Enter installment number">
+            <mat-error *ngIf="installmentForm.get('installment_number')?.hasError('required')">
+              Installment number is required
+            </mat-error>
+            <mat-error *ngIf="installmentForm.get('installment_number')?.hasError('min')">
+              Installment number must be at least 1
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Amount *</mat-label>
+            <input matInput type="number" step="0.01" formControlName="amount" placeholder="Enter amount">
+            <mat-error *ngIf="installmentForm.get('amount')?.hasError('required')">
+              Amount is required
+            </mat-error>
+            <mat-error *ngIf="installmentForm.get('amount')?.hasError('min')">
+              Amount must be greater than 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Payment Method *</mat-label>
+            <mat-select formControlName="payment_method">
+              <mat-option *ngFor="let method of paymentMethodOptions" [value]="method.value">
+                {{ method.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="installmentForm.get('payment_method')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Payment Date *</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="payment_date" placeholder="Select payment date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="installmentForm.get('payment_date')?.hasError('required')">
+              Payment date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status *</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                {{ status.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="installmentForm.get('status')?.hasError('required')">
+              Status is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Transaction Reference</mat-label>
+            <input matInput formControlName="transaction_reference" placeholder="Enter transaction reference">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes" placeholder="Enter any additional notes" rows="3"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="installmentForm.invalid || loading">
+            <mat-icon>{{ installmentId ? 'save' : 'add' }}</mat-icon>
+            {{ installmentId ? 'Update Payment Installment' : 'Create Payment Installment' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,109 @@
+  <div class="page-header">
+    <h1 class="page-title">User Details</h1>
+    <div class="header-actions">
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Users
+      </button>
+      <button mat-raised-button color="primary" (click)="editUser()" [disabled]="loading">
+        <mat-icon>edit</mat-icon>
+        Edit User
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading user details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="user && !loading" class="user-details">
+    <mat-card class="user-card">
+      <mat-card-header>
+        <div class="user-avatar">
+          <img *ngIf="user.profile_picture_url" [src]="user.profile_picture_url" [alt]="getDisplayName(user)" class="avatar-image">
+          <div *ngIf="!user.profile_picture_url" class="avatar-placeholder">
+            <mat-icon>person</mat-icon>
+          </div>
+        </div>
+        <div class="user-info">
+          <mat-card-title>{{ getDisplayName(user) }}</mat-card-title>
+          <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+          <mat-chip [color]="getStatusColor(user.is_active)" selected>
+            {{ getStatusText(user.is_active) }}
+          </mat-chip>
+        </div>
+      </mat-card-header>
+    </mat-card>
+
+    <div class="details-grid">
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>person</mat-icon>
+            Personal Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-item">
+            <label>Google ID:</label>
+            <span>{{ user.google_id }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Email:</label>
+            <span>{{ user.email }}</span>
+          </div>
+          <div class="detail-item">
+            <label>First Name:</label>
+            <span>{{ user.first_name || 'Not provided' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Last Name:</label>
+            <span>{{ user.last_name || 'Not provided' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Display Name:</label>
+            <span>{{ user.display_name || 'Not provided' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Phone:</label>
+            <span>{{ user.phone || 'Not provided' }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>schedule</mat-icon>
+            Account Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="detail-item">
+            <label>Status:</label>
+            <mat-chip [color]="getStatusColor(user.is_active)" selected>
+              {{ getStatusText(user.is_active) }}
+            </mat-chip>
+          </div>
+          <div class="detail-item">
+            <label>Last Login:</label>
+            <span>{{ formatDateTime(user.last_login) }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Created:</label>
+            <span>{{ formatDateTime(user.created_at) }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Last Updated:</label>
+            <span>{{ formatDateTime(user.updated_at) }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

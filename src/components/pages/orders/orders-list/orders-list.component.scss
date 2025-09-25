@@ -1,0 +1,121 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px 0;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-card {
+  margin-bottom: 24px;
+}
+
+.search-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 300px;
+}
+
+.table-card {
+  margin-bottom: 24px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  color: #666;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.orders-table {
+  width: 100%;
+}
+
+.orders-table th {
+  font-weight: 600;
+  color: #333;
+}
+
+.orders-table td {
+  padding: 12px 8px;
+}
+
+.orders-table .mat-column-actions {
+  width: 120px;
+  text-align: center;
+}
+
+.orders-table .mat-column-order_number {
+  min-width: 150px;
+}
+
+.orders-table .mat-column-student_id {
+  width: 120px;
+}
+
+.orders-table .mat-column-order_date {
+  width: 140px;
+}
+
+.orders-table .mat-column-total_amount {
+  width: 140px;
+  text-align: right;
+}
+
+.orders-table .mat-column-status {
+  width: 120px;
+}
+
+mat-paginator {
+  background: transparent;
+}
+
+mat-chip {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+button[mat-icon-button] {
+  margin: 0 4px;
+}
+
+button[mat-raised-button] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+mat-spinner {
+  margin-bottom: 16px;
+}

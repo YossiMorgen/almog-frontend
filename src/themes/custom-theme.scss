@@ -1,0 +1,23 @@
+// Custom theme styles
+// Note: Using Angular Material pre-built themes instead of custom CSS variables
+// for better compatibility with Material Design components
+
+// Light theme (default)
+:root {
+  // Custom properties for non-Material components
+  --custom-primary: #1976d2;
+  --custom-secondary: #ff9800;
+  --custom-background: #ffffff;
+  --custom-surface: #ffffff;
+  --custom-text: #000000;
+}
+
+// Dark theme
+.dark-theme {
+  // Custom properties for non-Material components
+  --custom-primary: #90caf9;
+  --custom-secondary: #ffb74d;
+  --custom-background: #121212;
+  --custom-surface: #1f1f1f;
+  --custom-text: #ffffff;
+}

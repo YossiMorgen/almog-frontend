@@ -1,0 +1,120 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Angular Material Pre-built Themes */
+@use '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Toastr Styles */
+// @use 'ngx-toastr/toastr';
+
+/* Custom Theme */
+@use './themes/custom-theme.scss';
+
+/* Other pre-built theme options:
+@use '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@use '@angular/material/prebuilt-themes/purple-green.css';
+@use '@angular/material/prebuilt-themes/pink-bluegrey.css';
+*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Dark theme overrides */
+.dark-theme {
+  /* Global dark theme */
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  
+  /* Material components dark theme */
+  .mat-toolbar {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+  }
+  
+  .mat-button {
+    color: #ffffff !important;
+  }
+  
+  .mat-icon {
+    color: #ffffff !important;
+  }
+  
+  .mat-menu-panel {
+    background-color: #1f1f1f !important;
+  }
+  
+  .mat-menu-item {
+    color: #ffffff !important;
+  }
+  
+  .mat-menu-item:hover {
+    background-color: #2a2a2a !important;
+  }
+  
+  /* Cards and surfaces */
+  .mat-card {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+  }
+  
+  .mat-form-field {
+    color: #ffffff !important;
+  }
+  
+  .mat-input-element {
+    color: #ffffff !important;
+  }
+  
+  .mat-form-field-label {
+    color: #ffffff !important;
+  }
+  
+  /* Tables */
+  .mat-table {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+  }
+  
+  .mat-header-cell {
+    color: #ffffff !important;
+  }
+  
+  .mat-cell {
+    color: #ffffff !important;
+  }
+  
+  .mat-row:hover {
+    background-color: #2a2a2a !important;
+  }
+  
+  /* Dialogs */
+  .mat-dialog-container {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+  }
+  
+  /* Snackbar */
+  .mat-snack-bar-container {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+  }
+  
+  /* Custom app elements */
+  .main-content {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+  }
+  
+  .layout-container {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Links */
+  a {
+    color: #90caf9 !important;
+  }
+  
+  a:hover {
+    color: #bbdefb !important;
+  }
+}

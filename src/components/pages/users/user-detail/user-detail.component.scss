@@ -1,0 +1,156 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 24px;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 16px;
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 16px 24px;
+  border-radius: 4px;
+  margin: 0 24px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.user-details {
+  padding: 0 24px;
+}
+
+.user-card {
+  margin-bottom: 24px;
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .user-avatar {
+    .avatar-image {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .avatar-placeholder {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      mat-icon {
+        font-size: 32px;
+        color: #666;
+      }
+    }
+  }
+
+  .user-info {
+    flex: 1;
+
+    mat-card-title {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    mat-card-subtitle {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.detail-card {
+  mat-card-header {
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  mat-card-content {
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      label {
+        font-weight: 500;
+        color: #333;
+        min-width: 120px;
+      }
+
+      span {
+        color: #666;
+        text-align: right;
+        flex: 1;
+      }
+
+      mat-chip {
+        margin-left: auto;
+      }
+    }
+  }
+}

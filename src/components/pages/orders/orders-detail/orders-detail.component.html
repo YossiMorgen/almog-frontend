@@ -1,0 +1,95 @@
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <button mat-button (click)="goBack()" class="back-button">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Orders
+        </button>
+        <h1 class="page-title">{{ order?.order_number }}</h1>
+        <p class="page-subtitle">Order ID: {{ order?.id }}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="editOrder()">
+        <mat-icon>edit</mat-icon>
+        Edit Order
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading order details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="order && !loading" class="detail-cards">
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Order Information</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip [color]="getStatusColor(order.status)" selected>
+            {{ getStatusText(order.status) }}
+          </mat-chip>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item" *ngFor="let item of getOrderSummary()">
+            <label>{{ item.label }}</label>
+            <p *ngIf="item.color; else defaultValue">
+              <mat-chip [color]="item.color" selected>{{ item.value }}</mat-chip>
+            </p>
+            <ng-template #defaultValue>
+              <p>{{ item.value }}</p>
+            </ng-template>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Financial Summary</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item" *ngFor="let item of getFinancialSummary()">
+            <label>{{ item.label }}</label>
+            <p [class.total-amount]="item.label === 'Total Amount'">{{ item.value }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card" *ngIf="order.notes">
+      <mat-card-header>
+        <mat-card-title>Notes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Order Notes</label>
+            <p class="notes">{{ order.notes }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>System Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item" *ngFor="let item of getSystemInfo()">
+            <label>{{ item.label }}</label>
+            <p>{{ item.value }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+

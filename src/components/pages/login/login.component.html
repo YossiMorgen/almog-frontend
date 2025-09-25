@@ -1,0 +1,18 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Swimming School CRM
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Sign in to access your account
+      </p>
+    </div>
+    <div class="mt-8">
+      <app-login-form 
+        (googleSignIn)="signInWithGoogle()"
+        #loginForm>
+      </app-login-form>
+    </div>
+  </div>
+</div>

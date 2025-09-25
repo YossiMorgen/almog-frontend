@@ -1,0 +1,102 @@
+  <div class="page-header">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Products
+    </button>
+    <h1 class="page-title">Product Details</h1>
+    <button mat-raised-button color="primary" (click)="editProduct()" *ngIf="product">
+      <mat-icon>edit</mat-icon>
+      Edit Product
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading product...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <mat-card *ngIf="product && !loading" class="product-detail-card">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>SKU: {{ product.sku }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="product-info-grid">
+        <div class="info-section">
+          <h3>Basic Information</h3>
+          <div class="info-item">
+            <span class="label">SKU:</span>
+            <span class="value">{{ product.sku }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Name:</span>
+            <span class="value">{{ product.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Category:</span>
+            <span class="value">{{ getCategoryDisplay(product.category) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Status:</span>
+            <mat-chip [color]="product.is_active ? 'primary' : 'warn'" selected>
+              {{ getStatusText(product.is_active) }}
+            </mat-chip>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Pricing & Inventory</h3>
+          <div class="info-item">
+            <span class="label">Price:</span>
+            <span class="value price">{{ formatPrice(product.price) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Tax Rate:</span>
+            <span class="value">{{ product.tax_rate || 0 }}%</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Stock Quantity:</span>
+            <span class="value">{{ product.stock_quantity || 0 }}</span>
+          </div>
+        </div>
+
+        <div class="info-section full-width" *ngIf="product.description">
+          <h3>Description</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+
+        <div class="info-section full-width" *ngIf="product.image_url">
+          <h3>Product Image</h3>
+          <img [src]="product.image_url" [alt]="product.name" class="product-image" />
+        </div>
+
+        <div class="info-section">
+          <h3>System Information</h3>
+          <div class="info-item" *ngIf="product.created_at">
+            <span class="label">Created:</span>
+            <span class="value">{{ product.created_at | date:'medium' }}</span>
+          </div>
+          <div class="info-item" *ngIf="product.updated_at">
+            <span class="label">Last Updated:</span>
+            <span class="value">{{ product.updated_at | date:'medium' }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button (click)="goBack()">
+        Back to Products
+      </button>
+      <button mat-raised-button color="primary" (click)="editProduct()">
+        <mat-icon>edit</mat-icon>
+        Edit Product
+      </button>
+    </mat-card-actions>
+  </mat-card>

@@ -1,0 +1,158 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.search-card {
+  margin: 0 24px 24px 24px;
+}
+
+.search-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.search-field {
+  flex: 1;
+  max-width: 400px;
+}
+
+.table-card {
+  margin: 0 24px 24px 24px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 16px;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 16px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  opacity: 0.5;
+}
+
+.student-classes-table {
+  width: 100%;
+}
+
+.student-classes-table th {
+  position: relative;
+  font-weight: 500;
+  color: #333;
+  padding: 16px 8px;
+}
+
+.student-classes-table th:hover {
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+.student-classes-table th::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #6b7280;
+  opacity: 0.5;
+}
+
+.student-classes-table th:hover::after {
+  opacity: 1;
+}
+
+.student-classes-table td {
+  padding: 12px 8px;
+}
+
+.student-classes-table .mat-column-actions {
+  width: 120px;
+  text-align: center;
+}
+
+.student-classes-table .mat-column-class_id,
+.student-classes-table .mat-column-student_id {
+  text-align: center;
+  width: 100px;
+}
+
+.student-classes-table .mat-column-attendance_status {
+  width: 140px;
+}
+
+.student-classes-table .mat-column-marked_at {
+  width: 180px;
+}
+
+.student-classes-table .mat-column-notes {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+mat-paginator {
+  margin: 0 24px 24px 24px;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-field {
+    max-width: none;
+  }
+  
+  .table-card,
+  .search-card,
+  mat-paginator {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
+  .page-header {
+    padding: 0 16px;
+  }
+  
+  .student-classes-table .mat-column-notes {
+    max-width: 150px;
+  }
+}

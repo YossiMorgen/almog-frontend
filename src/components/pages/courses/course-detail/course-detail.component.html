@@ -1,0 +1,145 @@
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <button mat-button (click)="goBack()" class="back-button">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Courses
+        </button>
+        <h1 class="page-title">{{ course?.name }}</h1>
+        <p class="page-subtitle">Course Code: {{ course?.course_code }}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="editCourse()">
+        <mat-icon>edit</mat-icon>
+        Edit Course
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading course details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="course && !loading" class="detail-cards">
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Basic Information</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip [color]="getStatusColor(course.status)" selected>
+            {{ getStatusText(course.status) }}
+          </mat-chip>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Course Code</label>
+            <p>{{ course.course_code }}</p>
+          </div>
+          <div class="info-item">
+            <label>Course Name</label>
+            <p>{{ course.name }}</p>
+          </div>
+          <div class="info-item">
+            <label>Level</label>
+            <p>{{ getLevelDisplay(course.level) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Price</label>
+            <p>{{ formatPrice(course.price) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Season ID</label>
+            <p>{{ course.season_id }}</p>
+          </div>
+          <div class="info-item">
+            <label>Instructor ID</label>
+            <p>{{ course.instructor_id || 'Not assigned' }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Schedule & Location</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Day of Week</label>
+            <p>{{ course.day_of_week }}</p>
+          </div>
+          <div class="info-item">
+            <label>Start Time</label>
+            <p>{{ course.start_time }}</p>
+          </div>
+          <div class="info-item">
+            <label>End Time</label>
+            <p>{{ course.end_time }}</p>
+          </div>
+          <div class="info-item">
+            <label>Location</label>
+            <p>{{ course.location || 'Not specified' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Start Date</label>
+            <p>{{ formatDate(course.start_date) }}</p>
+          </div>
+          <div class="info-item">
+            <label>End Date</label>
+            <p>{{ formatDate(course.end_date) }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>Course Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Description</label>
+            <p class="description">{{ course.description || 'No description provided' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Age Group</label>
+            <p>{{ getAgeGroupDisplay(course.age_group_min, course.age_group_max) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Max Students</label>
+            <p>{{ course.max_students }}</p>
+          </div>
+          <div class="info-item">
+            <label>Current Students</label>
+            <p>{{ course.current_students || 0 }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>System Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Created At</label>
+            <p>{{ formatDateTime(course.created_at) }}</p>
+          </div>
+          <div class="info-item">
+            <label>Last Updated</label>
+            <p>{{ formatDateTime(course.updated_at) }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

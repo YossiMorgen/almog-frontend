@@ -1,0 +1,101 @@
+  <div class="page-header">
+    <button mat-icon-button (click)="onCancel()" matTooltip="Cancel">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="page-title">{{ seasonId ? 'Edit Season' : 'Create New Season' }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>{{ seasonId ? 'Loading season...' : 'Creating season...' }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <mat-card class="form-card" *ngIf="!loading">
+    <mat-card-content>
+      <form [formGroup]="seasonForm" (ngSubmit)="submitForm()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Season Name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g., Summer 2024">
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('required')">
+              Season name is required
+            </mat-error>
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('minlength')">
+              Season name must be at least 2 characters
+            </mat-error>
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('maxlength')">
+              Season name must be less than 100 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Year</mat-label>
+            <input matInput type="number" formControlName="year" placeholder="2024">
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('required')">
+              Year is required
+            </mat-error>
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('min')">
+              Year must be 1900 or later
+            </mat-error>
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('max')">
+              Year must be 3000 or earlier
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="start_date">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+            <mat-error *ngIf="seasonForm.get('start_date')?.hasError('required')">
+              Start date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="end_date">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+            <mat-error *ngIf="seasonForm.get('end_date')?.hasError('required')">
+              End date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Registration Start Date</mat-label>
+            <input matInput [matDatepicker]="regStartPicker" formControlName="registration_start_date">
+            <mat-datepicker-toggle matSuffix [for]="regStartPicker"></mat-datepicker-toggle>
+            <mat-datepicker #regStartPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Registration End Date</mat-label>
+            <input matInput [matDatepicker]="regEndPicker" formControlName="registration_end_date">
+            <mat-datepicker-toggle matSuffix [for]="regEndPicker"></mat-datepicker-toggle>
+            <mat-datepicker #regEndPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="checkbox-container">
+          <mat-checkbox formControlName="is_active">
+            Active Season
+          </mat-checkbox>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="seasonForm.invalid">
+            {{ seasonId ? 'Update Season' : 'Create Season' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,93 @@
+  <div class="page-header">
+    <h1 class="page-title">Payment Installments</h1>
+    <button mat-raised-button color="primary" (click)="createPaymentInstallment()">
+      <mat-icon>add</mat-icon>
+      Add New Payment Installment
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search payment installments...</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading payment installments...</p>
+      </div>
+
+      <div *ngIf="!loading && paymentInstallments.length === 0" class="no-data">
+        <mat-icon>payment</mat-icon>
+        <p>No payment installments found</p>
+      </div>
+
+      <table mat-table [dataSource]="paymentInstallments" matSort *ngIf="!loading && paymentInstallments.length > 0" class="payment-installments-table">
+        <ng-container matColumnDef="installment_number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('installment_number')">Installment #</th>
+          <td mat-cell *matCellDef="let installment">{{ installment.installment_number }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('amount')">Amount</th>
+          <td mat-cell *matCellDef="let installment">{{ formatAmount(installment.amount) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_method">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('payment_method')">Payment Method</th>
+          <td mat-cell *matCellDef="let installment">{{ getPaymentMethodDisplay(installment.payment_method) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('payment_date')">Payment Date</th>
+          <td mat-cell *matCellDef="let installment">{{ formatDate(installment.payment_date) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('status')">Status</th>
+          <td mat-cell *matCellDef="let installment">
+            <mat-chip [color]="installment.status === 'completed' ? 'primary' : 'warn'" selected>
+              {{ getStatusText(installment.status) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let installment">
+            <button mat-icon-button (click)="viewPaymentInstallment(installment)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editPaymentInstallment(installment)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator 
+    *ngIf="pagination"
+    [length]="pagination.total"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="onPageChange($event.pageIndex + 1)"
+    showFirstLastButtons>
+  </mat-paginator>

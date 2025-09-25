@@ -1,0 +1,54 @@
+  <div class="page-header">
+    <h1 class="page-title">{{ roleId ? 'Edit Role' : 'Create Role' }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>{{ roleId ? 'Loading role...' : 'Creating role...' }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <mat-card class="form-card" *ngIf="!loading">
+    <mat-card-content>
+      <form [formGroup]="roleForm" (ngSubmit)="submitForm()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Role Name *</mat-label>
+            <input matInput formControlName="name" placeholder="Enter role name">
+            <mat-error *ngIf="roleForm.get('name')?.hasError('required')">
+              Role name is required
+            </mat-error>
+            <mat-error *ngIf="roleForm.get('name')?.hasError('minlength')">
+              Role name must be at least 2 characters
+            </mat-error>
+            <mat-error *ngIf="roleForm.get('name')?.hasError('maxlength')">
+              Role name must not exceed 50 characters
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter role description" rows="3"></textarea>
+            <mat-error *ngIf="roleForm.get('description')?.hasError('maxlength')">
+              Description must not exceed 255 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="roleForm.invalid || loading">
+            <mat-icon>{{ roleId ? 'save' : 'add' }}</mat-icon>
+            {{ roleId ? 'Update Role' : 'Create Role' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
