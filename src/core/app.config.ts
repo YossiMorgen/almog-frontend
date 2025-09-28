@@ -1,27 +1,30 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom, LOCALE_ID } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
-import { FirebaseAuthInterceptor } from '../interceptors/firebase-auth.interceptor';
+import { firebaseAuthInterceptor } from '../interceptors/firebase-auth.interceptor';
 import { firebaseConfig } from '../config/firebase.config';
+import { LocaleService } from '../services/locale.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
-    provideHttpClient(withFetch()),
-    {
-      useClass: FirebaseAuthInterceptor,
-      provide: HTTP_INTERCEPTORS,
-      multi: true,
-    },
+    provideHttpClient(withFetch(), withInterceptors([firebaseAuthInterceptor])),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
+    {
+      provide: LOCALE_ID,
+      useFactory: () => {
+        const localeService = new LocaleService();
+        return localeService.getCurrentLocale();
+      }
+    },
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(ToastrModule.forRoot({
       timeOut: 3000,

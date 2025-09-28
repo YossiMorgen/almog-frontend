@@ -34,41 +34,27 @@
             <td mat-cell *matCellDef="let user">
               <div class="user-cell">
                 <div class="user-avatar">
-                  <img *ngIf="user.profile_picture_url" [src]="user.profile_picture_url" [alt]="user.email" class="avatar-image">
-                  <div *ngIf="!user.profile_picture_url" class="avatar-placeholder">
+                  <img *ngIf="user.picture" [src]="user.picture" [alt]="user.email" class="avatar-image">
+                  <div *ngIf="!user.picture" class="avatar-placeholder">
                     <mat-icon>person</mat-icon>
                   </div>
                 </div>
                 <div class="user-info">
-                  <div class="user-name">{{ user.display_name || user.first_name + ' ' + user.last_name || user.email }}</div>
+                  <div class="user-name">{{ user.name || user.email }}</div>
                   <div class="user-email">{{ user.email }}</div>
                 </div>
               </div>
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="display_name">
-            <th mat-header-cell *matHeaderCellDef>Display Name</th>
-            <td mat-cell *matCellDef="let user">{{ user.display_name || 'Not set' }}</td>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let user">{{ user.name || 'Not set' }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef>Phone</th>
-            <td mat-cell *matCellDef="let user">{{ user.phone || 'Not provided' }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="last_login">
-            <th mat-header-cell *matHeaderCellDef>Last Login</th>
-            <td mat-cell *matCellDef="let user">{{ formatDate(user.last_login) }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let user">
-              <mat-chip [color]="user.is_active ? 'primary' : 'warn'" selected>
-                {{ getStatusText(user.is_active) }}
-              </mat-chip>
-            </td>
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let user">{{ formatDate(user.createdAt) }}</td>
           </ng-container>
 
           <ng-container matColumnDef="actions">

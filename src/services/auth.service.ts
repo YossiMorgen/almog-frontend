@@ -1,139 +1,97 @@
 import { Injectable } from '@angular/core';
+import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User as FirebaseUser, onAuthStateChanged } from '@angular/fire/auth';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User as FirebaseUser } from '@angular/fire/auth';
-import { Subject, BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { API_CONFIG } from '../config/api.config';
-
-export interface User {
-  id: number;
-  firebaseUid: string;
-  email: string;
-  name: string;
-  picture: string;
-  verifiedEmail: boolean;
-  roles: Array<{ id: number; name: string }>;
-  permissions: Array<{ id: number; name: string }>;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface LoginResponse {
-  success: boolean;
-  data: User;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
+  private authStateSubject = new BehaviorSubject<FirebaseUser | null>(null);
   public AuthSubject = new Subject<any>();
+  
+  get firebaseUser(): FirebaseUser | null {
+    return this.auth.currentUser;
+  }
+  
+  get firebaseUserObservable(): Observable<FirebaseUser | null> {
+    return this.AuthSubject.asObservable();
+  }
+
+  get authState$(): Observable<FirebaseUser | null> {
+    return this.authStateSubject.asObservable();
+  }
 
   constructor(
     private auth: Auth,
-    private router: Router,
-    private http: HttpClient
+    private router: Router
   ) { 
+    this.initializeAuthState();
     this.loadUserFromStorage();
-    this.setupAuthStateListener();
   }
 
-  private setupAuthStateListener(): void {
-    onAuthStateChanged(this.auth, async (firebaseUser: FirebaseUser | null) => {
-      if (firebaseUser) {
-        console.log('Firebase user authenticated:', firebaseUser);
-        await this.handleUserProfile(firebaseUser);
+  private initializeAuthState(): void {
+    onAuthStateChanged(this.auth, (user) => {
+      this.authStateSubject.next(user);
+      this.AuthSubject.next(user);
+      if (user) {
+        console.log('✅ Firebase auth state changed - user logged in:', user.uid);
       } else {
-        console.log('Firebase user signed out');
-        this.currentUserSubject.next(null);
-        localStorage.removeItem('currentUser');
+        console.log('ℹ️ Firebase auth state changed - user logged out');
       }
     });
   }
 
+
   async login(): Promise<void> {
     try {
-      console.log('Starting Firebase login flow...');
       const provider = new GoogleAuthProvider();
       provider.addScope('email');
       provider.addScope('profile');
-      
+
+      if (this.auth.currentUser?.uid) {
+        return;
+      }
       const result = await signInWithPopup(this.auth, provider);
-      console.log('Login successful:', result.user);
-    } catch (error) {
-      console.error('Login failed:', error);
+      
+      
+      // Verify the user is actually logged in
+      if (!this.auth.currentUser) {
+        throw new Error('Authentication failed - no user found after login');
+      }
+      
+    } catch (error: any) {
+      console.error('❌ Login failed:', error);
       throw error;
     }
   }
 
   async logout(): Promise<void> {
+    await signOut(this.auth);
+    localStorage.removeItem('currentUser');
+    this.authStateSubject.next(null);
+    this.AuthSubject.next(null);
+    this.router.navigate(['/login']);
+  }
+
+  async getToken(): Promise<string | undefined> {
     try {
-      const currentUser = this.getCurrentUser();
-      if (currentUser) {
-        await this.http.post(
-          `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGOUT}`,
-          {},
-        ).toPromise();
+      await this.auth.authStateReady();
+      const user = this.auth.currentUser;
+      if (!user) {
+        return undefined;
       }
+      return await user.getIdToken();
     } catch (error) {
-      console.error('Backend logout failed:', error);
-    } finally {
-      await signOut(this.auth);
-      this.currentUserSubject.next(null);
-      localStorage.removeItem('currentUser');
+      console.error('Error getting token:', error);
+      return undefined;
     }
   }
 
-  async getToken(): Promise<string | null> {
-    const currentUser = this.auth.currentUser;
-    if (currentUser) {
-      return await currentUser.getIdToken();
-    }
-    return null;
-  }
-
-  get isLoggedIn(): boolean {
-    return !!this.auth.currentUser;
-  }
-
-  getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
-  }
-
-  private async handleUserProfile(firebaseUser: FirebaseUser): Promise<void> {
-    try {
-      console.log('Handling user profile for Firebase user:', firebaseUser);
-      
-      const token = await firebaseUser.getIdToken();
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      
-      const response = await firstValueFrom(
-        this.http.post<LoginResponse>(
-          `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGIN}`,
-          {},
-          { headers }
-        )
-      );
-
-      console.log('Backend response:', response);
-
-      if (response?.success && response.data) {
-        console.log('Setting current user:', response.data);
-        this.setCurrentUser(response.data);
-      } else {
-        throw new Error('Login failed');
-      }
-    } catch (error) {
-      console.error('Backend login failed:', error);
-      throw error;
-    }
-  }
-
-  private setCurrentUser(user: User): void {
-    this.currentUserSubject.next(user);
-    localStorage.setItem('currentUser', JSON.stringify(user));
+  public async isLoggedIn(): Promise<boolean> {
+    await this.auth.authStateReady();
+    const user = this.auth.currentUser;
+    return !!user && !!user.uid;
   }
 
   private loadUserFromStorage(): void {
@@ -141,11 +99,11 @@ export class AuthService {
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
-        this.currentUserSubject.next(user);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error parsing stored user:', error);
         localStorage.removeItem('currentUser');
       }
     }
   }
+
 }

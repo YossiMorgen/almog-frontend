@@ -1,4 +1,4 @@
-  <div class="home-container">
+  <div class="home-container" [dir]="getDirection()">
     <div class="welcome-section">
       <div class="welcome-content">
         <div class="welcome-icon">
@@ -6,8 +6,8 @@
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <h1 class="welcome-title">Welcome to Swimming School CRM</h1>
-        <p class="welcome-subtitle">Manage your swimming school efficiently with our comprehensive management system</p>
+        <h1 class="welcome-title" i18n="@@home.welcome.title">Welcome to Swimming School CRM {{ currentUser?.name }}</h1>
+        <p class="welcome-subtitle" i18n="@@home.welcome.subtitle">Manage your swimming school efficiently with our comprehensive management system</p>
         
         <div class="quick-actions">
           <a routerLink="/crm" class="action-card primary">
@@ -17,8 +17,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Dashboard</h3>
-              <p>View overview and analytics</p>
+              <h3 i18n="@@home.actions.dashboard.title">Dashboard</h3>
+              <p i18n="@@home.actions.dashboard.description">View overview and analytics</p>
             </div>
           </a>
           
@@ -30,8 +30,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Students</h3>
-              <p>Manage student records</p>
+              <h3 i18n="@@home.actions.students.title">Students</h3>
+              <p i18n="@@home.actions.students.description">Manage student records</p>
             </div>
           </a>
           
@@ -43,8 +43,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Courses</h3>
-              <p>Organize swimming courses</p>
+              <h3 i18n="@@home.actions.courses.title">Courses</h3>
+              <p i18n="@@home.actions.courses.description">Organize swimming courses</p>
             </div>
           </a>
           
@@ -57,8 +57,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Orders</h3>
-              <p>Track orders and payments</p>
+              <h3 i18n="@@home.actions.orders.title">Orders</h3>
+              <p i18n="@@home.actions.orders.description">Track orders and payments</p>
             </div>
           </a>
         </div>
@@ -75,9 +75,9 @@
             </svg>
           </div>
           <div class="stat-content">
-            <h3>Active Students</h3>
+            <h3 i18n="@@home.stats.activeStudents.title">Active Students</h3>
             <p class="stat-number">0</p>
-            <span class="stat-label">Currently enrolled</span>
+            <span class="stat-label" i18n="@@home.stats.activeStudents.label">Currently enrolled</span>
           </div>
         </div>
         
@@ -89,9 +89,9 @@
             </svg>
           </div>
           <div class="stat-content">
-            <h3>Active Courses</h3>
+            <h3 i18n="@@home.stats.activeCourses.title">Active Courses</h3>
             <p class="stat-number">0</p>
-            <span class="stat-label">Running this season</span>
+            <span class="stat-label" i18n="@@home.stats.activeCourses.label">Running this season</span>
           </div>
         </div>
         
@@ -104,9 +104,9 @@
             </svg>
           </div>
           <div class="stat-content">
-            <h3>Pending Orders</h3>
+            <h3 i18n="@@home.stats.pendingOrders.title">Pending Orders</h3>
             <p class="stat-number">0</p>
-            <span class="stat-label">Awaiting processing</span>
+            <span class="stat-label" i18n="@@home.stats.pendingOrders.label">Awaiting processing</span>
           </div>
         </div>
         
@@ -117,9 +117,9 @@
             </svg>
           </div>
           <div class="stat-content">
-            <h3>Revenue</h3>
+            <h3 i18n="@@home.stats.revenue.title">Revenue</h3>
             <p class="stat-number">$0</p>
-            <span class="stat-label">This month</span>
+            <span class="stat-label" i18n="@@home.stats.revenue.label">This month</span>
           </div>
         </div>
       </div>

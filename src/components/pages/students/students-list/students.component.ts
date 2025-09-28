@@ -81,7 +81,6 @@ export class StudentsComponent implements OnInit {
 
     this.studentsService.getStudents(query).subscribe({
       next: (response: any) => {
-        console.log('Students API Response:', response);
         this.students = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;
@@ -163,11 +162,5 @@ export class StudentsComponent implements OnInit {
     }
     
     return pages;
-  }
-
-  signOut(): void {
-    // TODO: Implement logout when auth is ready
-    // this.authService.logout();
-    console.log('Sign out clicked');
   }
 }

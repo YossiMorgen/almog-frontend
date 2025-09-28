@@ -79,7 +79,6 @@ export class SeasonsComponent implements OnInit {
 
     this.seasonsService.getSeasons(query).subscribe({
       next: (response: any) => {
-        console.log('Seasons API Response:', response);
         this.seasons = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;

@@ -90,10 +90,4 @@ export class CrmDashboardComponent implements OnInit {
   refreshStats(): void {
     this.loadDashboardStats();
   }
-
-  signOut(): void {
-    // TODO: Implement logout when auth is ready
-    // this.authService.logout();
-    console.log('Sign out clicked');
-  }
 }

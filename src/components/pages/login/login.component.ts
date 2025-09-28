@@ -23,13 +23,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.authService.initConfiguration();
-    
-    this.authService.currentUser$.subscribe(user => {
-      if (user) {
-        this.router.navigate(['/']);
-      }
-    });
+    const currentUser = this.authService.firebaseUser;
+    if (currentUser) {
+      this.router.navigate(['/']);
+    }
   }
 
   async signInWithGoogle(): Promise<void> {
@@ -40,10 +37,13 @@ export class LoginComponent implements OnInit {
 
     try {
       await this.authService.login();
+      
+      await this.router.navigate(['/home']);
     } catch (error) {
+      console.error('Sign-in error:', error);
       this.errorMessage = 'Failed to sign in. Please try again.';
       this.loginForm.setError(this.errorMessage);
-      console.error('Sign-in error:', error);
+    } finally {
       this.isLoading = false;
       this.loginForm.setLoading(false);
     }

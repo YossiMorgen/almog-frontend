@@ -79,7 +79,6 @@ export class ProductsComponent implements OnInit {
 
     this.productsService.getProducts(query).subscribe({
       next: (response: any) => {
-        console.log('Products API Response:', response);
         this.products = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;

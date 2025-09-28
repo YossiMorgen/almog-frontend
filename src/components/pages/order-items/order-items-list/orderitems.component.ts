@@ -79,7 +79,6 @@ export class OrderItemsComponent implements OnInit {
 
     this.orderItemsService.getOrderItems(query).subscribe({
       next: (response: any) => {
-        console.log('Order Items API Response:', response);
         this.orderItems = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;

@@ -1,148 +1,405 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from '../components/layout/layout/layout.component';
-import { LoginComponent } from '../components/pages/login/login.component';
-import { HomeComponent } from '../components/pages/home/home.component';
-import { CrmDashboardComponent } from '../components/pages/crm-dashboard/crm-dashboard.component';
-import { StudentsComponent } from '../components/pages/students/students-list/students.component';
-import { StudentFormComponent } from '../components/pages/students/student-form/student-form.component';
-import { StudentDetailComponent } from '../components/pages/students/student-detail/student-detail.component';
-import { CoursesComponent } from '../components/pages/courses/courses-list/courses.component';
-import { CourseFormComponent } from '../components/pages/courses/course-form/course-form.component';
-import { CourseDetailComponent } from '../components/pages/courses/course-detail/course-detail.component';
-import { ClassesComponent } from '../components/pages/classes/classes-list/classes.component';
-import { ClassFormComponent } from '../components/pages/classes/class-form/class-form.component';
-import { ClassDetailComponent } from '../components/pages/classes/class-detail/class-detail.component';
-import { UsersComponent } from '../components/pages/users/users-list/users.component';
-import { UserFormComponent } from '../components/pages/users/user-form/user-form.component';
-import { ProductsComponent } from '../components/pages/products/products-list/products.component';
-import { ProductFormComponent } from '../components/pages/products/product-form/product-form.component';
-import { ProductDetailComponent } from '../components/pages/products/product-detail/product-detail.component';
-import { OrdersListComponent } from '../components/pages/orders/orders-list/orders-list.component';
-import { OrdersFormComponent } from '../components/pages/orders/orders-form/orders-form.component';
-import { OrdersDetailComponent } from '../components/pages/orders/orders-detail/orders-detail.component';
-import { PaymentsComponent } from '../components/pages/payments/payments-list/payments.component';
-import { PaymentsFormComponent } from '../components/pages/payments/payments-form/payments-form.component';
-import { PaymentsDetailComponent } from '../components/pages/payments/payments-detail/payments-detail.component';
-import { RolesComponent } from '../components/pages/roles/roles-list/roles.component';
-import { RolesFormComponent } from '../components/pages/roles/roles-form/roles-form.component';
-import { RolesDetailComponent } from '../components/pages/roles/roles-detail/roles-detail.component';
-import { SeasonsComponent } from '../components/pages/seasons/seasons-list/seasons.component';
-import { SeasonsFormComponent } from '../components/pages/seasons/seasons-form/seasons-form.component';
-import { SeasonsDetailComponent } from '../components/pages/seasons/seasons-detail/seasons-detail.component';
-import { PermissionsComponent } from '../components/pages/permissions/permissions-list/permissions.component';
-import { PermissionsFormComponent } from '../components/pages/permissions/permissions-form/permissions-form.component';
-import { PermissionsDetailComponent } from '../components/pages/permissions/permissions-detail/permissions-detail.component';
-import { CourseenrollmentsComponent } from '../components/pages/course-enrollments/course-enrollments-list/courseenrollments.component';
-import { CourseenrollmentsFormComponent } from '../components/pages/course-enrollments/course-enrollments-form/course-enrollments-form.component';
-import { CourseenrollmentsDetailComponent } from '../components/pages/course-enrollments/course-enrollments-detail/course-enrollments-detail.component';
-import { StudentclassesComponent } from '../components/pages/student-classes/student-classes-list/studentclasses.component';
-import { StudentclassesFormComponent } from '../components/pages/student-classes/student-classes-form/student-classes-form.component';
-import { StudentclassesDetailComponent } from '../components/pages/student-classes/student-classes-detail/student-classes-detail.component';
-import { OrderItemsComponent } from '../components/pages/order-items/order-items-list/orderitems.component';
-import { OrderItemsFormComponent } from '../components/pages/order-items/order-items-form/order-items-form.component';
-import { OrderItemsDetailComponent } from '../components/pages/order-items/order-items-detail/order-items-detail.component';
-import { PaymentinstallmentsComponent } from '../components/pages/payment-installments/payment-installments-list/paymentinstallments.component';
-import { PaymentinstallmentsFormComponent } from '../components/pages/payment-installments/payment-installments-form/payment-installments-form.component';
-import { PaymentinstallmentsDetailComponent } from '../components/pages/payment-installments/payment-installments-detail/payment-installments-detail.component';
-import { UserDetailComponent } from '../components/pages/users/user-detail/user-detail.component';
+import { AuthGuard, PermissionGuard, SignedInGuard, requirePermissions, requireAnyPermission } from '../guards';
+import { PERMISSIONS } from '../config/permissions.config';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent }, // canActivate: [AuthGuard] },
+  { 
+    path: 'login', 
+    loadComponent: () => import('../components/pages/login/login.component').then(m => m.LoginComponent),
+    canActivate: [SignedInGuard]
+  },
+  { 
+    path: 'unauthorized', 
+    loadComponent: () => import('../components/pages/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent)
+  },
+  { 
+    path: 'home', 
+    loadComponent: () => import('../components/pages/home/home.component').then(m => m.HomeComponent),
+    canActivate: [AuthGuard]
+  },
   
   // CRM Routes with Layout
   {
     path: 'crm',
-    component: LayoutComponent,
+    loadComponent: () => import('../components/layout/layout/layout.component').then(m => m.LayoutComponent),
     children: [
-      { path: '', component: CrmDashboardComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'profile', 
+        loadComponent: () => import('../components/pages/profile/profile.component').then(m => m.ProfileComponent),
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: '', 
+        loadComponent: () => import('../components/pages/crm-dashboard/crm-dashboard.component').then(m => m.CrmDashboardComponent),
+        canActivate: [AuthGuard]
+      },
   
       // Student Routes
-      { path: 'students', component: StudentsComponent }, // canActivate: [AuthGuard] },
-      { path: 'students/new', component: StudentFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'students/:id', component: StudentDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'students/:id/edit', component: StudentFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'students', 
+        loadComponent: () => import('../components/pages/students/students-list/students.component').then(m => m.StudentsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.STUDENTS.READ]) }
+      },
+      { 
+        path: 'students/new', 
+        loadComponent: () => import('../components/pages/students/student-form/student-form.component').then(m => m.StudentFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.STUDENTS.CREATE]) }
+      },
+      { 
+        path: 'students/:id', 
+        loadComponent: () => import('../components/pages/students/student-detail/student-detail.component').then(m => m.StudentDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.STUDENTS.READ]) }
+      },
+      { 
+        path: 'students/:id/edit', 
+        loadComponent: () => import('../components/pages/students/student-form/student-form.component').then(m => m.StudentFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.STUDENTS.UPDATE]) }
+      },
       
       // Course Routes
-      { path: 'courses', component: CoursesComponent }, // canActivate: [AuthGuard] },
-      { path: 'courses/new', component: CourseFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'courses/:id', component: CourseDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'courses/:id/edit', component: CourseFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'courses', 
+        loadComponent: () => import('../components/pages/courses/courses-list/courses.component').then(m => m.CoursesComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.READ]) }
+      },
+      { 
+        path: 'courses/new', 
+        loadComponent: () => import('../components/pages/courses/course-form/course-form.component').then(m => m.CourseFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.CREATE]) }
+      },
+      { 
+        path: 'courses/:id', 
+        loadComponent: () => import('../components/pages/courses/course-detail/course-detail.component').then(m => m.CourseDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.READ]) }
+      },
+      { 
+        path: 'courses/:id/edit', 
+        loadComponent: () => import('../components/pages/courses/course-form/course-form.component').then(m => m.CourseFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.UPDATE]) }
+      },
       
       // Class Routes
-      { path: 'classes', component: ClassesComponent }, // canActivate: [AuthGuard] },
-      { path: 'classes/new', component: ClassFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'classes/:id', component: ClassDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'classes/:id/edit', component: ClassFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'classes', 
+        loadComponent: () => import('../components/pages/classes/classes-list/classes.component').then(m => m.ClassesComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.READ]) }
+      },
+      { 
+        path: 'classes/new', 
+        loadComponent: () => import('../components/pages/classes/class-form/class-form.component').then(m => m.ClassFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.CREATE]) }
+      },
+      { 
+        path: 'classes/:id', 
+        loadComponent: () => import('../components/pages/classes/class-detail/class-detail.component').then(m => m.ClassDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.READ]) }
+      },
+      { 
+        path: 'classes/:id/edit', 
+        loadComponent: () => import('../components/pages/classes/class-form/class-form.component').then(m => m.ClassFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.UPDATE]) }
+      },
 
-      // User Routes
-      { path: 'users', component: UsersComponent }, // canActivate: [AuthGuard] },
-      { path: 'users/new', component: UserFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'users/:id', component: UserDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'users/:id/edit', component: UserFormComponent }, // canActivate: [AuthGuard] },
+      // User Routes (Admin only - requires multiple permissions)
+      { 
+        path: 'users', 
+        loadComponent: () => import('../components/pages/users/users-list/users.component').then(m => m.UsersComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.READ]) }
+      },
+      { 
+        path: 'users/new', 
+        loadComponent: () => import('../components/pages/users/user-form/user-form.component').then(m => m.UserFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.CREATE]) }
+      },
+      { 
+        path: 'users/:id', 
+        loadComponent: () => import('../components/pages/users/user-detail/user-detail.component').then(m => m.UserDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.READ]) }
+      },
+      { 
+        path: 'users/:id/edit', 
+        loadComponent: () => import('../components/pages/users/user-form/user-form.component').then(m => m.UserFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.UPDATE]) }
+      },
 
       // Product Routes
-      { path: 'products', component: ProductsComponent }, // canActivate: [AuthGuard] },
-      { path: 'products/new', component: ProductFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'products/:id', component: ProductDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'products/:id/edit', component: ProductFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'products', 
+        loadComponent: () => import('../components/pages/products/products-list/products.component').then(m => m.ProductsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PRODUCTS.READ]) }
+      },
+      { 
+        path: 'products/new', 
+        loadComponent: () => import('../components/pages/products/product-form/product-form.component').then(m => m.ProductFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PRODUCTS.CREATE]) }
+      },
+      { 
+        path: 'products/:id', 
+        loadComponent: () => import('../components/pages/products/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PRODUCTS.READ]) }
+      },
+      { 
+        path: 'products/:id/edit', 
+        loadComponent: () => import('../components/pages/products/product-form/product-form.component').then(m => m.ProductFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PRODUCTS.UPDATE]) }
+      },
 
       // Order Routes
-      { path: 'orders', component: OrdersListComponent }, // canActivate: [AuthGuard] },
-      { path: 'orders/new', component: OrdersFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'orders/:id', component: OrdersDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'orders/:id/edit', component: OrdersFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'orders', 
+        loadComponent: () => import('../components/pages/orders/orders-list/orders-list.component').then(m => m.OrdersListComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.READ]) }
+      },
+      { 
+        path: 'orders/new', 
+        loadComponent: () => import('../components/pages/orders/orders-form/orders-form.component').then(m => m.OrdersFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.CREATE]) }
+      },
+      { 
+        path: 'orders/:id', 
+        loadComponent: () => import('../components/pages/orders/orders-detail/orders-detail.component').then(m => m.OrdersDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.READ]) }
+      },
+      { 
+        path: 'orders/:id/edit', 
+        loadComponent: () => import('../components/pages/orders/orders-form/orders-form.component').then(m => m.OrdersFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.UPDATE]) }
+      },
 
-      // Payment Routes
-      { path: 'payments', component: PaymentsComponent }, // canActivate: [AuthGuard] },
-      { path: 'payments/new', component: PaymentsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'payments/:id', component: PaymentsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'payments/:id/edit', component: PaymentsFormComponent }, // canActivate: [AuthGuard] },
+      // Payment Routes (Accountant or Admin can access)
+      { 
+        path: 'payments', 
+        loadComponent: () => import('../components/pages/payments/payments-list/payments.component').then(m => m.PaymentsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requireAnyPermission([PERMISSIONS.PAYMENTS.READ, PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'payments/new', 
+        loadComponent: () => import('../components/pages/payments/payments-form/payments-form.component').then(m => m.PaymentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.CREATE]) }
+      },
+      { 
+        path: 'payments/:id', 
+        loadComponent: () => import('../components/pages/payments/payments-detail/payments-detail.component').then(m => m.PaymentsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requireAnyPermission([PERMISSIONS.PAYMENTS.READ, PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'payments/:id/edit', 
+        loadComponent: () => import('../components/pages/payments/payments-form/payments-form.component').then(m => m.PaymentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.UPDATE]) }
+      },
 
-      // Role Routes
-      { path: 'roles', component: RolesComponent }, // canActivate: [AuthGuard] },
-      { path: 'roles/new', component: RolesFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'roles/:id', component: RolesDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'roles/:id/edit', component: RolesFormComponent }, // canActivate: [AuthGuard] },
+      // Role Routes (Admin only)
+      { 
+        path: 'roles', 
+        loadComponent: () => import('../components/pages/roles/roles-list/roles.component').then(m => m.RolesComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'roles/new', 
+        loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'roles/:id', 
+        loadComponent: () => import('../components/pages/roles/roles-detail/roles-detail.component').then(m => m.RolesDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'roles/:id/edit', 
+        loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
 
       // Season Routes
-      { path: 'seasons', component: SeasonsComponent }, // canActivate: [AuthGuard] },
-      { path: 'seasons/new', component: SeasonsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'seasons/:id', component: SeasonsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'seasons/:id/edit', component: SeasonsFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'seasons', 
+        loadComponent: () => import('../components/pages/seasons/seasons-list/seasons.component').then(m => m.SeasonsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.SEASONS.READ]) }
+      },
+      { 
+        path: 'seasons/new', 
+        loadComponent: () => import('../components/pages/seasons/seasons-form/seasons-form.component').then(m => m.SeasonsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.SEASONS.CREATE]) }
+      },
+      { 
+        path: 'seasons/:id', 
+        loadComponent: () => import('../components/pages/seasons/seasons-detail/seasons-detail.component').then(m => m.SeasonsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.SEASONS.READ]) }
+      },
+      { 
+        path: 'seasons/:id/edit', 
+        loadComponent: () => import('../components/pages/seasons/seasons-form/seasons-form.component').then(m => m.SeasonsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.SEASONS.UPDATE]) }
+      },
 
-      // Permission Routes
-      { path: 'permissions', component: PermissionsComponent }, // canActivate: [AuthGuard] },
-      { path: 'permissions/new', component: PermissionsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'permissions/:id', component: PermissionsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'permissions/:id/edit', component: PermissionsFormComponent }, // canActivate: [AuthGuard] },
+      // Permission Routes (Super Admin only)
+      { 
+        path: 'permissions', 
+        loadComponent: () => import('../components/pages/permissions/permissions-list/permissions.component').then(m => m.PermissionsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      {
+        path: 'permissions/new', 
+        loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'permissions/:id', 
+        loadComponent: () => import('../components/pages/permissions/permissions-detail/permissions-detail.component').then(m => m.PermissionsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
+      { 
+        path: 'permissions/:id/edit', 
+        loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      },
 
       // Course Enrollment Routes
-      { path: 'course-enrollments', component: CourseenrollmentsComponent }, // canActivate: [AuthGuard] },
-      { path: 'course-enrollments/new', component: CourseenrollmentsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'course-enrollments/:id', component: CourseenrollmentsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'course-enrollments/:id/edit', component: CourseenrollmentsFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'course-enrollments', 
+        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-list/courseenrollments.component').then(m => m.CourseenrollmentsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]) }
+      },
+      { 
+        path: 'course-enrollments/new', 
+        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-form/course-enrollments-form.component').then(m => m.CourseenrollmentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]) }
+      },
+      { 
+        path: 'course-enrollments/:id', 
+        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-detail/course-enrollments-detail.component').then(m => m.CourseenrollmentsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]) }
+      },
+      { 
+        path: 'course-enrollments/:id/edit', 
+        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-form/course-enrollments-form.component').then(m => m.CourseenrollmentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]) }
+      },
 
-      // Student Class Routes
-      { path: 'student-classes', component: StudentclassesComponent }, // canActivate: [AuthGuard] },
-      { path: 'student-classes/new', component: StudentclassesFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'student-classes/:id', component: StudentclassesDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'student-classes/:id/edit', component: StudentclassesFormComponent }, // canActivate: [AuthGuard] },
+      // Student Class Routes (Attendance Management)
+      { 
+        path: 'student-classes', 
+        loadComponent: () => import('../components/pages/student-classes/student-classes-list/studentclasses.component').then(m => m.StudentclassesComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]) }
+      },
+      { 
+        path: 'student-classes/new', 
+        loadComponent: () => import('../components/pages/student-classes/student-classes-form/student-classes-form.component').then(m => m.StudentclassesFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]) }
+      },
+      { 
+        path: 'student-classes/:id', 
+        loadComponent: () => import('../components/pages/student-classes/student-classes-detail/student-classes-detail.component').then(m => m.StudentclassesDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]) }
+      },
+      { 
+        path: 'student-classes/:id/edit', 
+        loadComponent: () => import('../components/pages/student-classes/student-classes-form/student-classes-form.component').then(m => m.StudentclassesFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]) }
+      },
 
       // Order Item Routes
-      { path: 'order-items', component: OrderItemsComponent }, // canActivate: [AuthGuard] },
-      { path: 'order-items/new', component: OrderItemsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'order-items/:id', component: OrderItemsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'order-items/:id/edit', component: OrderItemsFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'order-items', 
+        loadComponent: () => import('../components/pages/order-items/order-items-list/orderitems.component').then(m => m.OrderItemsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.READ]) }
+      },
+      { 
+        path: 'order-items/new', 
+        loadComponent: () => import('../components/pages/order-items/order-items-form/order-items-form.component').then(m => m.OrderItemsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.CREATE]) }
+      },
+      { 
+        path: 'order-items/:id', 
+        loadComponent: () => import('../components/pages/order-items/order-items-detail/order-items-detail.component').then(m => m.OrderItemsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.READ]) }
+      },
+      { 
+        path: 'order-items/:id/edit', 
+        loadComponent: () => import('../components/pages/order-items/order-items-form/order-items-form.component').then(m => m.OrderItemsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.ORDERS.UPDATE]) }
+      },
 
       // Payment Installment Routes
-      { path: 'payment-installments', component: PaymentinstallmentsComponent }, // canActivate: [AuthGuard] },
-      { path: 'payment-installments/new', component: PaymentinstallmentsFormComponent }, // canActivate: [AuthGuard] },
-      { path: 'payment-installments/:id', component: PaymentinstallmentsDetailComponent }, // canActivate: [AuthGuard] },
-      { path: 'payment-installments/:id/edit', component: PaymentinstallmentsFormComponent }, // canActivate: [AuthGuard] },
+      { 
+        path: 'payment-installments', 
+        loadComponent: () => import('../components/pages/payment-installments/payment-installments-list/paymentinstallments.component').then(m => m.PaymentinstallmentsComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.READ]) }
+      },
+      { 
+        path: 'payment-installments/new', 
+        loadComponent: () => import('../components/pages/payment-installments/payment-installments-form/payment-installments-form.component').then(m => m.PaymentinstallmentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.CREATE]) }
+      },
+      { 
+        path: 'payment-installments/:id', 
+        loadComponent: () => import('../components/pages/payment-installments/payment-installments-detail/payment-installments-detail.component').then(m => m.PaymentinstallmentsDetailComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.READ]) }
+      },
+      { 
+        path: 'payment-installments/:id/edit', 
+        loadComponent: () => import('../components/pages/payment-installments/payment-installments-form/payment-installments-form.component').then(m => m.PaymentinstallmentsFormComponent),
+        canActivate: [PermissionGuard],
+        data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.UPDATE]) }
+      },
     ]
   },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   { path: '**', redirectTo: '/home' }
 ];

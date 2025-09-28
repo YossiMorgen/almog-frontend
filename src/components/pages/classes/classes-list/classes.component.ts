@@ -175,10 +175,4 @@ export class ClassesComponent implements OnInit {
     
     return pages;
   }
-
-  signOut(): void {
-    // TODO: Implement logout when auth is ready
-    // this.authService.logout();
-    console.log('Sign out clicked');
-  }
 }

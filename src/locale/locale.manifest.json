@@ -1,0 +1,8 @@
+{
+  "locale": "en",
+  "sourceLocale": "en-US",
+  "locales": {
+    "en": "src/locale/messages.en.xlf",
+    "he": "src/locale/messages.he.xlf"
+  }
+}

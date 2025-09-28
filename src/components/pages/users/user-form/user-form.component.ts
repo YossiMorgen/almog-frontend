@@ -57,14 +57,9 @@ export class UserFormComponent implements OnInit {
     });
 
     this.userForm = this.formBuilder.group({
-      google_id: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      first_name: [''],
-      last_name: [''],
-      display_name: [''],
-      profile_picture_url: [''],
-      phone: [''],
-      is_active: [true]
+      name: [''],
+      picture: ['']
     });
   }
 
@@ -76,14 +71,9 @@ export class UserFormComponent implements OnInit {
       next: (response: any) => {
         const userData = response.data;
         this.userForm.patchValue({
-          google_id: userData.google_id,
           email: userData.email,
-          first_name: userData.first_name,
-          last_name: userData.last_name,
-          display_name: userData.display_name,
-          profile_picture_url: userData.profile_picture_url,
-          phone: userData.phone,
-          is_active: userData.is_active
+          name: userData.name,
+          picture: userData.picture
         });
         this.userForm.markAsPristine();
         this.userForm.markAsUntouched();
@@ -114,25 +104,17 @@ export class UserFormComponent implements OnInit {
       if (this.userId) {
         const updatePayload: UpdateUser = {
           email: formValue.email,
-          first_name: formValue.first_name,
-          last_name: formValue.last_name,
-          display_name: formValue.display_name,
-          profile_picture_url: formValue.profile_picture_url,
-          phone: formValue.phone,
-          is_active: formValue.is_active ? true : false
+          name: formValue.name,
+          picture: formValue.picture
         };
         
         await this.usersService.updateUserAsync(this.userId, updatePayload);
       } else {
         const createPayload: CreateUser = {
-          google_id: formValue.google_id!,
           email: formValue.email!,
-          first_name: formValue.first_name,
-          last_name: formValue.last_name,
-          display_name: formValue.display_name,
-          profile_picture_url: formValue.profile_picture_url,
-          phone: formValue.phone,
-          is_active: formValue.is_active
+          name: formValue.name,
+          picture: formValue.picture,
+          language: 'en'
         };
         
         await this.usersService.createUserAsync(createPayload);

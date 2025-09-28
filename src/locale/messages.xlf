@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="dashboard.title" datatype="html">
+        <source>CRM Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.subtitle" datatype="html">
+        <source>Manage your swimming school operations efficiently</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.refresh" datatype="html">
+        <source>Refresh</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.loading" datatype="html">
+        <source>Loading dashboard data...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">17,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.title" datatype="html">
+        <source>Unable to Load Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">22,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.tryAgain" datatype="html">
+        <source>Try Again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">26,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.overview.title" datatype="html">
+        <source>Overview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.totalStudents" datatype="html">
+        <source>Total Students</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">44,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.studentsChange" datatype="html">
+        <source>+12% this month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">45,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.activeCourses" datatype="html">
+        <source>Active Courses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.coursesChange" datatype="html">
+        <source>No change</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">59,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesThisWeek" datatype="html">
+        <source>Classes This Week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesChange" datatype="html">
+        <source>+3 new</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">75,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.monthlyRevenue" datatype="html">
+        <source>Monthly Revenue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.revenueChange" datatype="html">
+        <source>+8% from last month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">88,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.quickActions.title" datatype="html">
+        <source>Quick Actions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">96,98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudent" datatype="html">
+        <source>Add Student</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">108,109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudentDesc" datatype="html">
+        <source>Register a new student</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">109,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourse" datatype="html">
+        <source>Create Course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">123,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourseDesc" datatype="html">
+        <source>Set up a new swimming course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">124,127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClass" datatype="html">
+        <source>Schedule Class</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">140,141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClassDesc" datatype="html">
+        <source>Add a new class session</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">141,144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasons" datatype="html">
+        <source>Manage Seasons</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">155,156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasonsDesc" datatype="html">
+        <source>View and manage seasons</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">156,159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAll" datatype="html">
+        <source>View All</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">170,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAllDesc" datatype="html">
+        <source>Browse all students</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">171,174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.welcome.title" datatype="html">
+        <source>Welcome to Swimming School CRM <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.welcome.subtitle" datatype="html">
+        <source>Manage your swimming school efficiently with our comprehensive management system</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.dashboard.title" datatype="html">
+        <source>Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.dashboard.description" datatype="html">
+        <source>View overview and analytics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">21,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.students.title" datatype="html">
+        <source>Students</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.students.description" datatype="html">
+        <source>Manage student records</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">34,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.courses.title" datatype="html">
+        <source>Courses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.courses.description" datatype="html">
+        <source>Organize swimming courses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">47,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.orders.title" datatype="html">
+        <source>Orders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">60,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.orders.description" datatype="html">
+        <source>Track orders and payments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">61,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeStudents.title" datatype="html">
+        <source>Active Students</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeStudents.label" datatype="html">
+        <source>Currently enrolled</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">80,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeCourses.title" datatype="html">
+        <source>Active Courses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">92,93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeCourses.label" datatype="html">
+        <source>Running this season</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">94,97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.pendingOrders.title" datatype="html">
+        <source>Pending Orders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">107,108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.pendingOrders.label" datatype="html">
+        <source>Awaiting processing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">109,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.revenue.title" datatype="html">
+        <source>Revenue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">120,121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.revenue.label" datatype="html">
+        <source>This month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">122,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.roles" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userRoles.length !== 1 ? &apos;Roles&apos; : &apos;Role&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.permissions" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userPermissions.length !== 1 ? &apos;Permissions&apos; : &apos;Permission&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.verified" datatype="html">
+        <source>Verified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.unverified" datatype="html">
+        <source>Unverified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.memberSince" datatype="html">
+        <source>Member since: <x id="INTERPOLATION" equiv-text="{{ getAccountCreationDate() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.lastSignIn" datatype="html">
+        <source>Last sign in: <x id="INTERPOLATION" equiv-text="{{ getLastSignInDate() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.profileInfo" datatype="html">
+        <source>Profile Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.title" datatype="html">
+        <source>Personal Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.fullName" datatype="html">
+        <source>Full Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.fullNamePlaceholder" datatype="html">
+        <source>Enter your full name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameRequired" datatype="html">
+        <source> Name is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">67,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameMaxLength" datatype="html">
+        <source> Name must be less than 200 characters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.email" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">75,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailPlaceholder" datatype="html">
+        <source>Enter your email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailHint" datatype="html">
+        <source>Email cannot be changed here. Use the Security tab to update email.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updating" datatype="html">
+        <source>Updating...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updateProfile" datatype="html">
+        <source>Update Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">87,89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.title" datatype="html">
+        <source>Roles &amp; Permissions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">99,101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.roles" datatype="html">
+        <source>Roles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.permissions" datatype="html">
+        <source>Permissions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">117,118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.security" datatype="html">
+        <source>Security</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">135,137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.title" datatype="html">
+        <source>Email Verification</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">143,145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.verified" datatype="html">
+        <source>Email is verified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">153,154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.unverified" datatype="html">
+        <source>Email is not verified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">154,157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.message" datatype="html">
+        <source> Please verify your email address to secure your account and access all features. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">159,162</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.emailVerified" datatype="html">
+        <source>Email Verified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">167,168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.sendVerification" datatype="html">
+        <source>Send Verification Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">168,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.title" datatype="html">
+        <source>Google Account Security</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">179,181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.subtitle" datatype="html">
+        <source>Google Account Security</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">187,188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.description" datatype="html">
+        <source>Your account is secured through Google OAuth. To change your password or manage security settings, please visit your Google Account settings.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">188,189</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.manageButton" datatype="html">
+        <source>Manage Google Security</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">191,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.tab" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">203,205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.title" datatype="html">
+        <source>Language Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">212,214</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.label" datatype="html">
+        <source>Preferred Language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">220,221</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.english" datatype="html">
+        <source>English</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">225,227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hebrew" datatype="html">
+        <source>עברית</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">231,233</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hint" datatype="html">
+        <source>Choose your preferred language for the interface</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">235,236</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.updating" datatype="html">
+        <source>Updating...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">243,244</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.update" datatype="html">
+        <source>Update Language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">244,246</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.accountManagement" datatype="html">
+        <source>Account Management</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">256,258</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.title" datatype="html">
+        <source>Account Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">264,266</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.displayName" datatype="html">
+        <source>Display Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">273,274</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailAddress" datatype="html">
+        <source>Email Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">281,282</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.accountCreated" datatype="html">
+        <source>Account Created</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">289,290</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.lastSignIn" datatype="html">
+        <source>Last Sign In</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">297,298</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailStatus" datatype="html">
+        <source>Email Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">305,306</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.verified" datatype="html">
+        <source>Verified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">307,308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.unverified" datatype="html">
+        <source>Unverified</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">308,310</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.loading" datatype="html">
+        <source>Loading profile...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">324,326</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel.tooltip" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Edit Season&apos; : &apos;Create New Season&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.loading" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Loading season...&apos; : &apos;Creating season...&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.label" datatype="html">
+        <source>Season Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.placeholder" datatype="html">
+        <source>e.g., Summer 2024</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.required" datatype="html">
+        <source> Season name is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.minlength" datatype="html">
+        <source> Season name must be at least 2 characters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.maxlength" datatype="html">
+        <source> Season name must be less than 100 characters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.label" datatype="html">
+        <source>Year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.placeholder" datatype="html">
+        <source>2024</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.required" datatype="html">
+        <source> Year is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.min" datatype="html">
+        <source> Year must be 1900 or later </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.max" datatype="html">
+        <source> Year must be 3000 or earlier </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.label" datatype="html">
+        <source>Start Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.required" datatype="html">
+        <source> Start date is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.label" datatype="html">
+        <source>End Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.required" datatype="html">
+        <source> End date is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationStartDate.label" datatype="html">
+        <source>Registration Start Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationEndDate.label" datatype="html">
+        <source>Registration End Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.activeCheckbox" datatype="html">
+        <source> Active Season </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">93,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.cancel" datatype="html">
+        <source> Cancel </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.submit" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Update Season&apos; : &apos;Create Season&apos; }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">102,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.title" datatype="html">
+        <source> Access Denied </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">45,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.message" datatype="html">
+        <source> You don&apos;t have the required permissions to access this page. Please contact your administrator if you believe this is an error. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.goToDashboard" datatype="html">
+        <source>Go to Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">61,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.appTitle" datatype="html">
+        <source>Swimming School CRM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.home" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.academic" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>school<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Academic <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">12,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.seasons" datatype="html">
+        <source>Seasons</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.students" datatype="html">
+        <source>Students</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.courses" datatype="html">
+        <source>Courses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.classes" datatype="html">
+        <source>Classes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.enrollments" datatype="html">
+        <source>Enrollments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.studentClasses" datatype="html">
+        <source>Student Classes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.business" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>business<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Business <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">45,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.products" datatype="html">
+        <source>Products</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">52,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orders" datatype="html">
+        <source>Orders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">56,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orderItems" datatype="html">
+        <source>Order Items</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">60,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.payments" datatype="html">
+        <source>Payments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">64,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.paymentInstallments" datatype="html">
+        <source>Payment Installments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">68,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.admin" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>admin_panel_settings<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Admin <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">74,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.users" datatype="html">
+        <source>Users</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">81,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.roles" datatype="html">
+        <source>Roles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.permissions" datatype="html">
+        <source>Permissions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">89,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.toggleTheme" datatype="html">
+        <source>Toggle Theme</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.profile" datatype="html">
+        <source>Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">114,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.signOut" datatype="html">
+        <source>Sign Out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">118,120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.signIn" datatype="html">
+        <source>Sign In</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">122,124</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,13 +1,13 @@
   <div class="page-header">
-    <button mat-icon-button (click)="onCancel()" matTooltip="Cancel">
+    <button mat-icon-button (click)="onCancel()" matTooltip="Cancel" i18n-matTooltip="@@cancel.tooltip">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h1 class="page-title">{{ seasonId ? 'Edit Season' : 'Create New Season' }}</h1>
+    <h1 class="page-title" i18n="@@season.title">{{ seasonId ? 'Edit Season' : 'Create New Season' }}</h1>
   </div>
 
   <div *ngIf="loading" class="loading-container">
     <mat-spinner></mat-spinner>
-    <p>{{ seasonId ? 'Loading season...' : 'Creating season...' }}</p>
+    <p i18n="@@season.loading">{{ seasonId ? 'Loading season...' : 'Creating season...' }}</p>
   </div>
 
   <div *ngIf="error" class="error-container">
@@ -20,79 +20,85 @@
       <form [formGroup]="seasonForm" (ngSubmit)="submitForm()">
         <div class="form-grid">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Season Name</mat-label>
-            <input matInput formControlName="name" placeholder="e.g., Summer 2024">
-            <mat-error *ngIf="seasonForm.get('name')?.hasError('required')">
+            <mat-label i18n="@@season.name.label">Season Name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g., Summer 2024" i18n-placeholder="@@season.name.placeholder">
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('required')" i18n="@@season.name.required">
               Season name is required
             </mat-error>
-            <mat-error *ngIf="seasonForm.get('name')?.hasError('minlength')">
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('minlength')" i18n="@@season.name.minlength">
               Season name must be at least 2 characters
             </mat-error>
-            <mat-error *ngIf="seasonForm.get('name')?.hasError('maxlength')">
+            <mat-error *ngIf="seasonForm.get('name')?.hasError('maxlength')" i18n="@@season.name.maxlength">
               Season name must be less than 100 characters
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Year</mat-label>
-            <input matInput type="number" formControlName="year" placeholder="2024">
-            <mat-error *ngIf="seasonForm.get('year')?.hasError('required')">
+            <mat-label i18n="@@season.year.label">Year</mat-label>
+            <input matInput type="number" formControlName="year" placeholder="2024" i18n-placeholder="@@season.year.placeholder">
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('required')" i18n="@@season.year.required">
               Year is required
             </mat-error>
-            <mat-error *ngIf="seasonForm.get('year')?.hasError('min')">
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('min')" i18n="@@season.year.min">
               Year must be 1900 or later
             </mat-error>
-            <mat-error *ngIf="seasonForm.get('year')?.hasError('max')">
+            <mat-error *ngIf="seasonForm.get('year')?.hasError('max')" i18n="@@season.year.max">
               Year must be 3000 or earlier
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Start Date</mat-label>
+            <mat-label i18n="@@season.startDate.label">Start Date</mat-label>
             <input matInput [matDatepicker]="startPicker" formControlName="start_date">
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
-            <mat-error *ngIf="seasonForm.get('start_date')?.hasError('required')">
+            <mat-error *ngIf="seasonForm.get('start_date')?.hasError('required')" i18n="@@season.startDate.required">
               Start date is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>End Date</mat-label>
+            <mat-label i18n="@@season.endDate.label">End Date</mat-label>
             <input matInput [matDatepicker]="endPicker" formControlName="end_date">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
-            <mat-error *ngIf="seasonForm.get('end_date')?.hasError('required')">
+            <mat-error *ngIf="seasonForm.get('end_date')?.hasError('required')" i18n="@@season.endDate.required">
               End date is required
+            </mat-error>
+            <mat-error *ngIf="getDateRangeError()">
+              {{ getDateRangeError() }}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Registration Start Date</mat-label>
+            <mat-label i18n="@@season.registrationStartDate.label">Registration Start Date</mat-label>
             <input matInput [matDatepicker]="regStartPicker" formControlName="registration_start_date">
             <mat-datepicker-toggle matSuffix [for]="regStartPicker"></mat-datepicker-toggle>
             <mat-datepicker #regStartPicker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Registration End Date</mat-label>
+            <mat-label i18n="@@season.registrationEndDate.label">Registration End Date</mat-label>
             <input matInput [matDatepicker]="regEndPicker" formControlName="registration_end_date">
             <mat-datepicker-toggle matSuffix [for]="regEndPicker"></mat-datepicker-toggle>
             <mat-datepicker #regEndPicker></mat-datepicker>
+            <mat-error *ngIf="getRegistrationDateRangeError()">
+              {{ getRegistrationDateRangeError() }}
+            </mat-error>
           </mat-form-field>
         </div>
 
-        <div class="checkbox-container">
-          <mat-checkbox formControlName="is_active">
+        <div class="checkbox-container" *ngIf="seasonId">
+          <mat-checkbox formControlName="is_active" i18n="@@season.activeCheckbox">
             Active Season
           </mat-checkbox>
         </div>
 
         <div class="form-actions">
-          <button mat-button type="button" (click)="onCancel()">
+          <button mat-button type="button" (click)="onCancel()" i18n="@@common.cancel">
             Cancel
           </button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="seasonForm.invalid">
+          <button mat-raised-button color="primary" type="submit" [disabled]="seasonForm.invalid" i18n="@@season.submit">
             {{ seasonId ? 'Update Season' : 'Create Season' }}
           </button>
         </div>

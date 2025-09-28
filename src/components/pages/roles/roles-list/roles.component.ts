@@ -79,7 +79,6 @@ export class RolesComponent implements OnInit {
 
     this.rolesService.getRoles(query).subscribe({
       next: (response: any) => {
-        console.log('Roles API Response:', response);
         this.roles = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;

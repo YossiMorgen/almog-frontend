@@ -26,17 +26,14 @@
     <mat-card class="user-card">
       <mat-card-header>
         <div class="user-avatar">
-          <img *ngIf="user.profile_picture_url" [src]="user.profile_picture_url" [alt]="getDisplayName(user)" class="avatar-image">
-          <div *ngIf="!user.profile_picture_url" class="avatar-placeholder">
+          <img *ngIf="user.picture" [src]="user.picture" [alt]="getDisplayName(user)" class="avatar-image">
+          <div *ngIf="!user.picture" class="avatar-placeholder">
             <mat-icon>person</mat-icon>
           </div>
         </div>
         <div class="user-info">
           <mat-card-title>{{ getDisplayName(user) }}</mat-card-title>
           <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-          <mat-chip [color]="getStatusColor(user.is_active)" selected>
-            {{ getStatusText(user.is_active) }}
-          </mat-chip>
         </div>
       </mat-card-header>
     </mat-card>
@@ -51,28 +48,12 @@
         </mat-card-header>
         <mat-card-content>
           <div class="detail-item">
-            <label>Google ID:</label>
-            <span>{{ user.google_id }}</span>
-          </div>
-          <div class="detail-item">
             <label>Email:</label>
             <span>{{ user.email }}</span>
           </div>
           <div class="detail-item">
-            <label>First Name:</label>
-            <span>{{ user.first_name || 'Not provided' }}</span>
-          </div>
-          <div class="detail-item">
-            <label>Last Name:</label>
-            <span>{{ user.last_name || 'Not provided' }}</span>
-          </div>
-          <div class="detail-item">
-            <label>Display Name:</label>
-            <span>{{ user.display_name || 'Not provided' }}</span>
-          </div>
-          <div class="detail-item">
-            <label>Phone:</label>
-            <span>{{ user.phone || 'Not provided' }}</span>
+            <label>Name:</label>
+            <span>{{ user.name || 'Not provided' }}</span>
           </div>
         </mat-card-content>
       </mat-card>
@@ -86,22 +67,12 @@
         </mat-card-header>
         <mat-card-content>
           <div class="detail-item">
-            <label>Status:</label>
-            <mat-chip [color]="getStatusColor(user.is_active)" selected>
-              {{ getStatusText(user.is_active) }}
-            </mat-chip>
-          </div>
-          <div class="detail-item">
-            <label>Last Login:</label>
-            <span>{{ formatDateTime(user.last_login) }}</span>
-          </div>
-          <div class="detail-item">
             <label>Created:</label>
-            <span>{{ formatDateTime(user.created_at) }}</span>
+            <span>{{ formatDateTime(user.createdAt) }}</span>
           </div>
           <div class="detail-item">
             <label>Last Updated:</label>
-            <span>{{ formatDateTime(user.updated_at) }}</span>
+            <span>{{ formatDateTime(user.updatedAt) }}</span>
           </div>
         </mat-card-content>
       </mat-card>

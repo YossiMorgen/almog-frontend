@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" target-language="he" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="cancel.tooltip" datatype="html">
+        <source>Cancel</source>
+        <target>ביטול</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Edit Season&apos; : &apos;Create New Season&apos; }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;עריכת עונה&apos; : &apos;יצירת עונה חדשה&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.loading" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Loading season...&apos; : &apos;Creating season...&apos; }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;טוען עונה...&apos; : &apos;יוצר עונה...&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.label" datatype="html">
+        <source>Season Name</source>
+        <target>שם העונה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.placeholder" datatype="html">
+        <source>e.g., Summer 2024</source>
+        <target>למשל, קיץ 2024</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.required" datatype="html">
+        <source> Season name is required </source>
+        <target> שם העונה נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.minlength" datatype="html">
+        <source> Season name must be at least 2 characters </source>
+        <target> שם העונה חייב להיות לפחות 2 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.maxlength" datatype="html">
+        <source> Season name must be less than 100 characters </source>
+        <target> שם העונה חייב להיות פחות מ-100 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.label" datatype="html">
+        <source>Year</source>
+        <target>שנה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.placeholder" datatype="html">
+        <source>2024</source>
+        <target>2024</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.required" datatype="html">
+        <source> Year is required </source>
+        <target> השנה נדרשת </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.min" datatype="html">
+        <source> Year must be 1900 or later </source>
+        <target> השנה חייבת להיות 1900 או מאוחר יותר </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.max" datatype="html">
+        <source> Year must be 3000 or earlier </source>
+        <target> השנה חייבת להיות 3000 או מוקדם יותר </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.label" datatype="html">
+        <source>Start Date</source>
+        <target>תאריך התחלה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.required" datatype="html">
+        <source> Start date is required </source>
+        <target> תאריך התחלה נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.label" datatype="html">
+        <source>End Date</source>
+        <target>תאריך סיום</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.required" datatype="html">
+        <source> End date is required </source>
+        <target> תאריך סיום נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationStartDate.label" datatype="html">
+        <source>Registration Start Date</source>
+        <target>תאריך התחלת הרשמה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationEndDate.label" datatype="html">
+        <source>Registration End Date</source>
+        <target>תאריך סיום הרשמה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.activeCheckbox" datatype="html">
+        <source> Active Season </source>
+        <target> עונה פעילה </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">93,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.cancel" datatype="html">
+        <source> Cancel </source>
+        <target> ביטול </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.submit" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Update Season&apos; : &apos;Create Season&apos; }}"/> </source>
+        <target> <x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;עדכן עונה&apos; : &apos;צור עונה&apos; }}"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">102,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.appTitle" datatype="html">
+        <source>Swimming School CRM</source>
+        <target>מערכת ניהול בית ספר לשחייה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.home" datatype="html">
+        <source>Home</source>
+        <target>בית</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>לוח בקרה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.academic" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>school<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Academic <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>school<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> אקדמי <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">12,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.seasons" datatype="html">
+        <source>Seasons</source>
+        <target>עונות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.students" datatype="html">
+        <source>Students</source>
+        <target>תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.courses" datatype="html">
+        <source>Courses</source>
+        <target>קורסים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.classes" datatype="html">
+        <source>Classes</source>
+        <target>שיעורים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.enrollments" datatype="html">
+        <source>Enrollments</source>
+        <target>הרשמות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.studentClasses" datatype="html">
+        <source>Student Classes</source>
+        <target>שיעורי תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.business" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>business<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Business <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>business<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> עסקי <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">45,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.products" datatype="html">
+        <source>Products</source>
+        <target>מוצרים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">52,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orders" datatype="html">
+        <source>Orders</source>
+        <target>הזמנות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">56,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orderItems" datatype="html">
+        <source>Order Items</source>
+        <target>פריטי הזמנה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">60,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.payments" datatype="html">
+        <source>Payments</source>
+        <target>תשלומים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">64,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.paymentInstallments" datatype="html">
+        <source>Payment Installments</source>
+        <target>תשלומים בתשלומים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">68,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.admin" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>admin_panel_settings<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Admin <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>admin_panel_settings<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> מנהל <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">74,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.users" datatype="html">
+        <source>Users</source>
+        <target>משתמשים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">81,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.roles" datatype="html">
+        <source>Roles</source>
+        <target>תפקידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>הרשאות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">89,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.toggleTheme" datatype="html">
+        <source>Toggle Theme</source>
+        <target>החלף ערכת נושא</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.signOut" datatype="html">
+        <source>Sign Out</source>
+        <target>התנתק</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">114,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.signIn" datatype="html">
+        <source>Sign In</source>
+        <target>התחבר</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">118,120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.profile" datatype="html">
+        <source>Profile</source>
+        <target>פרופיל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">114,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.tab" datatype="html">
+        <source>Settings</source>
+        <target>הגדרות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">229,231</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.title" datatype="html">
+        <source>Language Settings</source>
+        <target>הגדרות שפה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">237,239</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.label" datatype="html">
+        <source>Preferred Language</source>
+        <target>שפה מועדפת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">244,245</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.english" datatype="html">
+        <source>English</source>
+        <target>English</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">249,251</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hebrew" datatype="html">
+        <source>עברית</source>
+        <target>עברית</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">255,257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hint" datatype="html">
+        <source>Choose your preferred language for the interface</source>
+        <target>בחר את השפה המועדפת שלך לממשק</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">259,260</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.updating" datatype="html">
+        <source>Updating...</source>
+        <target>מעדכן...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">267,268</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.update" datatype="html">
+        <source>Update Language</source>
+        <target>עדכן שפה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">268,270</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.welcome.title" datatype="html">
+        <source>Welcome to Swimming School CRM <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/></source>
+        <target>ברוכים הבאים למערכת ניהול בית ספר לשחייה <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.welcome.subtitle" datatype="html">
+        <source>Manage your swimming school efficiently with our comprehensive management system</source>
+        <target>נהל את בית הספר לשחייה שלך ביעילות עם מערכת הניהול המקיפה שלנו</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.dashboard.title" datatype="html">
+        <source>Dashboard</source>
+        <target>לוח בקרה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.dashboard.description" datatype="html">
+        <source>View overview and analytics</source>
+        <target>צפה בסקירה וניתוחים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.students.title" datatype="html">
+        <source>Students</source>
+        <target>תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.students.description" datatype="html">
+        <source>Manage student records</source>
+        <target>נהל רשומות תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.courses.title" datatype="html">
+        <source>Courses</source>
+        <target>קורסים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.courses.description" datatype="html">
+        <source>Organize swimming courses</source>
+        <target>ארגן קורסי שחייה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.orders.title" datatype="html">
+        <source>Orders</source>
+        <target>הזמנות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.actions.orders.description" datatype="html">
+        <source>Track orders and payments</source>
+        <target>עקוב אחר הזמנות ותשלומים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeStudents.title" datatype="html">
+        <source>Active Students</source>
+        <target>תלמידים פעילים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeStudents.label" datatype="html">
+        <source>Currently enrolled</source>
+        <target>רשומים כרגע</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeCourses.title" datatype="html">
+        <source>Active Courses</source>
+        <target>קורסים פעילים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.activeCourses.label" datatype="html">
+        <source>Running this season</source>
+        <target>פועלים בעונה זו</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.pendingOrders.title" datatype="html">
+        <source>Pending Orders</source>
+        <target>הזמנות ממתינות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.pendingOrders.label" datatype="html">
+        <source>Awaiting processing</source>
+        <target>ממתינות לעיבוד</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.revenue.title" datatype="html">
+        <source>Revenue</source>
+        <target>הכנסות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.stats.revenue.label" datatype="html">
+        <source>This month</source>
+        <target>החודש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/home/home.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.tab" datatype="html">
+        <source>Settings</source>
+        <target>הגדרות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">193,195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.title" datatype="html">
+        <source>Language Settings</source>
+        <target>הגדרות שפה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">202,204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.label" datatype="html">
+        <source>Preferred Language</source>
+        <target>שפה מועדפת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">210,211</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.english" datatype="html">
+        <source>English</source>
+        <target>English</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">215,217</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hebrew" datatype="html">
+        <source>עברית</source>
+        <target>עברית</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">221,223</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.hint" datatype="html">
+        <source>Choose your preferred language for the interface</source>
+        <target>בחר את השפה המועדפת שלך לממשק</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">225,226</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.updating" datatype="html">
+        <source>Updating...</source>
+        <target>מעדכן...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">233,234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.settings.language.update" datatype="html">
+        <source>Update Language</source>
+        <target>עדכן שפה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">234,236</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel.tooltip" datatype="html">
+        <source>Cancel</source>
+        <target>ביטול</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Edit Season&apos; : &apos;Create New Season&apos; }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;עריכת עונה&apos; : &apos;יצירת עונה חדשה&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.loading" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Loading season...&apos; : &apos;Creating season...&apos; }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;טוען עונה...&apos; : &apos;יוצר עונה...&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.label" datatype="html">
+        <source>Season Name</source>
+        <target>שם העונה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.placeholder" datatype="html">
+        <source>e.g., Summer 2024</source>
+        <target>למשל, קיץ 2024</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.required" datatype="html">
+        <source> Season name is required </source>
+        <target> שם העונה נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.minlength" datatype="html">
+        <source> Season name must be at least 2 characters </source>
+        <target> שם העונה חייב להיות לפחות 2 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.name.maxlength" datatype="html">
+        <source> Season name must be less than 100 characters </source>
+        <target> שם העונה חייב להיות פחות מ-100 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.label" datatype="html">
+        <source>Year</source>
+        <target>שנה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.placeholder" datatype="html">
+        <source>2024</source>
+        <target>2024</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.required" datatype="html">
+        <source> Year is required </source>
+        <target> השנה נדרשת </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.min" datatype="html">
+        <source> Year must be 1900 or later </source>
+        <target> השנה חייבת להיות 1900 או מאוחר יותר </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.year.max" datatype="html">
+        <source> Year must be 3000 or earlier </source>
+        <target> השנה חייבת להיות 3000 או מוקדם יותר </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.label" datatype="html">
+        <source>Start Date</source>
+        <target>תאריך התחלה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.startDate.required" datatype="html">
+        <source> Start date is required </source>
+        <target> תאריך התחלה נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.label" datatype="html">
+        <source>End Date</source>
+        <target>תאריך סיום</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.endDate.required" datatype="html">
+        <source> End date is required </source>
+        <target> תאריך סיום נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationStartDate.label" datatype="html">
+        <source>Registration Start Date</source>
+        <target>תאריך התחלת הרשמה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.registrationEndDate.label" datatype="html">
+        <source>Registration End Date</source>
+        <target>תאריך סיום הרשמה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.activeCheckbox" datatype="html">
+        <source> Active Season </source>
+        <target> עונה פעילה </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">93,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.cancel" datatype="html">
+        <source> Cancel </source>
+        <target> ביטול </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="season.submit" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;Update Season&apos; : &apos;Create Season&apos; }}"/> </source>
+        <target> <x id="INTERPOLATION" equiv-text="{{ seasonId ? &apos;עדכן עונה&apos; : &apos;צור עונה&apos; }}"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/seasons/seasons-form/seasons-form.component.html</context>
+          <context context-type="linenumber">102,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.appTitle" datatype="html">
+        <source>Swimming School CRM</source>
+        <target>מערכת ניהול בית ספר לשחייה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.home" datatype="html">
+        <source>Home</source>
+        <target>בית</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>לוח בקרה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.academic" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>school<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Academic <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>school<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> אקדמי <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">12,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.seasons" datatype="html">
+        <source>Seasons</source>
+        <target>עונות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.students" datatype="html">
+        <source>Students</source>
+        <target>תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.courses" datatype="html">
+        <source>Courses</source>
+        <target>קורסים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.classes" datatype="html">
+        <source>Classes</source>
+        <target>שיעורים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.enrollments" datatype="html">
+        <source>Enrollments</source>
+        <target>הרשמות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.studentClasses" datatype="html">
+        <source>Student Classes</source>
+        <target>שיעורי תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.business" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>business<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Business <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>business<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> עסקי <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">45,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.products" datatype="html">
+        <source>Products</source>
+        <target>מוצרים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">52,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orders" datatype="html">
+        <source>Orders</source>
+        <target>הזמנות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">56,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.orderItems" datatype="html">
+        <source>Order Items</source>
+        <target>פריטי הזמנה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">60,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.payments" datatype="html">
+        <source>Payments</source>
+        <target>תשלומים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">64,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.paymentInstallments" datatype="html">
+        <source>Payment Installments</source>
+        <target>תשלומים בתשלומים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">68,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.admin" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>admin_panel_settings<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Admin <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>admin_panel_settings<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> מנהל <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>arrow_drop_down<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">74,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.users" datatype="html">
+        <source>Users</source>
+        <target>משתמשים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">81,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.roles" datatype="html">
+        <source>Roles</source>
+        <target>תפקידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>הרשאות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">89,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.toggleTheme" datatype="html">
+        <source>Toggle Theme</source>
+        <target>החלף ערכת נושא</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.profile" datatype="html">
+        <source>Profile</source>
+        <target>פרופיל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">114,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.signOut" datatype="html">
+        <source>Sign Out</source>
+        <target>התנתק</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">118,120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.title" datatype="html">
+        <source>CRM Dashboard</source>
+        <target>לוח בקרה CRM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.subtitle" datatype="html">
+        <source>Manage your swimming school operations efficiently</source>
+        <target>נהל את פעולות בית הספר לשחייה ביעילות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.refresh" datatype="html">
+        <source>Refresh</source>
+        <target>רענן</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.loading" datatype="html">
+        <source>Loading dashboard data...</source>
+        <target>טוען נתוני לוח בקרה...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.title" datatype="html">
+        <source>Unable to Load Dashboard</source>
+        <target>לא ניתן לטעון את לוח הבקרה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.tryAgain" datatype="html">
+        <source>Try Again</source>
+        <target>נסה שוב</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.overview.title" datatype="html">
+        <source>Overview</source>
+        <target>סקירה כללית</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.totalStudents" datatype="html">
+        <source>Total Students</source>
+        <target>סה"כ תלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.studentsChange" datatype="html">
+        <source>+12% this month</source>
+        <target>+12% החודש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.activeCourses" datatype="html">
+        <source>Active Courses</source>
+        <target>קורסים פעילים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.coursesChange" datatype="html">
+        <source>No change</source>
+        <target>ללא שינוי</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesThisWeek" datatype="html">
+        <source>Classes This Week</source>
+        <target>שיעורים השבוע</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesChange" datatype="html">
+        <source>+3 new</source>
+        <target>+3 חדשים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.monthlyRevenue" datatype="html">
+        <source>Monthly Revenue</source>
+        <target>הכנסות חודשיות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.revenueChange" datatype="html">
+        <source>+8% from last month</source>
+        <target>+8% מהחודש שעבר</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.quickActions.title" datatype="html">
+        <source>Quick Actions</source>
+        <target>פעולות מהירות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudent" datatype="html">
+        <source>Add Student</source>
+        <target>הוסף תלמיד</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudentDesc" datatype="html">
+        <source>Register a new student</source>
+        <target>הרשם תלמיד חדש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourse" datatype="html">
+        <source>Create Course</source>
+        <target>צור קורס</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourseDesc" datatype="html">
+        <source>Set up a new swimming course</source>
+        <target>הגדר קורס שחייה חדש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClass" datatype="html">
+        <source>Schedule Class</source>
+        <target>תזמן שיעור</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClassDesc" datatype="html">
+        <source>Add a new class session</source>
+        <target>הוסף מפגש שיעור חדש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasons" datatype="html">
+        <source>Manage Seasons</source>
+        <target>נהל עונות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasonsDesc" datatype="html">
+        <source>View and manage seasons</source>
+        <target>צפה ונהל עונות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAll" datatype="html">
+        <source>View All</source>
+        <target>צפה בהכל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAllDesc" datatype="html">
+        <source>Browse all students</source>
+        <target>עיין בכל התלמידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.title" datatype="html">
+        <source>Access Denied</source>
+        <target>גישה נדחתה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.message" datatype="html">
+        <source>You don't have the required permissions to access this page. Please contact your administrator if you believe this is an error.</source>
+        <target>אין לך את ההרשאות הנדרשות לגשת לדף זה. אנא פנה למנהל המערכת אם אתה מאמין שזו שגיאה.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.goToDashboard" datatype="html">
+        <source>Go to Dashboard</source>
+        <target>עבור ללוח הבקרה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

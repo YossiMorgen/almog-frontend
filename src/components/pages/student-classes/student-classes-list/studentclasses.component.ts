@@ -79,7 +79,6 @@ export class StudentclassesComponent implements OnInit {
 
     this.studentClassesService.getStudentClasses(query).subscribe({
       next: (response: any) => {
-        console.log('Student Classes API Response:', response);
         this.studentClasses = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;

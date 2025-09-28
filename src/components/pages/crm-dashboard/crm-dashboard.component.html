@@ -1,36 +1,36 @@
   <div class="dashboard-container">
     <div class="dashboard-header">
       <div class="header-content">
-        <h1 class="dashboard-title">CRM Dashboard</h1>
-        <p class="dashboard-subtitle">Manage your swimming school operations efficiently</p>
+        <h1 class="dashboard-title" i18n="@@dashboard.title">CRM Dashboard</h1>
+        <p class="dashboard-subtitle" i18n="@@dashboard.subtitle">Manage your swimming school operations efficiently</p>
       </div>
       <div class="header-actions">
         <button mat-raised-button color="primary" (click)="refreshStats()" [disabled]="loading">
           <mat-icon>refresh</mat-icon>
-          Refresh
+          <span i18n="@@dashboard.refresh">Refresh</span>
         </button>
       </div>
     </div>
 
     <div *ngIf="loading" class="loading-container">
       <mat-spinner diameter="50"></mat-spinner>
-      <p>Loading dashboard data...</p>
+      <p i18n="@@dashboard.loading">Loading dashboard data...</p>
     </div>
 
     <div *ngIf="error" class="error-container">
       <mat-icon color="warn" class="error-icon">error_outline</mat-icon>
-      <h3>Unable to Load Dashboard</h3>
+      <h3 i18n="@@dashboard.error.title">Unable to Load Dashboard</h3>
       <p>{{ error }}</p>
       <button mat-raised-button color="primary" (click)="loadDashboardStats()">
         <mat-icon>refresh</mat-icon>
-        Try Again
+        <span i18n="@@dashboard.error.tryAgain">Try Again</span>
       </button>
     </div>
 
     <div *ngIf="!loading && !error" class="dashboard-content">
       <!-- Statistics Overview -->
       <div class="stats-section">
-        <h2 class="section-title">Overview</h2>
+        <h2 class="section-title" i18n="@@dashboard.overview.title">Overview</h2>
         <div class="stats-grid">
           <div class="stat-card students">
             <div class="stat-icon">
@@ -41,8 +41,8 @@
             </div>
             <div class="stat-content">
               <h3 class="stat-number">{{ stats.totalStudents }}</h3>
-              <p class="stat-label">Total Students</p>
-              <span class="stat-change positive">+12% this month</span>
+              <p class="stat-label" i18n="@@dashboard.stats.totalStudents">Total Students</p>
+              <span class="stat-change positive" i18n="@@dashboard.stats.studentsChange">+12% this month</span>
             </div>
           </div>
 
@@ -55,8 +55,8 @@
             </div>
             <div class="stat-content">
               <h3 class="stat-number">{{ stats.totalCourses }}</h3>
-              <p class="stat-label">Active Courses</p>
-              <span class="stat-change neutral">No change</span>
+              <p class="stat-label" i18n="@@dashboard.stats.activeCourses">Active Courses</p>
+              <span class="stat-change neutral" i18n="@@dashboard.stats.coursesChange">No change</span>
             </div>
           </div>
 
@@ -71,8 +71,8 @@
             </div>
             <div class="stat-content">
               <h3 class="stat-number">{{ stats.totalClasses }}</h3>
-              <p class="stat-label">Classes This Week</p>
-              <span class="stat-change positive">+3 new</span>
+              <p class="stat-label" i18n="@@dashboard.stats.classesThisWeek">Classes This Week</p>
+              <span class="stat-change positive" i18n="@@dashboard.stats.classesChange">+3 new</span>
             </div>
           </div>
 
@@ -84,8 +84,8 @@
             </div>
             <div class="stat-content">
               <h3 class="stat-number">$12,450</h3>
-              <p class="stat-label">Monthly Revenue</p>
-              <span class="stat-change positive">+8% from last month</span>
+              <p class="stat-label" i18n="@@dashboard.stats.monthlyRevenue">Monthly Revenue</p>
+              <span class="stat-change positive" i18n="@@dashboard.stats.revenueChange">+8% from last month</span>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
 
       <!-- Quick Actions -->
       <div class="actions-section">
-        <h2 class="section-title">Quick Actions</h2>
+        <h2 class="section-title" i18n="@@dashboard.quickActions.title">Quick Actions</h2>
         <div class="actions-grid">
           <button mat-raised-button color="primary" class="action-button" (click)="navigateToNewStudent()">
             <div class="action-icon">
@@ -105,8 +105,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Add Student</h3>
-              <p>Register a new student</p>
+              <h3 i18n="@@dashboard.actions.addStudent">Add Student</h3>
+              <p i18n="@@dashboard.actions.addStudentDesc">Register a new student</p>
             </div>
           </button>
           
@@ -120,8 +120,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Create Course</h3>
-              <p>Set up a new swimming course</p>
+              <h3 i18n="@@dashboard.actions.createCourse">Create Course</h3>
+              <p i18n="@@dashboard.actions.createCourseDesc">Set up a new swimming course</p>
             </div>
           </button>
           
@@ -137,8 +137,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Schedule Class</h3>
-              <p>Add a new class session</p>
+              <h3 i18n="@@dashboard.actions.scheduleClass">Schedule Class</h3>
+              <p i18n="@@dashboard.actions.scheduleClassDesc">Add a new class session</p>
             </div>
           </button>
           
@@ -152,8 +152,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>Manage Seasons</h3>
-              <p>View and manage seasons</p>
+              <h3 i18n="@@dashboard.actions.manageSeasons">Manage Seasons</h3>
+              <p i18n="@@dashboard.actions.manageSeasonsDesc">View and manage seasons</p>
             </div>
           </button>
           
@@ -167,8 +167,8 @@
               </svg>
             </div>
             <div class="action-content">
-              <h3>View All</h3>
-              <p>Browse all students</p>
+              <h3 i18n="@@dashboard.actions.viewAll">View All</h3>
+              <p i18n="@@dashboard.actions.viewAllDesc">Browse all students</p>
             </div>
           </button>
         </div>

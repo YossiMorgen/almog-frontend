@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
   sortBy = 'email';
   sortOrder: 'asc' | 'desc' = 'asc';
   
-  displayedColumns: string[] = ['email', 'display_name', 'phone', 'last_login', 'status', 'actions'];
+  displayedColumns: string[] = ['email', 'name', 'createdAt', 'actions'];
 
   constructor(
     private usersService: UsersService,
@@ -79,7 +79,6 @@ export class UsersComponent implements OnInit {
 
     this.usersService.getUsers(query).subscribe({
       next: (response: any) => {
-        console.log('Users API Response:', response);
         this.users = response.data.data;
         this.pagination = response.data.pagination;
         this.loading = false;
@@ -127,10 +126,6 @@ export class UsersComponent implements OnInit {
 
   viewUser(user: User): void {
     this.router.navigate(['/crm/users', user.id]);
-  }
-
-  getStatusText(isActive: boolean | undefined): string {
-    return isActive ? 'Active' : 'Inactive';
   }
 
   getPageNumbers(): number[] {

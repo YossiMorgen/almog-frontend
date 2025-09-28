@@ -1,25 +1,39 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable, Injector } from "@angular/core";
-import { AuthService } from "../services/auth.service";
-import { API_CONFIG } from "../config/api.config";
-import { Observable } from "rxjs";
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { API_CONFIG } from '../config/api.config';
+import { from, switchMap, catchError } from 'rxjs';
 
-@Injectable()
-export class FirebaseAuthInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
+export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
+  
+  const authService = inject(AuthService);
+  
+  const isApi = req.url.startsWith(API_CONFIG.BASE_URL);
+  const isLoginEndpoint = req.url.includes('/api/auth/login');
+  const isHealthEndpoint = req.url.includes('/health');
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const auth = this.injector.get(AuthService);
-
-    const isApi = req.url.startsWith(API_CONFIG.BASE_URL);
-    const token = auth.getToken();
-
-    if (isApi && token) {
-      const modified = req.clone({
-        setHeaders: { authorization: `Bearer ${token}` }
-      });
-      return next.handle(modified);
-    }
-    return next.handle(req);
+  if (isApi && !isLoginEndpoint && !isHealthEndpoint) {
+    
+    const tokenPromise = authService.getToken();
+    const timeoutPromise = new Promise<undefined>((_, reject) => 
+      setTimeout(() => reject(new Error('Token request timeout')), 5000)
+    );
+    
+    return from(Promise.race([tokenPromise, timeoutPromise])).pipe(
+      switchMap(token => {
+        if (token) {
+          const modified = req.clone({
+            setHeaders: { authorization: `Bearer ${token}` }
+          });
+          return next(modified);
+        }
+        return next(req);
+      }),
+      catchError(error => {
+        return next(req);
+      })
+    );
   }
-}
+  
+  return next(req);
+};

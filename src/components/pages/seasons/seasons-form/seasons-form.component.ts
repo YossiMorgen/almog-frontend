@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SeasonsService } from '../../../../services/seasons.service';
 import { Season, CreateSeason, UpdateSeason } from '../../../../models/season';
@@ -45,6 +45,42 @@ export class SeasonsFormComponent implements OnInit {
 
   seasonForm!: FormGroup;
 
+  private endDateValidator(control: AbstractControl): ValidationErrors | null {
+    const endDate = control.value;
+    const startDate = this.seasonForm?.get('start_date')?.value;
+    
+    if (startDate && endDate && startDate >= endDate) {
+      return { dateRange: true };
+    }
+    return null;
+  }
+
+  private registrationEndDateValidator(control: AbstractControl): ValidationErrors | null {
+    const regEndDate = control.value;
+    const regStartDate = this.seasonForm?.get('registration_start_date')?.value;
+    
+    if (regStartDate && regEndDate && regStartDate >= regEndDate) {
+      return { registrationDateRange: true };
+    }
+    return null;
+  }
+
+  getDateRangeError(): string | null {
+    const endDateControl = this.seasonForm.get('end_date');
+    if (endDateControl?.hasError('dateRange')) {
+      return 'End date must be after start date';
+    }
+    return null;
+  }
+
+  getRegistrationDateRangeError(): string | null {
+    const regEndDateControl = this.seasonForm.get('registration_end_date');
+    if (regEndDateControl?.hasError('registrationDateRange')) {
+      return 'Registration end date must be after registration start date';
+    }
+    return null;
+  }
+
   constructor(
     private seasonsService: SeasonsService,
     private route: ActivatedRoute,
@@ -65,10 +101,20 @@ export class SeasonsFormComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       year: ['', [Validators.required, Validators.min(1900), Validators.max(3000)]],
       start_date: ['', [Validators.required]],
-      end_date: ['', [Validators.required]],
-      is_active: [false],
+      end_date: ['', [Validators.required, this.endDateValidator.bind(this)]],
+      is_active: [!this.seasonId],
       registration_start_date: [''],
-      registration_end_date: ['']
+      registration_end_date: ['', this.registrationEndDateValidator.bind(this)]
+    });
+
+    // Trigger validation when start date changes
+    this.seasonForm.get('start_date')?.valueChanges.subscribe(() => {
+      this.seasonForm.get('end_date')?.updateValueAndValidity();
+    });
+
+    // Trigger validation when registration start date changes
+    this.seasonForm.get('registration_start_date')?.valueChanges.subscribe(() => {
+      this.seasonForm.get('registration_end_date')?.updateValueAndValidity();
     });
   }
 

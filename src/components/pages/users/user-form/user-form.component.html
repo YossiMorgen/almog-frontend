@@ -16,14 +16,6 @@
             <h3>Basic Information</h3>
             
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Google ID *</mat-label>
-              <input matInput formControlName="google_id" placeholder="Enter Google ID">
-              <mat-error *ngIf="userForm.get('google_id')?.hasError('required')">
-                Google ID is required
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Email *</mat-label>
               <input matInput type="email" formControlName="email" placeholder="Enter email address">
               <mat-error *ngIf="userForm.get('email')?.hasError('required')">
@@ -34,45 +26,15 @@
               </mat-error>
             </mat-form-field>
 
-            <div class="form-row">
-              <mat-form-field appearance="outline" class="half-width">
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="first_name" placeholder="Enter first name">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" class="half-width">
-                <mat-label>Last Name</mat-label>
-                <input matInput formControlName="last_name" placeholder="Enter last name">
-              </mat-form-field>
-            </div>
-
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Display Name</mat-label>
-              <input matInput formControlName="display_name" placeholder="Enter display name">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Phone</mat-label>
-              <input matInput formControlName="phone" placeholder="Enter phone number">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Enter full name">
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Profile Picture URL</mat-label>
-              <input matInput formControlName="profile_picture_url" placeholder="Enter profile picture URL">
+              <input matInput formControlName="picture" placeholder="Enter profile picture URL">
             </mat-form-field>
-          </div>
-
-          <div class="form-section">
-            <h3>Account Settings</h3>
-            
-            <div class="checkbox-container">
-              <mat-checkbox formControlName="is_active">
-                Active User
-              </mat-checkbox>
-              <p class="checkbox-description">
-                Uncheck to deactivate this user account
-              </p>
-            </div>
           </div>
         </div>
 

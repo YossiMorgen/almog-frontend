@@ -204,9 +204,4 @@ export class CoursesComponent implements OnInit {
     this.router.navigate(['/crm/courses'], { queryParams: {} });
   }
 
-  signOut(): void {
-    // TODO: Implement logout when auth is ready
-    // this.authService.logout();
-    console.log('Sign out clicked');
-  }
 }
