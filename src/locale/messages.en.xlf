@@ -1626,6 +1626,14 @@
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security5" datatype="html">
+        <source>API keys are for external applications only - not for this web interface</source>
+        <target>API keys are for external applications only - not for this web interface</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile.apiKeys.createNew.nameRequired" datatype="html">
         <source> Key name is required </source>
         <target> Key name is required </target>

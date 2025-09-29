@@ -11,6 +11,8 @@ export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
   const isApi = req.url.startsWith(API_CONFIG.BASE_URL);
   const isLoginEndpoint = req.url.includes('/api/auth/login');
   const isHealthEndpoint = req.url.includes('/health');
+  console.log('req.url', req.url, isApi, isLoginEndpoint, isHealthEndpoint);
+  
 
   if (isApi && !isLoginEndpoint && !isHealthEndpoint) {
     
@@ -22,15 +24,19 @@ export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
     
     return from(Promise.race([tokenPromise, timeoutPromise])).pipe(
       switchMap(token => {
+        console.log('token', token);
+        
         if (token) {
           const modified = req.clone({
             setHeaders: { authorization: `Bearer ${token}` }
           });
           return next(modified);
         }
+        console.log('no token for url', req.url);
         return next(req);
       }),
       catchError(error => {
+        console.log('error for url', req.url, error);
         return next(req);
       })
     );
