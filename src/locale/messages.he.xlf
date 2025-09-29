@@ -1234,6 +1234,582 @@
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="profile.personalInfo.fullNamePlaceholder" datatype="html">
+        <source>Enter your full name</source>
+        <target>הזן את שמך המלא</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailPlaceholder" datatype="html">
+        <source>Enter your email</source>
+        <target>הזן את האימייל שלך</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.title" datatype="html">
+        <source>Personal Information</source>
+        <target>מידע אישי</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.fullName" datatype="html">
+        <source>Full Name</source>
+        <target>שם מלא</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.email" datatype="html">
+        <source>Email</source>
+        <target>אימייל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailHint" datatype="html">
+        <source>Email cannot be changed here. Use the Security tab to update email.</source>
+        <target>לא ניתן לשנות אימייל כאן. השתמש בלשונית האבטחה לעדכון האימייל.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameRequired" datatype="html">
+        <source> Name is required </source>
+        <target> השם נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameMaxLength" datatype="html">
+        <source> Name must be less than 200 characters </source>
+        <target> השם חייב להיות פחות מ-200 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updating" datatype="html">
+        <source>Updating...</source>
+        <target>מעדכן...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updateProfile" datatype="html">
+        <source>Update Profile</source>
+        <target>עדכן פרופיל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.title" datatype="html">
+        <source>Roles & Permissions</source>
+        <target>תפקידים והרשאות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.roles" datatype="html">
+        <source>Roles</source>
+        <target>תפקידים</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>הרשאות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.title" datatype="html">
+        <source>Email Verification</source>
+        <target>אימות אימייל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.title" datatype="html">
+        <source>Google Account Security</source>
+        <target>אבטחת חשבון Google</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">179,181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.subtitle" datatype="html">
+        <source>Google Account Security</source>
+        <target>אבטחת חשבון Google</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">187,188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.description" datatype="html">
+        <source>Your account is secured through Google OAuth. To change your password or manage security settings, please visit your Google Account settings.</source>
+        <target>החשבון שלך מאובטח באמצעות Google OAuth. כדי לשנות את הסיסמה שלך או לנהל הגדרות אבטחה, אנא בקר בהגדרות חשבון Google שלך.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">188,189</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.manageButton" datatype="html">
+        <source>Manage Google Security</source>
+        <target>נהל אבטחת Google</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">191,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.verified" datatype="html">
+        <source>Email is verified</source>
+        <target>האימייל מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.unverified" datatype="html">
+        <source>Email is not verified</source>
+        <target>האימייל לא מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.message" datatype="html">
+        <source> Please verify your email address to secure your account and access all features. </source>
+        <target> אנא אמת את כתובת האימייל שלך כדי לאבטח את החשבון שלך ולגשת לכל התכונות. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.emailVerified" datatype="html">
+        <source>Email Verified</source>
+        <target>אימייל מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.sendVerification" datatype="html">
+        <source>Send Verification Email</source>
+        <target>שלח אימייל אימות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.keyNamePlaceholder" datatype="html">
+        <source>e.g., Mobile App v1.0</source>
+        <target>למשל, אפליקציה ניידת v1.0</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.title" datatype="html">
+        <source>Create New API Key</source>
+        <target>צור מפתח API חדש</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.keyName" datatype="html">
+        <source>Key Name</source>
+        <target>שם המפתח</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.title" datatype="html">
+        <source>Your API Keys</source>
+        <target>מפתחות ה-API שלך</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.title" datatype="html">
+        <source>How to Use API Keys</source>
+        <target>איך להשתמש במפתחות API</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.authentication" datatype="html">
+        <source>Authentication</source>
+        <target>אימות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.authenticationDescription" datatype="html">
+        <source>Include your API key in the <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/>X-API-Key<x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/> header when making requests:</source>
+        <target>הכלל את מפתח ה-API שלך בכותרת <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/>X-API-Key<x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/> בעת ביצוע בקשות:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>הרשאות</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.permissionsDescription" datatype="html">
+        <source>API keys have the same permissions as your user account. If your permissions change, the API key will automatically reflect the new permissions.</source>
+        <target>למפתחות API יש את אותן הרשאות כמו לחשבון המשתמש שלך. אם ההרשאות שלך משתנות, מפתח ה-API ישקף אוטומטית את ההרשאות החדשות.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security" datatype="html">
+        <source>Security</source>
+        <target>אבטחה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security1" datatype="html">
+        <source>Store API keys securely and never share them</source>
+        <target>אחסן מפתחות API בצורה מאובטחת ולעולם אל תשתף אותם</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security2" datatype="html">
+        <source>Regenerate keys regularly for long-term integrations</source>
+        <target>צור מחדש מפתחות באופן קבוע לאינטגרציות ארוכות טווח</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security3" datatype="html">
+        <source>Deactivate unused keys instead of deleting them</source>
+        <target>השבת מפתחות לא בשימוש במקום למחוק אותם</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security4" datatype="html">
+        <source>Use HTTPS for all API communications</source>
+        <target>השתמש ב-HTTPS לכל התקשורת עם ה-API</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.nameRequired" datatype="html">
+        <source> Key name is required </source>
+        <target> שם המפתח נדרש </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.nameMaxLength" datatype="html">
+        <source> Key name must be less than 100 characters </source>
+        <target> שם המפתח חייב להיות פחות מ-100 תווים </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.creating" datatype="html">
+        <source>Creating...</source>
+        <target>יוצר...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.create" datatype="html">
+        <source>Create API Key</source>
+        <target>צור מפתח API</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.loading" datatype="html">
+        <source>Loading API keys...</source>
+        <target>טוען מפתחות API...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.empty.title" datatype="html">
+        <source>No API Keys</source>
+        <target>אין מפתחות API</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.empty.description" datatype="html">
+        <source>You haven't created any API keys yet. Create one above to get started.</source>
+        <target>עדיין לא יצרת מפתחות API. צור אחד למעלה כדי להתחיל.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.name" datatype="html">
+        <source>Name:</source>
+        <target>שם:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.prefix" datatype="html">
+        <source>Prefix:</source>
+        <target>קידומת:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.created" datatype="html">
+        <source>Created:</source>
+        <target>נוצר:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.updated" datatype="html">
+        <source>Updated:</source>
+        <target>עודכן:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.title" datatype="html">
+        <source>Account Information</source>
+        <target>מידע חשבון</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.displayName" datatype="html">
+        <source>Display Name</source>
+        <target>שם תצוגה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailAddress" datatype="html">
+        <source>Email Address</source>
+        <target>כתובת אימייל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">280</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.accountCreated" datatype="html">
+        <source>Account Created</source>
+        <target>חשבון נוצר</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">288</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.lastSignIn" datatype="html">
+        <source>Last Sign In</source>
+        <target>התחברות אחרונה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">296</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailStatus" datatype="html">
+        <source>Email Status</source>
+        <target>סטטוס אימייל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">304</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.title" datatype="html">
+        <source>Danger Zone</source>
+        <target>אזור סכנה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.title" datatype="html">
+        <source>Delete Account</source>
+        <target>מחק חשבון</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.description" datatype="html">
+        <source> Permanently delete your account and all associated data. This action cannot be undone. </source>
+        <target> מחק לצמיתות את החשבון שלך וכל הנתונים הקשורים. פעולה זו לא ניתנת לביטול. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.verified" datatype="html">
+        <source>Verified</source>
+        <target>מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">306</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.unverified" datatype="html">
+        <source>Unverified</source>
+        <target>לא מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.deleting" datatype="html">
+        <source>Deleting...</source>
+        <target>מוחק...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.delete" datatype="html">
+        <source>Delete Account</source>
+        <target>מחק חשבון</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.roles" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userRoles.length !== 1 ? 'Roles' : 'Role' }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ userRoles.length !== 1 ? 'תפקידים' : 'תפקיד' }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.permissions" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userPermissions.length !== 1 ? 'Permissions' : 'Permission' }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ userPermissions.length !== 1 ? 'הרשאות' : 'הרשאה' }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.memberSince" datatype="html">
+        <source>Member since: <x id="INTERPOLATION" equiv-text="{{ getAccountCreationDate() }}"/></source>
+        <target>חבר מאז: <x id="INTERPOLATION" equiv-text="{{ getAccountCreationDate() }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.lastSignIn" datatype="html">
+        <source>Last sign in: <x id="INTERPOLATION" equiv-text="{{ getLastSignInDate() }}"/></source>
+        <target>התחברות אחרונה: <x id="INTERPOLATION" equiv-text="{{ getLastSignInDate() }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.verified" datatype="html">
+        <source>Verified</source>
+        <target>מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.unverified" datatype="html">
+        <source>Unverified</source>
+        <target>לא מאומת</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.profileInfo" datatype="html">
+        <source>Profile Information</source>
+        <target>מידע פרופיל</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.security" datatype="html">
+        <source>Security</source>
+        <target>אבטחה</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.apiKeys" datatype="html">
+        <source>API Keys</source>
+        <target>מפתחות API</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.accountManagement" datatype="html">
+        <source>Account Management</source>
+        <target>ניהול חשבון</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">255</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.loading" datatype="html">
+        <source>Loading profile...</source>
+        <target>טוען פרופיל...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">324</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

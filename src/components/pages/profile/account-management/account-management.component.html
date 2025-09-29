@@ -1,0 +1,87 @@
+<!-- Account Information -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>info</mat-icon>
+      <span i18n="@@profile.accountManagement.title">Account Information</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="account-details">
+      <div class="detail-item">
+        <mat-icon>person</mat-icon>
+        <div class="detail-content">
+          <span class="detail-label" i18n="@@profile.accountManagement.displayName">Display Name</span>
+          <span class="detail-value">{{ getDisplayName() }}</span>
+        </div>
+      </div>
+      
+      <div class="detail-item">
+        <mat-icon>email</mat-icon>
+        <div class="detail-content">
+          <span class="detail-label" i18n="@@profile.accountManagement.emailAddress">Email Address</span>
+          <span class="detail-value">{{ getEmail() }}</span>
+        </div>
+      </div>
+      
+      <div class="detail-item">
+        <mat-icon>calendar_today</mat-icon>
+        <div class="detail-content">
+          <span class="detail-label" i18n="@@profile.accountManagement.accountCreated">Account Created</span>
+          <span class="detail-value">{{ getAccountCreationDate() }}</span>
+        </div>
+      </div>
+      
+      <div class="detail-item">
+        <mat-icon>login</mat-icon>
+        <div class="detail-content">
+          <span class="detail-label" i18n="@@profile.accountManagement.lastSignIn">Last Sign In</span>
+          <span class="detail-value">{{ getLastSignInDate() }}</span>
+        </div>
+      </div>
+      
+      <div class="detail-item">
+        <mat-icon>verified</mat-icon>
+        <div class="detail-content">
+          <span class="detail-label" i18n="@@profile.accountManagement.emailStatus">Email Status</span>
+          <span class="detail-value" [class.verified]="getEmailVerifiedStatus()" [class.unverified]="!getEmailVerifiedStatus()">
+            <span *ngIf="getEmailVerifiedStatus()" i18n="@@profile.accountManagement.verified">Verified</span>
+            <span *ngIf="!getEmailVerifiedStatus()" i18n="@@profile.accountManagement.unverified">Unverified</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Account Actions -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>warning</mat-icon>
+      <span i18n="@@profile.accountManagement.dangerZone.title">Danger Zone</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="danger-zone">
+      <div class="danger-item">
+        <div class="danger-content">
+          <h4 i18n="@@profile.accountManagement.dangerZone.deleteAccount.title">Delete Account</h4>
+          <p i18n="@@profile.accountManagement.dangerZone.deleteAccount.description">
+            Permanently delete your account and all associated data. This action cannot be undone.
+          </p>
+        </div>
+        <button mat-raised-button color="warn" 
+                (click)="deleteAccount()" 
+                [disabled]="updating">
+          <mat-icon *ngIf="updating">hourglass_empty</mat-icon>
+          <mat-icon *ngIf="!updating">delete_forever</mat-icon>
+          <span *ngIf="updating" i18n="@@profile.accountManagement.dangerZone.deleteAccount.deleting">Deleting...</span>
+          <span *ngIf="!updating" i18n="@@profile.accountManagement.dangerZone.deleteAccount.delete">Delete Account</span>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

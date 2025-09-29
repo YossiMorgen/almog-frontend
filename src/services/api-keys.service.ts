@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../config/api.config';
+import { API_CONFIG } from '../config/api.config';
 
 export interface ApiKey {
   id?: number;
@@ -27,7 +27,7 @@ export interface UpdateApiKeyRequest {
   providedIn: 'root'
 })
 export class ApiKeysService {
-  private readonly baseUrl = `${environment.apiUrl}/api-keys`;
+  private readonly baseUrl = `${API_CONFIG.BASE_URL}/api/api-keys`;
 
   constructor(private http: HttpClient) {}
 

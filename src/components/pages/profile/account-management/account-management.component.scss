@@ -1,0 +1,72 @@
+.account-details {
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      color: #666;
+    }
+    
+    .detail-content {
+      flex: 1;
+      
+      .detail-label {
+        display: block;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 4px;
+      }
+      
+      .detail-value {
+        color: #666;
+        
+        &.verified {
+          color: #4caf50;
+          font-weight: 500;
+        }
+        
+        &.unverified {
+          color: #ff9800;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.danger-zone {
+  .danger-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #ffcdd2;
+    border-radius: 8px;
+    background: #ffebee;
+    
+    .danger-content {
+      flex: 1;
+      
+      h4 {
+        margin: 0 0 8px 0;
+        color: #d32f2f;
+        font-weight: 500;
+      }
+      
+      p {
+        margin: 0;
+        color: #666;
+        line-height: 1.5;
+      }
+    }
+  }
+}

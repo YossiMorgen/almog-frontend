@@ -1010,6 +1010,814 @@
           <context context-type="linenumber">122,124</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="unauthorized.title" datatype="html">
+        <source>Access Denied</source>
+        <target>Access Denied</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.message" datatype="html">
+        <source>You don't have the required permissions to access this page. Please contact your administrator if you believe this is an error.</source>
+        <target>You don't have the required permissions to access this page. Please contact your administrator if you believe this is an error.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized.goToDashboard" datatype="html">
+        <source>Go to Dashboard</source>
+        <target>Go to Dashboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/unauthorized/unauthorized.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.title" datatype="html">
+        <source>CRM Dashboard</source>
+        <target>CRM Dashboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.subtitle" datatype="html">
+        <source>Manage your swimming school operations efficiently</source>
+        <target>Manage your swimming school operations efficiently</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.refresh" datatype="html">
+        <source>Refresh</source>
+        <target>Refresh</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.loading" datatype="html">
+        <source>Loading dashboard data...</source>
+        <target>Loading dashboard data...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.title" datatype="html">
+        <source>Unable to Load Dashboard</source>
+        <target>Unable to Load Dashboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.error.tryAgain" datatype="html">
+        <source>Try Again</source>
+        <target>Try Again</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.overview.title" datatype="html">
+        <source>Overview</source>
+        <target>Overview</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.totalStudents" datatype="html">
+        <source>Total Students</source>
+        <target>Total Students</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.studentsChange" datatype="html">
+        <source>+12% this month</source>
+        <target>+12% this month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.activeCourses" datatype="html">
+        <source>Active Courses</source>
+        <target>Active Courses</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.coursesChange" datatype="html">
+        <source>No change</source>
+        <target>No change</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesThisWeek" datatype="html">
+        <source>Classes This Week</source>
+        <target>Classes This Week</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.classesChange" datatype="html">
+        <source>+3 new</source>
+        <target>+3 new</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.monthlyRevenue" datatype="html">
+        <source>Monthly Revenue</source>
+        <target>Monthly Revenue</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.stats.revenueChange" datatype="html">
+        <source>+8% from last month</source>
+        <target>+8% from last month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.quickActions.title" datatype="html">
+        <source>Quick Actions</source>
+        <target>Quick Actions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudent" datatype="html">
+        <source>Add Student</source>
+        <target>Add Student</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.addStudentDesc" datatype="html">
+        <source>Register a new student</source>
+        <target>Register a new student</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourse" datatype="html">
+        <source>Create Course</source>
+        <target>Create Course</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.createCourseDesc" datatype="html">
+        <source>Set up a new swimming course</source>
+        <target>Set up a new swimming course</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClass" datatype="html">
+        <source>Schedule Class</source>
+        <target>Schedule Class</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.scheduleClassDesc" datatype="html">
+        <source>Add a new class session</source>
+        <target>Add a new class session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasons" datatype="html">
+        <source>Manage Seasons</source>
+        <target>Manage Seasons</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.manageSeasonsDesc" datatype="html">
+        <source>View and manage seasons</source>
+        <target>View and manage seasons</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAll" datatype="html">
+        <source>View All</source>
+        <target>View All</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboard.actions.viewAllDesc" datatype="html">
+        <source>Browse all students</source>
+        <target>Browse all students</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/crm-dashboard/crm-dashboard.component.html</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.fullNamePlaceholder" datatype="html">
+        <source>Enter your full name</source>
+        <target>Enter your full name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailPlaceholder" datatype="html">
+        <source>Enter your email</source>
+        <target>Enter your email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.title" datatype="html">
+        <source>Personal Information</source>
+        <target>Personal Information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.fullName" datatype="html">
+        <source>Full Name</source>
+        <target>Full Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.email" datatype="html">
+        <source>Email</source>
+        <target>Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.emailHint" datatype="html">
+        <source>Email cannot be changed here. Use the Security tab to update email.</source>
+        <target>Email cannot be changed here. Use the Security tab to update email.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameRequired" datatype="html">
+        <source> Name is required </source>
+        <target> Name is required </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.nameMaxLength" datatype="html">
+        <source> Name must be less than 200 characters </source>
+        <target> Name must be less than 200 characters </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updating" datatype="html">
+        <source>Updating...</source>
+        <target>Updating...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.personalInfo.updateProfile" datatype="html">
+        <source>Update Profile</source>
+        <target>Update Profile</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.title" datatype="html">
+        <source>Roles & Permissions</source>
+        <target>Roles & Permissions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.roles" datatype="html">
+        <source>Roles</source>
+        <target>Roles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.rolesPermissions.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>Permissions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.title" datatype="html">
+        <source>Email Verification</source>
+        <target>Email Verification</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.title" datatype="html">
+        <source>Google Account Security</source>
+        <target>Google Account Security</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">179,181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.subtitle" datatype="html">
+        <source>Google Account Security</source>
+        <target>Google Account Security</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">187,188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.description" datatype="html">
+        <source>Your account is secured through Google OAuth. To change your password or manage security settings, please visit your Google Account settings.</source>
+        <target>Your account is secured through Google OAuth. To change your password or manage security settings, please visit your Google Account settings.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">188,189</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.googleSecurity.manageButton" datatype="html">
+        <source>Manage Google Security</source>
+        <target>Manage Google Security</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">191,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.verified" datatype="html">
+        <source>Email is verified</source>
+        <target>Email is verified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.unverified" datatype="html">
+        <source>Email is not verified</source>
+        <target>Email is not verified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.message" datatype="html">
+        <source> Please verify your email address to secure your account and access all features. </source>
+        <target> Please verify your email address to secure your account and access all features. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.emailVerified" datatype="html">
+        <source>Email Verified</source>
+        <target>Email Verified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.security.emailVerification.sendVerification" datatype="html">
+        <source>Send Verification Email</source>
+        <target>Send Verification Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.profileInfo" datatype="html">
+        <source>Profile Information</source>
+        <target>Profile Information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.security" datatype="html">
+        <source>Security</source>
+        <target>Security</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.apiKeys" datatype="html">
+        <source>API Keys</source>
+        <target>API Keys</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.tabs.accountManagement" datatype="html">
+        <source>Account Management</source>
+        <target>Account Management</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">255</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.loading" datatype="html">
+        <source>Loading profile...</source>
+        <target>Loading profile...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">324</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.roles" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userRoles.length !== 1 ? 'Roles' : 'Role' }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ userRoles.length !== 1 ? 'Roles' : 'Role' }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.permissions" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ userPermissions.length !== 1 ? 'Permissions' : 'Permission' }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ userPermissions.length !== 1 ? 'Permissions' : 'Permission' }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.memberSince" datatype="html">
+        <source>Member since: <x id="INTERPOLATION" equiv-text="{{ getAccountCreationDate() }}"/></source>
+        <target>Member since: <x id="INTERPOLATION" equiv-text="{{ getAccountCreationDate() }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.lastSignIn" datatype="html">
+        <source>Last sign in: <x id="INTERPOLATION" equiv-text="{{ getLastSignInDate() }}"/></source>
+        <target>Last sign in: <x id="INTERPOLATION" equiv-text="{{ getLastSignInDate() }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.verified" datatype="html">
+        <source>Verified</source>
+        <target>Verified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.stats.unverified" datatype="html">
+        <source>Unverified</source>
+        <target>Unverified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.keyNamePlaceholder" datatype="html">
+        <source>e.g., Mobile App v1.0</source>
+        <target>e.g., Mobile App v1.0</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.title" datatype="html">
+        <source>Create New API Key</source>
+        <target>Create New API Key</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.keyName" datatype="html">
+        <source>Key Name</source>
+        <target>Key Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.title" datatype="html">
+        <source>Your API Keys</source>
+        <target>Your API Keys</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.title" datatype="html">
+        <source>How to Use API Keys</source>
+        <target>How to Use API Keys</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.authentication" datatype="html">
+        <source>Authentication</source>
+        <target>Authentication</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.authenticationDescription" datatype="html">
+        <source>Include your API key in the <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/>X-API-Key<x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/> header when making requests:</source>
+        <target>Include your API key in the <x id="START_TAG_CODE" ctype="x-code" equiv-text="&lt;code&gt;"/>X-API-Key<x id="CLOSE_TAG_CODE" ctype="x-code" equiv-text="&lt;/code&gt;"/> header when making requests:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>Permissions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.permissionsDescription" datatype="html">
+        <source>API keys have the same permissions as your user account. If your permissions change, the API key will automatically reflect the new permissions.</source>
+        <target>API keys have the same permissions as your user account. If your permissions change, the API key will automatically reflect the new permissions.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security" datatype="html">
+        <source>Security</source>
+        <target>Security</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security1" datatype="html">
+        <source>Store API keys securely and never share them</source>
+        <target>Store API keys securely and never share them</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security2" datatype="html">
+        <source>Regenerate keys regularly for long-term integrations</source>
+        <target>Regenerate keys regularly for long-term integrations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security3" datatype="html">
+        <source>Deactivate unused keys instead of deleting them</source>
+        <target>Deactivate unused keys instead of deleting them</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.usage.security4" datatype="html">
+        <source>Use HTTPS for all API communications</source>
+        <target>Use HTTPS for all API communications</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.nameRequired" datatype="html">
+        <source> Key name is required </source>
+        <target> Key name is required </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.nameMaxLength" datatype="html">
+        <source> Key name must be less than 100 characters </source>
+        <target> Key name must be less than 100 characters </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.creating" datatype="html">
+        <source>Creating...</source>
+        <target>Creating...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.create" datatype="html">
+        <source>Create API Key</source>
+        <target>Create API Key</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.loading" datatype="html">
+        <source>Loading API keys...</source>
+        <target>Loading API keys...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.empty.title" datatype="html">
+        <source>No API Keys</source>
+        <target>No API Keys</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.list.empty.description" datatype="html">
+        <source>You haven't created any API keys yet. Create one above to get started.</source>
+        <target>You haven't created any API keys yet. Create one above to get started.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.name" datatype="html">
+        <source>Name:</source>
+        <target>Name:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.prefix" datatype="html">
+        <source>Prefix:</source>
+        <target>Prefix:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.created" datatype="html">
+        <source>Created:</source>
+        <target>Created:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.details.updated" datatype="html">
+        <source>Updated:</source>
+        <target>Updated:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.title" datatype="html">
+        <source>Account Information</source>
+        <target>Account Information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.displayName" datatype="html">
+        <source>Display Name</source>
+        <target>Display Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailAddress" datatype="html">
+        <source>Email Address</source>
+        <target>Email Address</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">280</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.accountCreated" datatype="html">
+        <source>Account Created</source>
+        <target>Account Created</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">288</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.lastSignIn" datatype="html">
+        <source>Last Sign In</source>
+        <target>Last Sign In</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">296</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.emailStatus" datatype="html">
+        <source>Email Status</source>
+        <target>Email Status</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">304</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.title" datatype="html">
+        <source>Danger Zone</source>
+        <target>Danger Zone</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.title" datatype="html">
+        <source>Delete Account</source>
+        <target>Delete Account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.description" datatype="html">
+        <source> Permanently delete your account and all associated data. This action cannot be undone. </source>
+        <target> Permanently delete your account and all associated data. This action cannot be undone. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.verified" datatype="html">
+        <source>Verified</source>
+        <target>Verified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">306</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.unverified" datatype="html">
+        <source>Unverified</source>
+        <target>Unverified</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.deleting" datatype="html">
+        <source>Deleting...</source>
+        <target>Deleting...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.accountManagement.dangerZone.deleteAccount.delete" datatype="html">
+        <source>Delete Account</source>
+        <target>Delete Account</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

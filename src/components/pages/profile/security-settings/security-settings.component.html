@@ -1,0 +1,104 @@
+<!-- Email Verification -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>email</mat-icon>
+      <span i18n="@@profile.security.emailVerification.title">Email Verification</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="verification-status">
+      <mat-icon [class.verified-icon]="isEmailVerified" [class.unverified-icon]="!isEmailVerified">
+        {{ isEmailVerified ? 'verified' : 'warning' }}
+      </mat-icon>
+      <span [class.verified]="isEmailVerified" [class.unverified]="!isEmailVerified">
+        <span *ngIf="isEmailVerified" i18n="@@profile.security.emailVerification.verified">Email is verified</span>
+        <span *ngIf="!isEmailVerified" i18n="@@profile.security.emailVerification.unverified">Email is not verified</span>
+      </span>
+    </div>
+    
+    <p *ngIf="!isEmailVerified" class="verification-message" i18n="@@profile.security.emailVerification.message">
+      Please verify your email address to secure your account and access all features.
+    </p>
+    
+    <div class="form-actions">
+      <button mat-raised-button color="primary" 
+              (click)="sendEmailVerification()" 
+              [disabled]="isEmailVerified">
+        <mat-icon>send</mat-icon>
+        <span *ngIf="isEmailVerified" i18n="@@profile.security.emailVerification.emailVerified">Email Verified</span>
+        <span *ngIf="!isEmailVerified" i18n="@@profile.security.emailVerification.sendVerification">Send Verification Email</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Change Password -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>lock</mat-icon>
+      <span i18n="@@profile.security.googleSecurity.title">Google Account Security</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="google-security-info">
+      <mat-icon color="primary">security</mat-icon>
+      <div class="security-content">
+        <h4 i18n="@@profile.security.googleSecurity.subtitle">Google Account Security</h4>
+        <p i18n="@@profile.security.googleSecurity.description">Your account is secured through Google OAuth. To change your password or manage security settings, please visit your Google Account settings.</p>
+        <a href="https://myaccount.google.com/security" target="_blank" mat-raised-button color="primary">
+          <mat-icon>open_in_new</mat-icon>
+          <span i18n="@@profile.security.googleSecurity.manageButton">Manage Google Security</span>
+        </a>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Language Settings -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <div class="flex items-center">
+        <mat-icon>language</mat-icon>
+        <span i18n="@@profile.settings.language.title">Language Settings</span>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <form [formGroup]="languageForm" (ngSubmit)="updateLanguage()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label i18n="@@profile.settings.language.label">Preferred Language</mat-label>
+        <mat-select formControlName="language">
+          <mat-option value="en">
+            <span class="language-option">
+              <span class="flag">🇺🇸</span>
+              <span i18n="@@profile.settings.language.english">English</span>
+            </span>
+          </mat-option>
+          <mat-option value="he">
+            <span class="language-option">
+              <span class="flag">🇮🇱</span>
+              <span i18n="@@profile.settings.language.hebrew">עברית</span>
+            </span>
+          </mat-option>
+        </mat-select>
+        <mat-hint i18n="@@profile.settings.language.hint">Choose your preferred language for the interface</mat-hint>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" 
+                [disabled]="languageForm.invalid || updating">
+          <mat-icon *ngIf="updating">hourglass_empty</mat-icon>
+          <mat-icon *ngIf="!updating">save</mat-icon>
+          <span *ngIf="updating" i18n="@@profile.settings.language.updating">Updating...</span>
+          <span *ngIf="!updating" i18n="@@profile.settings.language.update">Update Language</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

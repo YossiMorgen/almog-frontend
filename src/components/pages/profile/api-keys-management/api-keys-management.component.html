@@ -1,0 +1,160 @@
+<!-- Create New API Key -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>add</mat-icon>
+      <span i18n="@@profile.apiKeys.createNew.title">Create New API Key</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <form [formGroup]="apiKeyForm" (ngSubmit)="createApiKey()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label i18n="@@profile.apiKeys.createNew.keyName">Key Name</mat-label>
+        <input matInput formControlName="key_name" placeholder="e.g., Mobile App v1.0" i18n-placeholder="@@profile.apiKeys.createNew.keyNamePlaceholder">
+        <mat-error *ngIf="apiKeyForm.get('key_name')?.hasError('required')" i18n="@@profile.apiKeys.createNew.nameRequired">
+          Key name is required
+        </mat-error>
+        <mat-error *ngIf="apiKeyForm.get('key_name')?.hasError('maxlength')" i18n="@@profile.apiKeys.createNew.nameMaxLength">
+          Key name must be less than 100 characters
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" 
+                [disabled]="apiKeyForm.invalid || creatingApiKey">
+          <mat-icon *ngIf="creatingApiKey">hourglass_empty</mat-icon>
+          <mat-icon *ngIf="!creatingApiKey">add</mat-icon>
+          <span *ngIf="creatingApiKey" i18n="@@profile.apiKeys.createNew.creating">Creating...</span>
+          <span *ngIf="!creatingApiKey" i18n="@@profile.apiKeys.createNew.create">Create API Key</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- API Keys List -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>list</mat-icon>
+                <span i18n="@@profile.apiKeys.list.title">Your API Keys</span>
+                <span class="badge-count">({{ apiKeys.length }})</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <!-- Loading State -->
+    <div *ngIf="loadingApiKeys" class="loading-state">
+      <mat-spinner diameter="30"></mat-spinner>
+      <span i18n="@@profile.apiKeys.list.loading">Loading API keys...</span>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loadingApiKeys && apiKeys.length === 0" class="empty-state">
+      <mat-icon>vpn_key_off</mat-icon>
+      <h3 i18n="@@profile.apiKeys.list.empty.title">No API Keys</h3>
+      <p i18n="@@profile.apiKeys.list.empty.description">You haven't created any API keys yet. Create one above to get started.</p>
+    </div>
+
+    <!-- API Keys List -->
+    <div *ngIf="!loadingApiKeys && apiKeys.length > 0" class="api-keys-list">
+      <mat-expansion-panel *ngFor="let apiKey of apiKeys" class="api-key-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="api-key-header">
+              <mat-icon>vpn_key</mat-icon>
+              <span class="key-name">{{ apiKey.key_name }}</span>
+              <mat-chip [color]="apiKey.is_active ? 'primary' : 'warn'" selected>
+                {{ apiKey.is_active ? 'Active' : 'Inactive' }}
+              </mat-chip>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="key-prefix">{{ apiKey.api_key_prefix }}</span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="api-key-content">
+          <div class="key-details">
+            <div class="detail-row">
+              <mat-icon>label</mat-icon>
+              <span class="label" i18n="@@profile.apiKeys.details.name">Name:</span>
+              <span class="value">{{ apiKey.key_name }}</span>
+            </div>
+            <div class="detail-row">
+              <mat-icon>fingerprint</mat-icon>
+              <span class="label" i18n="@@profile.apiKeys.details.prefix">Prefix:</span>
+              <span class="value">{{ apiKey.api_key_prefix }}</span>
+            </div>
+            <div class="detail-row">
+              <mat-icon>schedule</mat-icon>
+              <span class="label" i18n="@@profile.apiKeys.details.created">Created:</span>
+              <span class="value">{{ apiKey.created_at | date:'medium' }}</span>
+            </div>
+            <div class="detail-row">
+              <mat-icon>update</mat-icon>
+              <span class="label" i18n="@@profile.apiKeys.details.updated">Updated:</span>
+              <span class="value">{{ apiKey.updated_at | date:'medium' }}</span>
+            </div>
+          </div>
+
+          <div class="key-actions">
+            <button mat-icon-button 
+                    [color]="apiKey.is_active ? 'warn' : 'primary'"
+                    (click)="toggleApiKeyStatus(apiKey)"
+                    matTooltip="{{ apiKey.is_active ? 'Deactivate' : 'Activate' }} API Key">
+              <mat-icon>{{ apiKey.is_active ? 'pause' : 'play_arrow' }}</mat-icon>
+            </button>
+            
+            <button mat-icon-button 
+                    color="accent"
+                    (click)="regenerateApiKey(apiKey)"
+                    matTooltip="Regenerate API Key">
+              <mat-icon>refresh</mat-icon>
+            </button>
+            
+            <button mat-icon-button 
+                    color="warn"
+                    (click)="deleteApiKey(apiKey)"
+                    matTooltip="Delete API Key">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- API Key Usage Instructions -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>help</mat-icon>
+      <span i18n="@@profile.apiKeys.usage.title">How to Use API Keys</span>
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+              <div class="usage-instructions">
+                <h4 i18n="@@profile.apiKeys.usage.authentication">Authentication</h4>
+                <p i18n="@@profile.apiKeys.usage.authenticationDescription">Include your API key in the <code>X-API-Key</code> header when making requests from external applications:</p>
+                <div class="code-block">
+                  <code>curl -H "X-API-Key: your-api-key-here" https://your-api.com/api/endpoint</code>
+                </div>
+
+                <h4 i18n="@@profile.apiKeys.usage.permissions">Permissions</h4>
+                <p i18n="@@profile.apiKeys.usage.permissionsDescription">API keys have the same permissions as your user account. If your permissions change, the API key will automatically reflect the new permissions.</p>
+
+                <h4 i18n="@@profile.apiKeys.usage.security">Security</h4>
+                <ul>
+                  <li i18n="@@profile.apiKeys.usage.security1">Store API keys securely and never share them</li>
+                  <li i18n="@@profile.apiKeys.usage.security2">Regenerate keys regularly for long-term integrations</li>
+                  <li i18n="@@profile.apiKeys.usage.security3">Deactivate unused keys instead of deleting them</li>
+                  <li i18n="@@profile.apiKeys.usage.security4">Use HTTPS for all API communications</li>
+                  <li i18n="@@profile.apiKeys.usage.security5">API keys are for external applications only - not for this web interface</li>
+                </ul>
+              </div>
+  </mat-card-content>
+</mat-card>

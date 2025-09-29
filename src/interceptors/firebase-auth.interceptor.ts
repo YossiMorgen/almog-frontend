@@ -14,6 +14,7 @@ export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (isApi && !isLoginEndpoint && !isHealthEndpoint) {
     
+    // Use Firebase token authentication for all frontend requests
     const tokenPromise = authService.getToken();
     const timeoutPromise = new Promise<undefined>((_, reject) => 
       setTimeout(() => reject(new Error('Token request timeout')), 5000)

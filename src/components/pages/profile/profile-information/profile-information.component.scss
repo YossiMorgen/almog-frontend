@@ -1,0 +1,28 @@
+.full-width {
+  width: 100%;
+}
+
+.form-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.roles-section,
+.permissions-section {
+  margin-bottom: 16px;
+  
+  h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-weight: 500;
+  }
+}
+
+.chips-container {
+  mat-chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
