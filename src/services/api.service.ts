@@ -15,6 +15,7 @@ import { CourseEnrollment, CreateCourseEnrollment, UpdateCourseEnrollment } from
 import { StudentClass, CreateStudentClass, UpdateStudentClass } from '../models/studentClass';
 import { OrderItem, CreateOrderItem, UpdateOrderItem } from '../models/orderItem';
 import { PaymentInstallment, CreatePaymentInstallment, UpdatePaymentInstallment } from '../models/paymentInstallment';
+import { Tenant, UserTenantsResponse } from '../models/tenant';
 
 export interface PaginationResult<T> {
   data: T[];
@@ -38,6 +39,7 @@ export interface PaginationQuery {
   sortOrder?: 'asc' | 'desc';
   search?: string;
   season_id?: number;
+  tenantId?: number;
 }
 
 @Injectable({
@@ -46,10 +48,16 @@ export interface PaginationQuery {
 export class ApiService {
   private baseUrl = 'http://localhost:3040/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
-  private buildParams(query: PaginationQuery): HttpParams {
+  private buildParams(query: PaginationQuery = {}): HttpParams {
     let params = new HttpParams();
+    
+    if (query.tenantId) {
+      params = params.set('tenantId', query.tenantId.toString());
+    }
     
     if (query.page) params = params.set('page', query.page.toString());
     if (query.limit) params = params.set('limit', query.limit.toString());
@@ -61,22 +69,38 @@ export class ApiService {
     return params;
   }
 
+  private buildSingleResourceParams(tenantId?: number): HttpParams {
+    let params = new HttpParams();
+    
+    if (tenantId) {
+      params = params.set('tenantId', tenantId.toString());
+    }
+    
+    return params;
+  }
+
   getStudents(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<Student>>> {
     return this.http.get<ApiResponse<PaginationResult<Student>>>(`${this.baseUrl}/students`, {
       params: this.buildParams(query)
     });
   }
 
-  getStudent(id: number): Observable<ApiResponse<Student>> {
-    return this.http.get<ApiResponse<Student>>(`${this.baseUrl}/students/${id}`);
+  getStudent(id: number, tenantId?: number): Observable<ApiResponse<Student>> {
+    return this.http.get<ApiResponse<Student>>(`${this.baseUrl}/students/${id}`, { 
+      params: this.buildSingleResourceParams(tenantId) 
+    });
   }
 
-  createStudent(student: CreateStudent): Observable<ApiResponse<Student>> {
-    return this.http.post<ApiResponse<Student>>(`${this.baseUrl}/students`, student);
+  createStudent(student: CreateStudent, tenantId?: number): Observable<ApiResponse<Student>> {
+    return this.http.post<ApiResponse<Student>>(`${this.baseUrl}/students`, student, { 
+      params: this.buildSingleResourceParams(tenantId) 
+    });
   }
 
-  updateStudent(id: number, student: UpdateStudent): Observable<ApiResponse<Student>> {
-    return this.http.put<ApiResponse<Student>>(`${this.baseUrl}/students/${id}`, student);
+  updateStudent(id: number, student: UpdateStudent, tenantId?: number): Observable<ApiResponse<Student>> {
+    return this.http.put<ApiResponse<Student>>(`${this.baseUrl}/students/${id}`, student, { 
+      params: this.buildSingleResourceParams(tenantId) 
+    });
   }
 
   getCourses(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<Course>>> {
@@ -322,5 +346,9 @@ export class ApiService {
 
   updatePaymentInstallment(id: number, installment: UpdatePaymentInstallment): Observable<ApiResponse<PaymentInstallment>> {
     return this.http.put<ApiResponse<PaymentInstallment>>(`${this.baseUrl}/payment-installments/${id}`, installment);
+  }
+
+  getUserTenants(): Observable<UserTenantsResponse> {
+    return this.http.get<UserTenantsResponse>(`${this.baseUrl}/user/tenants`);
   }
 }

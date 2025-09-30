@@ -14,3 +14,4 @@ export * from './order';
 export * from './orderItem';
 export * from './payment';
 export * from './paymentInstallment';
+export * from './tenant';

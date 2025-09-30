@@ -1,29 +1,33 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../services/auth.service';
 import { SqlUserService } from '../../../services/sql-user.service';
 import { LocaleService } from '../../../services/locale.service';
 import { Router } from '@angular/router';
+import { User as FirebaseUser } from 'firebase/auth';
 import { User } from '../../../models/user';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule, 
-    RouterModule, 
-    MatToolbarModule, 
-    MatButtonModule, 
-    MatIconModule, 
+    RouterLink,
+    MatToolbarModule  ,
+    MatIconModule,
+    MatButtonModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule,
+    MatInputModule,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
@@ -48,8 +52,8 @@ export class HeaderComponent {
   }
 
   async ngOnInit(): Promise<void> {
-    this.authService.firebaseUserObservable.subscribe((user) => {
-      this.profile_picture_url = user?.photoURL || null;
+    this.authService.authState$.subscribe((user: FirebaseUser | null) => {
+      this.profile_picture_url = user ? (user as any).photoURL || null : null;
     });
     
     // Subscribe to current user changes instead of calling checkUserAndLogin directly

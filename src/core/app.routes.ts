@@ -9,6 +9,11 @@ export const routes: Routes = [
     canActivate: [SignedInGuard]
   },
   { 
+    path: 'tenant-selection', 
+    loadComponent: () => import('../app/pages/tenant-selection/tenant-selection.component').then(m => m.TenantSelectionComponent),
+    canActivate: [AuthGuard]
+  },
+  { 
     path: 'unauthorized', 
     loadComponent: () => import('../components/pages/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent)
   },

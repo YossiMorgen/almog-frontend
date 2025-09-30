@@ -1,0 +1,50 @@
+<div class="tenant-selection-container">
+  <div class="header">
+    <h1>Select Your Organization</h1>
+    <p>Choose which organization you want to access</p>
+  </div>
+
+  <div class="content" *ngIf="!isLoading && !error">
+    <div class="tenants-grid" *ngIf="tenants$ | async as tenants">
+      <div 
+        class="tenant-card" 
+        *ngFor="let tenant of tenants"
+        (click)="selectTenant(tenant)"
+      >
+        <div class="tenant-info">
+          <h3>{{ tenant.name }}</h3>
+          <p *ngIf="tenant.domain" class="domain">{{ tenant.domain }}</p>
+          <p *ngIf="tenant.subdomain" class="subdomain">{{ tenant.subdomain }}</p>
+          
+          <div class="tenant-stats" *ngIf="tenant.roleCount || tenant.permissionCount">
+            <span *ngIf="tenant.roleCount" class="stat">
+              {{ tenant.roleCount }} role{{ tenant.roleCount !== 1 ? 's' : '' }}
+            </span>
+            <span *ngIf="tenant.permissionCount" class="stat">
+              {{ tenant.permissionCount }} permission{{ tenant.permissionCount !== 1 ? 's' : '' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="select-button">
+          <button class="btn-primary">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading organizations...</p>
+  </div>
+
+  <div class="error" *ngIf="error">
+    <div class="error-icon">⚠️</div>
+    <p>{{ error }}</p>
+    <button class="btn-secondary" (click)="loadTenants()">Try Again</button>
+  </div>
+
+  <div class="footer">
+    <button class="btn-link" (click)="logout()">Sign Out</button>
+  </div>
+</div>

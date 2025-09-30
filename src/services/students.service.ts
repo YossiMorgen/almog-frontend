@@ -2,43 +2,55 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService, PaginationQuery, PaginationResult, ApiResponse } from './api.service';
 import { Student, CreateStudent, UpdateStudent } from '../models/student';
+import { TenantService } from './tenant.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentsService {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private tenantService: TenantService
+  ) {}
 
   getStudents(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<Student>>> {
-    return this.apiService.getStudents(query);
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.getStudents({ ...query, tenantId: tenantId ?? undefined });
   }
 
   getStudent(id: number): Observable<ApiResponse<Student>> {
-    return this.apiService.getStudent(id);
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.getStudent(id, tenantId ?? undefined);
   }
 
   createStudent(student: CreateStudent): Observable<ApiResponse<Student>> {
-    return this.apiService.createStudent(student);
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.createStudent(student, tenantId ?? undefined);
   }
 
   updateStudent(id: number, student: UpdateStudent): Observable<ApiResponse<Student>> {
-    return this.apiService.updateStudent(id, student);
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.updateStudent(id, student, tenantId ?? undefined);
   }
 
   async getStudentsAsync(query: PaginationQuery = {}): Promise<ApiResponse<PaginationResult<Student>>> {
-    return this.apiService.getStudents(query).toPromise() as Promise<ApiResponse<PaginationResult<Student>>>;
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.getStudents({ ...query, tenantId: tenantId ?? undefined }).toPromise() as Promise<ApiResponse<PaginationResult<Student>>>;
   }
 
   async getStudentAsync(id: number): Promise<ApiResponse<Student>> {
-    return this.apiService.getStudent(id).toPromise() as Promise<ApiResponse<Student>>;
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.getStudent(id, tenantId ?? undefined).toPromise() as Promise<ApiResponse<Student>>;
   }
 
   async createStudentAsync(student: CreateStudent): Promise<ApiResponse<Student>> {
-    return this.apiService.createStudent(student).toPromise() as Promise<ApiResponse<Student>>;
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.createStudent(student, tenantId ?? undefined).toPromise() as Promise<ApiResponse<Student>>;
   }
 
   async updateStudentAsync(id: number, student: UpdateStudent): Promise<ApiResponse<Student>> {
-    return this.apiService.updateStudent(id, student).toPromise() as Promise<ApiResponse<Student>>;
+    const tenantId = this.tenantService.getCurrentTenantId();
+    return this.apiService.updateStudent(id, student, tenantId ?? undefined).toPromise() as Promise<ApiResponse<Student>>;
   }
 }
 

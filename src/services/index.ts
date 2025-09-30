@@ -1,5 +1,6 @@
 export * from './auth.service';
 export * from './api.service';
+export * from './tenant.service';
 export * from './api-keys.service';
 export * from './students.service';
 export * from './courses.service';
