@@ -28,6 +28,13 @@
           <span *ngIf="creatingApiKey" i18n="@@profile.apiKeys.createNew.creating">Creating...</span>
           <span *ngIf="!creatingApiKey" i18n="@@profile.apiKeys.createNew.create">Create API Key</span>
         </button>
+        
+        <button mat-stroked-button color="accent" type="button"
+                (click)="autoCreateMCPKey()"
+                [disabled]="creatingApiKey">
+          <mat-icon>auto_awesome</mat-icon>
+          <span i18n="@@profile.apiKeys.createNew.autoCreateMCP">Auto-Create MCP Key</span>
+        </button>
       </div>
     </form>
   </mat-card-content>

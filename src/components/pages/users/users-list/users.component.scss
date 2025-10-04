@@ -125,6 +125,21 @@
   }
 }
 
+.notes-preview {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+  cursor: help;
+  max-width: 200px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-notes {
+  color: rgba(0, 0, 0, 0.4);
+}
+
 .no-data {
   display: flex;
   flex-direction: column;

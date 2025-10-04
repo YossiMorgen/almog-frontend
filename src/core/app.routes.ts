@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard, PermissionGuard, SignedInGuard, requirePermissions, requireAnyPermission } from '../guards';
+import { AuthGuard, PermissionGuard, SignedInGuard, TenantGuard, requirePermissions, requireAnyPermission } from '../guards';
 import { PERMISSIONS } from '../config/permissions.config';
 
 export const routes: Routes = [
@@ -10,23 +10,35 @@ export const routes: Routes = [
   },
   { 
     path: 'tenant-selection', 
-    loadComponent: () => import('../app/pages/tenant-selection/tenant-selection.component').then(m => m.TenantSelectionComponent),
+    loadComponent: () => import('../components/pages/tanants/tenant-selection/tenant-selection.component').then(m => m.TenantSelectionComponent),
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'tenant-create', 
+    loadComponent: () => import('../components/pages/tanants/tenant-create/tenant-create.component').then(m => m.TenantCreateComponent),
     canActivate: [AuthGuard]
   },
   { 
     path: 'unauthorized', 
-    loadComponent: () => import('../components/pages/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent)
+    loadComponent: () => import('../components/pages/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent),
+    canActivate: [AuthGuard, TenantGuard]
   },
   { 
     path: 'home', 
     loadComponent: () => import('../components/pages/home/home.component').then(m => m.HomeComponent),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, TenantGuard]
+  },
+  { 
+    path: 'dashboard', 
+    loadComponent: () => import('../components/pages/crm-dashboard/crm-dashboard.component').then(m => m.CrmDashboardComponent),
+    canActivate: [AuthGuard, TenantGuard]
   },
   
   // CRM Routes with Layout
   {
     path: 'crm',
     loadComponent: () => import('../components/layout/layout/layout.component').then(m => m.LayoutComponent),
+    canActivate: [TenantGuard, AuthGuard],
     children: [
       { 
         path: 'profile', 

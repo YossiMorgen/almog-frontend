@@ -32,13 +32,13 @@ export class SqlUserService {
     private localeService: LocaleService
   ) {}
 
-  getCurrentUser(token: string): Observable<UserResponse> {
+  getCurrentUser(token: string): Observable<User> {
     if (!token) {
       return new Observable(observer => observer.error('No token'));
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<UserResponse>(
+    return this.http.get<User>(
       `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.USER_DETAILS}`,
       { headers }
     );
@@ -60,7 +60,7 @@ export class SqlUserService {
   }
 
   private makeLoginRequest(headers: HttpHeaders, observer: any): void {
-    this.http.post<UserResponse>(
+    this.http.post<User>(
       `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGIN}`,
       {},
       { headers }
@@ -68,12 +68,12 @@ export class SqlUserService {
       timeout(10000) // 10 second timeout
     ).subscribe({
       next: (response) => {
-        if (response?.success && response.data) {
-          this.currentUserSubject.next(response.data);
+        if (response) {
+          this.currentUserSubject.next(response);
           
           // Set user's preferred language
-          if (response.data.language) {
-            this.localeService.setLocaleFromUser(response.data.language);
+          if (response.language) {
+            this.localeService.setLocaleFromUser(response.language);
           }
         }
         observer.next(response);
@@ -189,16 +189,16 @@ export class SqlUserService {
       console.log('SqlUserService: Token obtained, fetching user details');
       const userResponse = await firstValueFrom(this.getCurrentUser(token));
       
-      if (userResponse?.success && userResponse.data) {
+      if (userResponse) {
         console.log('SqlUserService: User details fetched successfully');
-        this.setCurrentUser(userResponse.data);
+        this.setCurrentUser(userResponse);
         
         // Set user's preferred language
-        if (userResponse.data.language) {
-          this.localeService.setLocaleFromUser(userResponse.data.language);
+        if (userResponse.language) {
+          this.localeService.setLocaleFromUser(userResponse.language);
         }
         
-        return userResponse.data;
+        return userResponse;
       }
 
       console.log('SqlUserService: Failed to fetch user details');

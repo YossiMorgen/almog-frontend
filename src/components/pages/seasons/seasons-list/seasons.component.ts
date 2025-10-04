@@ -54,7 +54,7 @@ export class SeasonsComponent implements OnInit {
   sortBy = 'name';
   sortOrder: 'asc' | 'desc' = 'asc';
   
-  displayedColumns: string[] = ['name', 'year', 'start_date', 'end_date', 'is_active', 'created_at', 'actions'];
+  displayedColumns: string[] = ['name', 'year', 'start_date', 'end_date', 'description', 'is_active', 'created_at', 'actions'];
 
   constructor(
     private seasonsService: SeasonsService,

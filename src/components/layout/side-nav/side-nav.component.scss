@@ -1,0 +1,112 @@
+.side-nav {
+  width: 280px;
+  height: 100%;
+  background-color: #fafafa;
+  border-right: 1px solid #e0e0e0;
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  
+  &.collapsed {
+    width: 64px;
+  }
+}
+
+.nav-section {
+  margin-bottom: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-label {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  
+  .expand-icon {
+    transition: transform 0.3s ease;
+    
+    &.rotated {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.section-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 500px;
+  opacity: 1;
+  
+  &.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.nav-item {
+  padding-left: 24px !important;
+  height: 48px !important;
+  
+  &.active {
+    background-color: rgba(25, 118, 210, 0.1);
+    color: #1976d2;
+    
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  mat-icon {
+    margin-right: 16px;
+  }
+}
+
+// Collapsed state styles
+.side-nav.collapsed {
+  .section-header {
+    justify-content: center;
+    padding: 12px 8px;
+  }
+  
+  .nav-item {
+    padding-left: 8px !important;
+    justify-content: center;
+    
+    mat-icon {
+      margin-right: 0;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .side-nav {
+    width: 64px;
+    
+    &:not(.collapsed) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}

@@ -1,7 +1,11 @@
 <div class="layout-container">
-  <app-header></app-header>
+  <app-header (toggleSideNav)="toggleSideNav()"></app-header>
   
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
+  <div class="layout-body">
+    <app-side-nav [isCollapsed]="isSideNavCollapsed"></app-side-nav>
+    
+    <main class="main-content" [class.side-nav-collapsed]="isSideNavCollapsed">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

@@ -35,6 +35,29 @@
               <mat-label>Profile Picture URL</mat-label>
               <input matInput formControlName="picture" placeholder="Enter profile picture URL">
             </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Language</mat-label>
+              <mat-select formControlName="language">
+                <mat-option value="en">English</mat-option>
+                <mat-option value="he">Hebrew</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-section">
+            <h3>User Settings (JSON)</h3>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Settings JSON</mat-label>
+              <textarea 
+                matInput 
+                [(ngModel)]="settingsJson" 
+                placeholder='{"theme": "dark", "notifications": true}'
+                rows="8"
+                class="json-textarea">
+              </textarea>
+              <mat-hint>Enter valid JSON for user settings</mat-hint>
+            </mat-form-field>
           </div>
         </div>
 

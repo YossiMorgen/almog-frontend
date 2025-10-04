@@ -54,7 +54,7 @@ export class StudentsComponent implements OnInit {
   sortBy = 'first_name';
   sortOrder: 'asc' | 'desc' = 'asc';
   
-  displayedColumns: string[] = ['student_code', 'name', 'email', 'phone', 'parent_name', 'status', 'actions'];
+  displayedColumns: string[] = ['student_code', 'name', 'email', 'phone', 'parent_name', 'notes', 'status', 'actions'];
 
   constructor(
     private studentsService: StudentsService,

@@ -73,3 +73,18 @@ mat-paginator {
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
+
+.description-preview {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+  cursor: help;
+  max-width: 200px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-description {
+  color: rgba(0, 0, 0, 0.4);
+}

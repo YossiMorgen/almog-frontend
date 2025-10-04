@@ -55,6 +55,16 @@
           <td mat-cell *matCellDef="let season">{{ formatDate(season.end_date) }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let season">
+            <span *ngIf="season.description" class="description-preview" [matTooltip]="season.description">
+              {{ season.description.length > 50 ? (season.description | slice:0:50) + '...' : season.description }}
+            </span>
+            <span *ngIf="!season.description" class="no-description">-</span>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="is_active">
           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSort('is_active')">Status</th>
           <td mat-cell *matCellDef="let season">

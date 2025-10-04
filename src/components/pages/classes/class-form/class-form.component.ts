@@ -63,12 +63,14 @@ export class ClassFormComponent implements OnInit {
   classForm!: FormGroup;
 
   ngOnInit(): void {
+    const timePattern = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    
     this.classForm = this.formBuilder.group({
       course_id: [null as number | null, [Validators.required]],
       class_number: [null as number | null, [Validators.required, Validators.min(1)]],
       class_date: [null as Date | null, [Validators.required]],
-      start_time: ['', [Validators.required]],
-      end_time: ['', [Validators.required]],
+      start_time: ['', [Validators.required, Validators.pattern(timePattern)]],
+      end_time: ['', [Validators.required, Validators.pattern(timePattern)]],
       location: [''],
       instructor_id: [null as number | null],
       status: ['scheduled', [Validators.required]],
@@ -172,6 +174,29 @@ export class ClassFormComponent implements OnInit {
 
   onCancel(): void {
     this.router.navigate(['/crm/classes']);
+  }
+
+  onTimeInput(event: any, fieldName: string): void {
+    let value = event.target.value;
+    
+    // Remove any non-digit characters except colon
+    value = value.replace(/[^\d:]/g, '');
+    
+    // Auto-format as user types
+    if (value.length === 2 && !value.includes(':')) {
+      value = value + ':';
+    }
+    
+    // Limit to HH:MM format
+    if (value.length > 5) {
+      value = value.substring(0, 5);
+    }
+    
+    // Update the form control
+    this.classForm.get(fieldName)?.setValue(value);
+    
+    // Update the input value
+    event.target.value = value;
   }
 
   private getFormValidationErrors(): string {

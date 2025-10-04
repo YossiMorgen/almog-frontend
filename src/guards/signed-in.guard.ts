@@ -3,12 +3,14 @@ import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { TenantService } from '../services/tenant.service';
 
 @Injectable({ providedIn: 'root' })
 export class SignedInGuard implements CanActivate {
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tenantService: TenantService
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> {
@@ -21,8 +23,9 @@ export class SignedInGuard implements CanActivate {
       map(token => {
         if (token) {
           if (this.router.url === '/login') {
-            console.log('SignedInGuard: Token found, redirecting to dashboard');
-            return this.router.createUrlTree(['/home']);
+            console.log('SignedInGuard: Token found, checking tenants before redirect');
+            this.checkTenantsAndRedirect();
+            return true;
           }
           console.log('SignedInGuard: Token found, allowing access to route');
           return true;
@@ -36,5 +39,21 @@ export class SignedInGuard implements CanActivate {
         return from([true]);
       })
     );
+  }
+
+  private async checkTenantsAndRedirect(): Promise<void> {
+    try {
+      const tenants = await this.tenantService.getUserTenantsAsync();
+      if (tenants.data.tenants.length === 0) {
+        console.log('SignedInGuard: No tenants found, redirecting to tenant-selection');
+        this.router.navigate(['/tenant-selection']);
+      } else {
+        console.log('SignedInGuard: Tenants found, redirecting to home');
+        this.router.navigate(['/home']);
+      }
+    } catch (error) {
+      console.error('SignedInGuard: Error checking tenants, redirecting to tenant-selection');
+      this.router.navigate(['/tenant-selection']);
+    }
   }
 }

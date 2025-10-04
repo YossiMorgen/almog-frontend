@@ -13,7 +13,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { Inject } from '@angular/core';
 
 import { ApiKeysService, ApiKey, CreateApiKeyRequest, UpdateApiKeyRequest } from '../../../../services';
 
@@ -35,7 +37,8 @@ import { ApiKeysService, ApiKey, CreateApiKeyRequest, UpdateApiKeyRequest } from
     MatChipsModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   templateUrl: './api-keys-management.component.html',
   styleUrls: ['./api-keys-management.component.scss']
@@ -52,7 +55,8 @@ export class ApiKeysManagementComponent implements OnInit, OnDestroy {
   constructor(
     private apiKeysService: ApiKeysService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.apiKeyForm = this.formBuilder.group({
       key_name: ['', [Validators.required, Validators.maxLength(100)]]
@@ -212,6 +216,216 @@ export class ApiKeysManagementComponent implements OnInit, OnDestroy {
     this.snackBar.open(message, 'Close', {
       duration: 5000,
       panelClass: ['error-snackbar']
+    });
+  }
+
+  async autoCreateMCPKey(): Promise<void> {
+    this.creatingApiKey = true;
+    try {
+      const modelName = this.getModelName();
+      const keyName = `${modelName}-key`;
+      
+      const request: CreateApiKeyRequest = {
+        key_name: keyName,
+        is_active: true
+      };
+      
+      const newApiKey = await this.apiKeysService.createApiKey(request).toPromise();
+      
+      if (newApiKey) {
+        this.apiKeys.unshift(newApiKey);
+        this.showSuccess('MCP API key created successfully');
+        
+        if (newApiKey.api_key) {
+          this.showMCPConfigDialog(newApiKey);
+        }
+      }
+    } catch (error) {
+      console.error('Error creating MCP API key:', error);
+      this.showError('Failed to create MCP API key');
+    } finally {
+      this.creatingApiKey = false;
+    }
+  }
+
+  private getModelName(): string {
+    const currentUrl = window.location.hostname;
+    const tenantMatch = currentUrl.match(/^([^.]+)/);
+    return tenantMatch ? tenantMatch[1] : 'almog';
+  }
+
+  private showMCPConfigDialog(apiKey: ApiKey): void {
+    const mcpConfig = this.generateMCPConfig(apiKey);
+    
+    const dialogRef = this.dialog.open(MCPConfigDialogComponent, {
+      width: '600px',
+      data: { apiKey, mcpConfig }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'copy') {
+        this.copyToClipboard(mcpConfig);
+      }
+    });
+  }
+
+  private generateMCPConfig(apiKey: ApiKey): string {
+    const baseUrl = 'http://localhost:3040';
+    const modelName = this.getModelName();
+    
+    return `{
+  "mcpServers": {
+    "${modelName}-swimming-school": {
+      "command": "node",
+      "args": ["C:\\\\Users\\\\Yossi\\\\Desktop\\\\Projects\\\\Almog\\\\mcp-server\\\\server.js"],
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_USER": "postgres",
+        "DB_PASSWORD": "oNyXh~A+}>50[Bz",
+        "DB_NAME": "almog_crm_ai",
+        "API_KEY": "${apiKey.api_key}",
+        "API_BASE_URL": "${baseUrl}"
+      }
+    }
+  }
+}`;
+  }
+}
+
+@Component({
+  selector: 'app-mcp-config-dialog',
+  template: `
+    <h2 mat-dialog-title i18n="@@profile.apiKeys.mcpConfig.title">MCP Configuration for Claude Desktop</h2>
+    <mat-dialog-content>
+      <p i18n="@@profile.apiKeys.mcpConfig.description">
+        Copy the configuration below and add it to your Claude Desktop configuration file.
+      </p>
+      
+      <div class="config-container">
+        <pre class="config-code">{{ mcpConfig }}</pre>
+      </div>
+      
+      <div class="api-key-info">
+        <h4 i18n="@@profile.apiKeys.mcpConfig.apiKeyTitle">Your API Key:</h4>
+        <div class="api-key-display">
+          <code>{{ apiKey.api_key }}</code>
+          <button mat-icon-button (click)="copyApiKey()" matTooltip="Copy API Key">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="instructions">
+        <h4 i18n="@@profile.apiKeys.mcpConfig.instructionsTitle">Instructions:</h4>
+        <ol>
+          <li i18n="@@profile.apiKeys.mcpConfig.step1">Open Claude Desktop</li>
+          <li i18n="@@profile.apiKeys.mcpConfig.step2">Go to Settings → Developer</li>
+          <li i18n="@@profile.apiKeys.mcpConfig.step3">Add the configuration above to your MCP servers</li>
+          <li i18n="@@profile.apiKeys.mcpConfig.step4">Restart Claude Desktop</li>
+        </ol>
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close()" i18n="@@profile.apiKeys.mcpConfig.close">Close</button>
+      <button mat-raised-button color="primary" (click)="copyConfig()" i18n="@@profile.apiKeys.mcpConfig.copyConfig">Copy Configuration</button>
+    </mat-dialog-actions>
+  `,
+  styles: [`
+    .config-container {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 16px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    
+    .config-code {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    
+    .api-key-info {
+      margin: 16px 0;
+    }
+    
+    .api-key-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f0f0;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    
+    .api-key-display code {
+      flex: 1;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      word-break: break-all;
+    }
+    
+    .instructions {
+      margin: 16px 0;
+    }
+    
+    .instructions ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin: 4px 0;
+    }
+  `],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
+  ]
+})
+export class MCPConfigDialogComponent {
+  apiKey: ApiKey;
+  mcpConfig: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<MCPConfigDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private snackBar: MatSnackBar
+  ) {
+    this.apiKey = data.apiKey;
+    this.mcpConfig = data.mcpConfig;
+  }
+
+  copyConfig(): void {
+    navigator.clipboard.writeText(this.mcpConfig).then(() => {
+      this.snackBar.open('Configuration copied to clipboard', 'Close', {
+        duration: 3000
+      });
+      this.dialogRef.close('copy');
+    }).catch(() => {
+      this.snackBar.open('Failed to copy configuration', 'Close', {
+        duration: 3000
+      });
+    });
+  }
+
+  copyApiKey(): void {
+    navigator.clipboard.writeText(this.apiKey.api_key!).then(() => {
+      this.snackBar.open('API key copied to clipboard', 'Close', {
+        duration: 3000
+      });
+    }).catch(() => {
+      this.snackBar.open('Failed to copy API key', 'Close', {
+        duration: 3000
+      });
     });
   }
 }

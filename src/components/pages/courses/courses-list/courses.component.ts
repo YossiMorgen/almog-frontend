@@ -55,7 +55,7 @@ export class CoursesComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   seasonId: number | null = null;
   
-  displayedColumns: string[] = ['name', 'level', 'day_of_week', 'time', 'price', 'students', 'status', 'actions'];
+  displayedColumns: string[] = ['name', 'level', 'day_of_week', 'time', 'price', 'students', 'description', 'status', 'actions'];
 
   constructor(
     private coursesService: CoursesService,

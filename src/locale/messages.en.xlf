@@ -370,6 +370,14 @@
           <context context-type="linenumber">114,116</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="header.createOrganization" datatype="html">
+        <source>Create New Organization</source>
+        <target>Create New Organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile.settings.tab" datatype="html">
         <source>Settings</source>
         <target>Settings</target>
@@ -1722,6 +1730,94 @@
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="profile.apiKeys.createNew.autoCreateMCP" datatype="html">
+        <source>Auto-Create MCP Key</source>
+        <target>Auto-Create MCP Key</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.title" datatype="html">
+        <source>MCP Configuration for Claude Desktop</source>
+        <target>MCP Configuration for Claude Desktop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.description" datatype="html">
+        <source>Copy the configuration below and add it to your Claude Desktop configuration file.</source>
+        <target>Copy the configuration below and add it to your Claude Desktop configuration file.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">299</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.apiKeyTitle" datatype="html">
+        <source>Your API Key:</source>
+        <target>Your API Key:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.instructionsTitle" datatype="html">
+        <source>Instructions:</source>
+        <target>Instructions:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">318</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.step1" datatype="html">
+        <source>Open Claude Desktop</source>
+        <target>Open Claude Desktop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">321</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.step2" datatype="html">
+        <source>Go to Settings → Developer</source>
+        <target>Go to Settings → Developer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">322</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.step3" datatype="html">
+        <source>Add the configuration above to your MCP servers</source>
+        <target>Add the configuration above to your MCP servers</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">323</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.step4" datatype="html">
+        <source>Restart Claude Desktop</source>
+        <target>Restart Claude Desktop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">324</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.close" datatype="html">
+        <source>Close</source>
+        <target>Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">329</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.apiKeys.mcpConfig.copyConfig" datatype="html">
+        <source>Copy Configuration</source>
+        <target>Copy Configuration</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/profile/api-keys-management/api-keys-management.component.ts</context>
+          <context context-type="linenumber">330</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile.accountManagement.title" datatype="html">
         <source>Account Information</source>
         <target>Account Information</target>
@@ -1824,6 +1920,438 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/components/pages/profile/account-management/account-management.component.html</context>
           <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.title" datatype="html">
+        <source>Select Your Organization</source>
+        <target>Select Your Organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.subtitle" datatype="html">
+        <source>Choose which organization you want to access</source>
+        <target>Choose which organization you want to access</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.select" datatype="html">
+        <source>Select</source>
+        <target>Select</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.loading" datatype="html">
+        <source>Loading organizations...</source>
+        <target>Loading organizations...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.tryAgain" datatype="html">
+        <source>Try Again</source>
+        <target>Try Again</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tenant.selection.signOut" datatype="html">
+        <source>Sign Out</source>
+        <target>Sign Out</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/tenant-selection/tenant-selection.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.pageTitle" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ courseId == null ? &apos;Add New Course&apos; : &apos;Edit Course&apos; }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ courseId == null ? &apos;Add New Course&apos; : &apos;Edit Course&apos; }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.backToCourses" datatype="html">
+        <source>Back to Courses</source>
+        <target>Back to Courses</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.loading" datatype="html">
+        <source>Loading...</source>
+        <target>Loading...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.seasonPreSelected" datatype="html">
+        <source>Season pre-selected: <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ getSelectedSeasonName() }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target>Season pre-selected: <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ getSelectedSeasonName() }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.season" datatype="html">
+        <source>Season</source>
+        <target>Season</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.seasonRequired" datatype="html">
+        <source>Season is required</source>
+        <target>Season is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.courseName" datatype="html">
+        <source>Course Name</source>
+        <target>Course Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.courseNamePlaceholder" datatype="html">
+        <source>Enter course name</source>
+        <target>Enter course name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.courseNameRequired" datatype="html">
+        <source>Course name is required</source>
+        <target>Course name is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.courseNameMinLength" datatype="html">
+        <source>Course name must be at least 2 characters</source>
+        <target>Course name must be at least 2 characters</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.description" datatype="html">
+        <source>Description</source>
+        <target>Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.descriptionPlaceholder" datatype="html">
+        <source>Enter course description</source>
+        <target>Enter course description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.level" datatype="html">
+        <source>Level</source>
+        <target>Level</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.levelRequired" datatype="html">
+        <source>Level is required</source>
+        <target>Level is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxStudents" datatype="html">
+        <source>Max Students</source>
+        <target>Max Students</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxStudentsPlaceholder" datatype="html">
+        <source>Enter max students</source>
+        <target>Enter max students</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxStudentsRequired" datatype="html">
+        <source>Max students is required</source>
+        <target>Max students is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxStudentsMin" datatype="html">
+        <source>Max students must be at least 1</source>
+        <target>Max students must be at least 1</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.price" datatype="html">
+        <source>Price</source>
+        <target>Price</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.pricePlaceholder" datatype="html">
+        <source>Enter price</source>
+        <target>Enter price</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.priceRequired" datatype="html">
+        <source>Price is required</source>
+        <target>Price is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.priceMin" datatype="html">
+        <source>Price must be at least 0</source>
+        <target>Price must be at least 0</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.dayOfWeek" datatype="html">
+        <source>Day of Week</source>
+        <target>Day of Week</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.dayOfWeekRequired" datatype="html">
+        <source>Day of week is required</source>
+        <target>Day of week is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startTime" datatype="html">
+        <source>Start Time</source>
+        <target>Start Time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startTimePlaceholder" datatype="html">
+        <source>Select start time</source>
+        <target>Select start time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startTimeRequired" datatype="html">
+        <source>Start time is required</source>
+        <target>Start time is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endTime" datatype="html">
+        <source>End Time</source>
+        <target>End Time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endTimePlaceholder" datatype="html">
+        <source>Select end time</source>
+        <target>Select end time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endTimeRequired" datatype="html">
+        <source>End time is required</source>
+        <target>End time is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startDate" datatype="html">
+        <source>Start Date</source>
+        <target>Start Date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startDatePlaceholder" datatype="html">
+        <source>Select start date</source>
+        <target>Select start date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.startDateRequired" datatype="html">
+        <source>Start date is required</source>
+        <target>Start date is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endDate" datatype="html">
+        <source>End Date</source>
+        <target>End Date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endDatePlaceholder" datatype="html">
+        <source>Select end date</source>
+        <target>Select end date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.endDateRequired" datatype="html">
+        <source>End date is required</source>
+        <target>End date is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.status" datatype="html">
+        <source>Status</source>
+        <target>Status</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.statusRequired" datatype="html">
+        <source>Status is required</source>
+        <target>Status is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.location" datatype="html">
+        <source>Location</source>
+        <target>Location</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.locationPlaceholder" datatype="html">
+        <source>Enter location</source>
+        <target>Enter location</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.instructorId" datatype="html">
+        <source>Instructor ID</source>
+        <target>Instructor ID</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.instructorIdPlaceholder" datatype="html">
+        <source>Enter instructor ID</source>
+        <target>Enter instructor ID</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.minAge" datatype="html">
+        <source>Min Age</source>
+        <target>Min Age</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.minAgePlaceholder" datatype="html">
+        <source>Enter minimum age</source>
+        <target>Enter minimum age</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">164</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxAge" datatype="html">
+        <source>Max Age</source>
+        <target>Max Age</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.maxAgePlaceholder" datatype="html">
+        <source>Enter maximum age</source>
+        <target>Enter maximum age</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Cancel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="courseForm.submitButton" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ loading ? &apos;Saving...&apos; : (courseId ? &apos;Update Course&apos; : &apos;Create Course&apos;) }}"/></source>
+        <target><x id="INTERPOLATION" equiv-text="{{ loading ? &apos;Saving...&apos; : (courseId ? &apos;Update Course&apos; : &apos;Create Course&apos;) }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/pages/courses/course-form/course-form.component.html</context>
+          <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
     </body>

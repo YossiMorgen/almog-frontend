@@ -18,6 +18,8 @@ export const StudentSchema = z.object({
   parent_name: z.string().max(200).optional(),
   parent_email: z.string().email().optional(),
   parent_phone: z.string().max(20).optional(),
+  language: z.enum(['en', 'he']).optional(),
+  notes: z.string().optional(),
   is_active: z.boolean().default(true),
   created_at: z.date().optional(),
   updated_at: z.date().optional(),

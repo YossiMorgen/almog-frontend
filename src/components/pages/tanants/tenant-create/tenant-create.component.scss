@@ -1,0 +1,229 @@
+/* Tenant Create Component - Using Global Auth Styles */
+@use '../../../../styles/auth-global.scss';
+
+.tenant-create-container {
+  @extend %auth-container;
+}
+
+.form-wrapper {
+  @extend %glass-card;
+  width: 100%;
+  max-width: 500px;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+  
+  p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.tenant-form {
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 0.9rem;
+  margin: 0 0.1rem;
+  
+  ::ng-deep {
+    .mat-mdc-form-field {
+      width: 100%;
+      
+      &.mat-mdc-form-field-appearance-outline {
+        .mat-mdc-form-field-outline {
+          color: rgba(199, 179, 179, 0.089);
+        }
+        
+        .mat-mdc-form-field-outline-thick {
+          color: rgba(255, 255, 255, 0.6);
+        }
+        
+        &:hover .mat-mdc-form-field-outline {
+          color: rgba(255, 255, 255, 0.5);
+        }
+        
+        &.mat-focused .mat-mdc-form-field-outline-thick {
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+      
+      .mat-mdc-text-field-wrapper {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        
+        &.mdc-text-field--focused {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+      
+      .mat-mdc-form-field-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+      }
+      
+      .mat-mdc-input-element {
+        color: white;
+        
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+      
+      .mat-mdc-select {
+        color: white;
+        
+        .mat-mdc-select-value {
+          color: white;
+        }
+        
+        .mat-mdc-select-placeholder {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+      
+      .mat-mdc-select-arrow {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .mat-mdc-form-field-error {
+        color: #ff6b6b;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+      }
+      
+      .mat-mdc-form-field-hint {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+  ::ng-deep {
+    .mat-mdc-button {
+      min-width: 120px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      
+      &.mat-mdc-raised-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        
+        &:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        &:disabled {
+          background: rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.5);
+          cursor: not-allowed;
+        }
+      }
+      
+      &.mat-mdc-outlined-button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        
+        &:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        &:disabled {
+          border-color: rgba(255, 255, 255, 0.2);
+          color: rgba(255, 255, 255, 0.5);
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.global-error {
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #ff6b6b;
+  font-weight: 500;
+  text-align: center;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Component-specific styles */
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.form-help {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.25rem;
+}

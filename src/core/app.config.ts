@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { firebaseAuthInterceptor } from '../interceptors/firebase-auth.interceptor';
+import { tenantIdInterceptor } from '../interceptors/tenant-id.interceptor';
+import { tokenRefreshInterceptor } from '../interceptors/token-refresh.interceptor';
 import { firebaseConfig } from '../config/firebase.config';
 import { LocaleService } from '../services/locale.service';
 
@@ -15,7 +17,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
-    provideHttpClient(withFetch(), withInterceptors([firebaseAuthInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([firebaseAuthInterceptor, tenantIdInterceptor, tokenRefreshInterceptor])),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
     {

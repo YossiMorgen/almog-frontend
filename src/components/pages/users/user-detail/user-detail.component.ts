@@ -92,5 +92,10 @@ export class UserDetailComponent implements OnInit {
     if (user.name) return user.name;
     return user.email;
   }
+
+  getSettingsJson(user: User): string {
+    if (!user.settings) return '{}';
+    return JSON.stringify(user.settings, null, 2);
+  }
 }
 

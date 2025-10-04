@@ -88,6 +88,13 @@
           </mat-form-field>
         </div>
 
+        <div class="form-grid">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label i18n="@@season.description.label">Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter season description" rows="3" i18n-placeholder="@@season.description.placeholder"></textarea>
+          </mat-form-field>
+        </div>
+
         <div class="checkbox-container" *ngIf="seasonId">
           <mat-checkbox formControlName="is_active" i18n="@@season.activeCheckbox">
             Active Season

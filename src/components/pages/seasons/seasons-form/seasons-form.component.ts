@@ -104,7 +104,8 @@ export class SeasonsFormComponent implements OnInit {
       end_date: ['', [Validators.required, this.endDateValidator.bind(this)]],
       is_active: [!this.seasonId],
       registration_start_date: [''],
-      registration_end_date: ['', this.registrationEndDateValidator.bind(this)]
+      registration_end_date: ['', this.registrationEndDateValidator.bind(this)],
+      description: ['']
     });
 
     // Trigger validation when start date changes
@@ -132,7 +133,8 @@ export class SeasonsFormComponent implements OnInit {
           end_date: seasonData.end_date ? new Date(seasonData.end_date) : '',
           is_active: seasonData.is_active || false,
           registration_start_date: seasonData.registration_start_date ? new Date(seasonData.registration_start_date) : '',
-          registration_end_date: seasonData.registration_end_date ? new Date(seasonData.registration_end_date) : ''
+          registration_end_date: seasonData.registration_end_date ? new Date(seasonData.registration_end_date) : '',
+          description: seasonData.description
         });
         this.seasonForm.markAsPristine();
         this.seasonForm.markAsUntouched();
@@ -167,7 +169,8 @@ export class SeasonsFormComponent implements OnInit {
           end_date: formValue.end_date ? new Date(formValue.end_date) : undefined,
           is_active: formValue.is_active,
           registration_start_date: formValue.registration_start_date ? new Date(formValue.registration_start_date) : undefined,
-          registration_end_date: formValue.registration_end_date ? new Date(formValue.registration_end_date) : undefined
+          registration_end_date: formValue.registration_end_date ? new Date(formValue.registration_end_date) : undefined,
+          description: formValue.description
         };
         
         await this.seasonsService.updateSeasonAsync(this.seasonId, updatePayload);
@@ -182,7 +185,8 @@ export class SeasonsFormComponent implements OnInit {
           end_date: new Date(formValue.end_date!),
           is_active: formValue.is_active || false,
           registration_start_date: formValue.registration_start_date ? new Date(formValue.registration_start_date) : undefined,
-          registration_end_date: formValue.registration_end_date ? new Date(formValue.registration_end_date) : undefined
+          registration_end_date: formValue.registration_end_date ? new Date(formValue.registration_end_date) : undefined,
+          description: formValue.description
         };
         
         const response = await this.seasonsService.createSeasonAsync(createPayload);
@@ -190,11 +194,9 @@ export class SeasonsFormComponent implements OnInit {
         this.resetForm();
         
         // Navigate to courses with the new season ID
-        if (response.data && response.data.id) {
-          this.router.navigate(['/crm/courses'], { queryParams: { season_id: response.data.id } });
-        } else {
-          this.router.navigate(['/crm/seasons']);
-        }
+        console.log('SeasonFormComponent: Response:', response);
+        this.router.navigate(['/crm/courses'], { queryParams: { season_id: response.data.id } });
+
       }
     } catch (error: any) {
       console.error('Error saving season:', error);
@@ -205,8 +207,11 @@ export class SeasonsFormComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.formDirective.resetForm();
-    this.seasonForm.reset();
+    if (this.formDirective) {
+      this.formDirective.resetForm();
+    } else {
+      this.seasonForm.reset();
+    }
     this.seasonId = null;
   }
 

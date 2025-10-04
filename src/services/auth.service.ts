@@ -88,6 +88,25 @@ export class AuthService {
     }
   }
 
+  async getFreshToken(): Promise<string | undefined> {
+    try {
+      await this.auth.authStateReady();
+      const user = this.auth.currentUser;
+      if (!user) {
+        console.log('❌ No user found for token refresh');
+        return undefined;
+      }
+      
+      // Force refresh the token
+      const freshToken = await user.getIdToken(true);
+      console.log('✅ Successfully refreshed Firebase token');
+      return freshToken;
+    } catch (error) {
+      console.error('❌ Error refreshing token:', error);
+      return undefined;
+    }
+  }
+
   public async isLoggedIn(): Promise<boolean> {
     await this.auth.authStateReady();
     const user = this.auth.currentUser;

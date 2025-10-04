@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student, CreateStudent, UpdateStudent } from '../models/student';
+import { HealthInsurance, CreateHealthInsurance, UpdateHealthInsurance } from '../models/healthInsurance';
+import { StudentHealthInsurance, CreateStudentHealthInsurance, UpdateStudentHealthInsurance } from '../models/studentHealthInsurance';
 import { Course, CreateCourse, UpdateCourse } from '../models/course';
 import { Class, CreateClass, UpdateClass } from '../models/class';
 import { Season, CreateSeason, UpdateSeason } from '../models/season';
@@ -15,7 +17,7 @@ import { CourseEnrollment, CreateCourseEnrollment, UpdateCourseEnrollment } from
 import { StudentClass, CreateStudentClass, UpdateStudentClass } from '../models/studentClass';
 import { OrderItem, CreateOrderItem, UpdateOrderItem } from '../models/orderItem';
 import { PaymentInstallment, CreatePaymentInstallment, UpdatePaymentInstallment } from '../models/paymentInstallment';
-import { Tenant, UserTenantsResponse } from '../models/tenant';
+import { Tenant, CreateTenant, UserTenantsResponse, CreateTenantResponse } from '../models/tenant';
 
 export interface PaginationResult<T> {
   data: T[];
@@ -348,7 +350,65 @@ export class ApiService {
     return this.http.put<ApiResponse<PaymentInstallment>>(`${this.baseUrl}/payment-installments/${id}`, installment);
   }
 
+  // Health Insurance
+  getHealthInsurances(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<HealthInsurance>>> {
+    return this.http.get<ApiResponse<PaginationResult<HealthInsurance>>>(`${this.baseUrl}/health-insurance`, {
+      params: this.buildParams(query)
+    });
+  }
+
+  getHealthInsurance(id: number): Observable<ApiResponse<HealthInsurance>> {
+    return this.http.get<ApiResponse<HealthInsurance>>(`${this.baseUrl}/health-insurance/${id}`);
+  }
+
+  createHealthInsurance(healthInsurance: CreateHealthInsurance): Observable<ApiResponse<HealthInsurance>> {
+    return this.http.post<ApiResponse<HealthInsurance>>(`${this.baseUrl}/health-insurance`, healthInsurance);
+  }
+
+  updateHealthInsurance(id: number, healthInsurance: UpdateHealthInsurance): Observable<ApiResponse<HealthInsurance>> {
+    return this.http.put<ApiResponse<HealthInsurance>>(`${this.baseUrl}/health-insurance/${id}`, healthInsurance);
+  }
+
+  deleteHealthInsurance(id: number): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/health-insurance/${id}`);
+  }
+
+  // Student Health Insurance
+  getStudentHealthInsurances(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<StudentHealthInsurance>>> {
+    return this.http.get<ApiResponse<PaginationResult<StudentHealthInsurance>>>(`${this.baseUrl}/student-health-insurance`, {
+      params: this.buildParams(query)
+    });
+  }
+
+  getStudentHealthInsurance(id: number): Observable<ApiResponse<StudentHealthInsurance>> {
+    return this.http.get<ApiResponse<StudentHealthInsurance>>(`${this.baseUrl}/student-health-insurance/${id}`);
+  }
+
+  getStudentHealthInsuranceByStudentId(studentId: number): Observable<ApiResponse<StudentHealthInsurance[]>> {
+    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/student/${studentId}`);
+  }
+
+  getStudentHealthInsuranceByHealthInsuranceId(healthInsuranceId: number): Observable<ApiResponse<StudentHealthInsurance[]>> {
+    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/health-insurance/${healthInsuranceId}`);
+  }
+
+  createStudentHealthInsurance(studentHealthInsurance: CreateStudentHealthInsurance): Observable<ApiResponse<StudentHealthInsurance>> {
+    return this.http.post<ApiResponse<StudentHealthInsurance>>(`${this.baseUrl}/student-health-insurance`, studentHealthInsurance);
+  }
+
+  updateStudentHealthInsurance(id: number, studentHealthInsurance: UpdateStudentHealthInsurance): Observable<ApiResponse<StudentHealthInsurance>> {
+    return this.http.put<ApiResponse<StudentHealthInsurance>>(`${this.baseUrl}/student-health-insurance/${id}`, studentHealthInsurance);
+  }
+
+  deleteStudentHealthInsurance(id: number): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/student-health-insurance/${id}`);
+  }
+
   getUserTenants(): Observable<UserTenantsResponse> {
     return this.http.get<UserTenantsResponse>(`${this.baseUrl}/user/tenants`);
+  }
+
+  createTenant(tenant: CreateTenant): Observable<CreateTenantResponse> {
+    return this.http.post<CreateTenantResponse>(`${this.baseUrl}/user/tenants`, tenant);
   }
 }

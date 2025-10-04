@@ -1,0 +1,99 @@
+<div class="tenant-create-container">
+  <mat-card class="form-wrapper">
+    <div class="header">
+      <h1>Create New Organization</h1>
+      <p>Set up your organization to get started</p>
+    </div>
+
+    <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" class="tenant-form" *ngIf="tenantForm">
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label for="name" class="form-label">
+          Organization Name *
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter your organization name"
+        >
+        <mat-error *ngIf="getFieldError('name')">
+          {{ getFieldError('name') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label for="language" class="form-label">
+          Language *
+        </mat-label>
+        <mat-select id="language" formControlName="language">
+          <mat-option value="en">English</mat-option>
+          <mat-option value="he">Hebrew</mat-option>
+        </mat-select>
+        <mat-error *ngIf="getFieldError('language')">
+          {{ getFieldError('language') }}
+        </mat-error>
+        <mat-hint>The language of your organization</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label for="domain" class="form-label">
+          Domain (Optional)
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          id="domain"
+          formControlName="domain"
+          placeholder="e.g., mycompany.com"
+        >
+        <mat-error *ngIf="getFieldError('domain')">
+          {{ getFieldError('domain') }}
+        </mat-error>
+        <mat-hint>Your organization's primary domain</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label for="subdomain" class="form-label">
+          Subdomain (Optional)
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          id="subdomain"
+          formControlName="subdomain"
+          placeholder="e.g., mycompany"
+        >
+        <mat-error *ngIf="getFieldError('subdomain')">
+          {{ getFieldError('subdomain') }}
+        </mat-error>
+        <mat-hint>A unique identifier for your organization</mat-hint>
+      </mat-form-field>
+
+      <mat-error class="global-error" *ngIf="error">
+        {{ error }}
+      </mat-error>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          type="button"
+          color="secondary"
+          (click)="onCancel()"
+          [disabled]="isSubmitting"
+        >
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          [disabled]="isSubmitting || tenantForm.invalid"
+        >
+          <span *ngIf="isSubmitting">Creating...</span>
+          <span *ngIf="!isSubmitting">Create Organization</span>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

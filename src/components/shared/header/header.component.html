@@ -1,117 +1,73 @@
 <mat-toolbar color="primary" [dir]="getDirection()">
-  <span class="app-title" routerLink="/crm" i18n="@@header.appTitle">Swimming School CRM</span>
+  <!-- Side Nav Toggle Button -->
+  <button mat-icon-button (click)="onToggleSideNav()" class="side-nav-toggle">
+    <mat-icon>menu</mat-icon>
+  </button>
   
-  <span class="spacer"></span>
+  <!-- Tenant Name with Dropdown -->
+  <button mat-button [matMenuTriggerFor]="tenantMenu" class="tenant-name-button">
+    <mat-icon>business</mat-icon>
+    <span class="tenant-name">{{ getTenantDisplayName() }}</span>
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
   
-  <div class="nav-links">
-    <button mat-button routerLink="/home" i18n="@@header.home">Home</button>
-    <button mat-button routerLink="/crm" i18n="@@header.dashboard">Dashboard</button>
-    
-    <!-- Students & Courses -->
-    <button mat-button [matMenuTriggerFor]="academicMenu" i18n="@@header.academic">
-      <mat-icon>school</mat-icon>
-      Academic
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #academicMenu="matMenu">
-      <button mat-menu-item routerLink="/crm/seasons">
-        <mat-icon>calendar_today</mat-icon>
-        <span i18n="@@header.seasons">Seasons</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/students">
+  <mat-menu #tenantMenu="matMenu" class="tenant-dropdown-menu">
+    <!-- Tenant List Section -->
+    <div class="tenant-section">
+      <div class="section-header">
+        <mat-icon>business</mat-icon>
+        <span i18n="@@header.tenants">Organizations</span>
+      </div>
+      
+      <!-- Tenant Search -->
+      <div class="tenant-search">
+        <mat-icon>search</mat-icon>
+        <input 
+          matInput 
+          [(ngModel)]="tenantSearchTerm" 
+          (input)="onTenantSearchChange()"
+          placeholder="Search organizations..."
+          class="search-input"
+        >
+      </div>
+      
+      <!-- Tenant List -->
+      <div class="tenant-list">
+        <button 
+          *ngFor="let tenant of filteredTenants" 
+          mat-menu-item 
+          (click)="selectTenant(tenant)"
+          [class.selected]="currentTenant?.id === tenant.id"
+        >
+          <mat-icon>business</mat-icon>
+          <span>{{ tenant.name }}</span>
+          <mat-icon *ngIf="currentTenant?.id === tenant.id" class="check-icon">check</mat-icon>
+        </button>
+        
+        <!-- Create New Organization Button -->
+        <button mat-menu-item (click)="createNewOrganization()" class="create-organization-btn">
+          <mat-icon>add</mat-icon>
+          <span i18n="@@header.createOrganization">Create New Organization</span>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- User Profile Section -->
+    <div class="user-profile-section">
+      <div class="section-header">
         <mat-icon>person</mat-icon>
-        <span i18n="@@header.students">Students</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/courses">
-        <mat-icon>book</mat-icon>
-        <span i18n="@@header.courses">Courses</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/classes">
-        <mat-icon>class</mat-icon>
-        <span i18n="@@header.classes">Classes</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/course-enrollments">
-        <mat-icon>assignment</mat-icon>
-        <span i18n="@@header.enrollments">Enrollments</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/student-classes">
-        <mat-icon>group</mat-icon>
-        <span i18n="@@header.studentClasses">Student Classes</span>
-      </button>
-    </mat-menu>
-
-    <!-- Business -->
-    <button mat-button [matMenuTriggerFor]="businessMenu" i18n="@@header.business">
-      <mat-icon>business</mat-icon>
-      Business
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #businessMenu="matMenu">
-      <button mat-menu-item routerLink="/crm/products">
-        <mat-icon>inventory_2</mat-icon>
-        <span i18n="@@header.products">Products</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/orders">
-        <mat-icon>shopping_cart</mat-icon>
-        <span i18n="@@header.orders">Orders</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/order-items">
-        <mat-icon>list</mat-icon>
-        <span i18n="@@header.orderItems">Order Items</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/payments">
-        <mat-icon>payment</mat-icon>
-        <span i18n="@@header.payments">Payments</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/payment-installments">
-        <mat-icon>schedule</mat-icon>
-        <span i18n="@@header.paymentInstallments">Payment Installments</span>
-      </button>
-    </mat-menu>
-
-    <!-- Administration -->
-    <button mat-button [matMenuTriggerFor]="adminMenu" i18n="@@header.admin">
-      <mat-icon>admin_panel_settings</mat-icon>
-      Admin
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #adminMenu="matMenu">
-      <button mat-menu-item routerLink="/crm/users">
-        <mat-icon>people</mat-icon>
-        <span i18n="@@header.users">Users</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/roles">
-        <mat-icon>security</mat-icon>
-        <span i18n="@@header.roles">Roles</span>
-      </button>
-      <button mat-menu-item routerLink="/crm/permissions">
-        <mat-icon>lock</mat-icon>
-        <span i18n="@@header.permissions">Permissions</span>
-      </button>
-    </mat-menu>
-  </div>
-  
-  <span class="spacer"></span>
-  
-  <div class="user-section">
-    <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle Theme" i18n-matTooltip="@@header.toggleTheme">
-      <mat-icon>{{ (themeService.isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
-    </button>
-    <span class="user-name">{{ currentUser?.name || '' }}</span>
-    <img 
-      *ngIf="currentUser?.picture || profile_picture_url" 
-      [src]="currentUser?.picture || profile_picture_url" 
-      [alt]="currentUser?.name || 'User'"
-      class="user-avatar"
-    >
-    <button mat-icon-button [matMenuTriggerFor]="userMenu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    
-    <mat-menu #userMenu="matMenu">
+        <span>{{ currentUser?.email || 'User' }}</span>
+      </div>
+      
       <button mat-menu-item routerLink="/crm/profile">
         <mat-icon>person</mat-icon>
         <span i18n="@@header.profile">Profile</span>
+      </button>
+      <button mat-menu-item (click)="toggleTheme()">
+        <mat-icon>{{ (themeService.isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        <span i18n="@@header.toggleTheme">Toggle Theme</span>
       </button>
       <button *ngIf="isLoggedIn" mat-menu-item (click)="signOut()">
         <mat-icon>logout</mat-icon>
@@ -121,7 +77,13 @@
         <mat-icon>login</mat-icon>
         <span i18n="@@header.signIn">Sign In</span>
       </button>
-    </mat-menu>
-
-  </div>
+    </div>
+  </mat-menu>
+  
+  <span class="spacer"></span>
+  
+  <!-- Theme Toggle (moved to dropdown but keeping for mobile) -->
+  <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle Theme" i18n-matTooltip="@@header.toggleTheme" class="mobile-theme-toggle">
+    <mat-icon>{{ (themeService.isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>

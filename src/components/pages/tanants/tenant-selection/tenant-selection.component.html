@@ -1,0 +1,98 @@
+<div class="tenant-selection-container">
+  <button mat-raised-button class="create-org-btn" (click)="navigateToCreate()">
+    + Create New Organization
+  </button>
+  
+  <div class="header">
+    <h1>Select Your Organization</h1>
+    <p>Choose which organization you want to access</p>
+  </div>
+
+  <!-- Invitations Section -->
+  <div class="invitations-section" *ngIf="!isLoadingInvitations && invitations.length > 0">
+    <h2>📧 You have {{ invitations.length }} pending invitation{{ invitations.length !== 1 ? 's' : '' }}</h2>
+    <div class="invitations-grid">
+      <div 
+        class="invitation-card" 
+        *ngFor="let invitation of invitations"
+      >
+        <div class="invitation-info">
+          <h3>{{ invitation.tenant_name }}</h3>
+          <p *ngIf="invitation.tenant_domain" class="domain">{{ invitation.tenant_domain }}</p>
+          <p class="invited-by">Invited by: {{ invitation.invitor_name }}</p>
+          <p class="invited-date">Invited on: {{ invitation.invited_at | date:'medium' }}</p>
+          <p class="expires-date" [class.expired]="isInvitationExpired(invitation)">
+            Expires: {{ invitation.expires_at | date:'medium' }}
+          </p>
+        </div>
+        
+        <div class="invitation-actions">
+          <button 
+            mat-raised-button 
+            class="btn-accept" 
+            (click)="acceptInvitation(invitation)"
+            [disabled]="isInvitationExpired(invitation)"
+          >
+            Accept Invitation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="!isLoading && !error">
+    <div class="tenants-grid" *ngIf="tenants$ | async as tenants; else noTenantsTemplate">
+      <div 
+        class="tenant-card" 
+        *ngFor="let tenant of tenants"
+        (click)="selectTenant(tenant)"
+      >
+        <div class="tenant-info">
+          <h3>{{ tenant.name }}</h3>
+          <p *ngIf="tenant.domain" class="domain">{{ tenant.domain }}</p>
+          <p *ngIf="tenant.subdomain" class="subdomain">{{ tenant.subdomain }}</p>
+          
+          <div class="tenant-stats" *ngIf="tenant.roleCount || tenant.permissionCount">
+            <span *ngIf="tenant.roleCount" class="stat">
+              {{ tenant.roleCount }} role{{ tenant.roleCount !== 1 ? 's' : '' }}
+            </span>
+            <span *ngIf="tenant.permissionCount" class="stat">
+              {{ tenant.permissionCount }} permission{{ tenant.permissionCount !== 1 ? 's' : '' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="select-button">
+          <button mat-raised-button class="btn-primary">Select</button>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noTenantsTemplate>
+      <div class="no-tenants-state">
+        <div class="no-tenants-icon">🏢</div>
+        <h2>No Organizations Found</h2>
+        <p>You don't have access to any organizations yet.</p>
+        <p>Create your first organization to get started!</p>
+        <button mat-raised-button class="btn-primary" (click)="navigateToCreate()">
+          + Create Your First Organization
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading organizations...</p>
+  </div>
+
+  <div class="error" *ngIf="error">
+    <div class="error-icon">⚠️</div>
+    <p>{{ error }}</p>
+    <button mat-button class="btn-secondary" (click)="loadTenants()">Try Again</button>
+  </div>
+
+  <div class="footer">
+    <button mat-button class="btn-link" (click)="logout()">Sign Out</button>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormGroup, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../../../services/users.service';
 import { User, CreateUser, UpdateUser } from '../../../../models/user';
@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     CommonModule, 
     ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -40,6 +41,7 @@ export class UserFormComponent implements OnInit {
   userId: number | null = null;
 
   userForm!: FormGroup;
+  settingsJson: string = '{}';
 
   constructor(
     private usersService: UsersService,
@@ -59,7 +61,8 @@ export class UserFormComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: [''],
-      picture: ['']
+      picture: [''],
+      language: ['en']
     });
   }
 
@@ -73,8 +76,10 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({
           email: userData.email,
           name: userData.name,
-          picture: userData.picture
+          picture: userData.picture,
+          language: userData.language || 'en'
         });
+        this.settingsJson = JSON.stringify(userData.settings || {}, null, 2);
         this.userForm.markAsPristine();
         this.userForm.markAsUntouched();
         this.loading = false;
@@ -101,11 +106,21 @@ export class UserFormComponent implements OnInit {
     try {
       const formValue = this.userForm.value;
       
+      let settings = {};
+      try {
+        settings = JSON.parse(this.settingsJson);
+      } catch (error) {
+        this.error = 'Invalid JSON in settings field';
+        return;
+      }
+
       if (this.userId) {
         const updatePayload: UpdateUser = {
           email: formValue.email,
           name: formValue.name,
-          picture: formValue.picture
+          picture: formValue.picture,
+          language: formValue.language,
+          settings: settings
         };
         
         await this.usersService.updateUserAsync(this.userId, updatePayload);
@@ -114,7 +129,8 @@ export class UserFormComponent implements OnInit {
           email: formValue.email!,
           name: formValue.name,
           picture: formValue.picture,
-          language: 'en'
+          language: formValue.language || 'en',
+          settings: settings
         };
         
         await this.usersService.createUserAsync(createPayload);

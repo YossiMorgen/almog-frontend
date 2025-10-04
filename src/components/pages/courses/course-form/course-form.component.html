@@ -1,7 +1,7 @@
   <div class="page-header">
-    <h1 class="page-title">{{ courseId == null ? 'Add New Course' : 'Edit Course' }}</h1>
+    <h1 class="page-title" i18n="@@courseForm.pageTitle">{{ courseId == null ? 'Add New Course' : 'Edit Course' }}</h1>
     <div class="header-actions">
-      <button mat-button (click)="onCancel()">
+      <button mat-button (click)="onCancel()" i18n="@@courseForm.backToCourses">
         <mat-icon>arrow_back</mat-icon>
         Back to Courses
       </button>
@@ -13,7 +13,7 @@
       <form [formGroup]="courseForm" (ngSubmit)="submitForm()">
         <div *ngIf="loading" class="loading-container">
           <mat-spinner></mat-spinner>
-          <p>Loading...</p>
+          <p i18n="@@courseForm.loading">Loading...</p>
         </div>
 
         <div *ngIf="error" class="error-container">
@@ -23,158 +23,158 @@
 
         <div *ngIf="preSelectedSeasonId" class="pre-selected-indicator">
           <mat-icon color="primary">check_circle</mat-icon>
-          <span>Season pre-selected: <strong>{{ getSelectedSeasonName() }}</strong></span>
+          <span i18n="@@courseForm.seasonPreSelected">Season pre-selected: <strong>{{ getSelectedSeasonName() }}</strong></span>
         </div>
 
         <div class="form-grid">
           <mat-form-field appearance="outline">
-            <mat-label>Season</mat-label>
+            <mat-label i18n="@@courseForm.season">Season</mat-label>
             <mat-select formControlName="season_id">
               <mat-option *ngFor="let season of seasons" [value]="season.id">
                 {{ season.name }} ({{ season.start_date | date:'short' }} - {{ season.end_date | date:'short' }})
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="courseForm.get('season_id')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('season_id')?.hasError('required')" i18n="@@courseForm.seasonRequired">
               Season is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Course Name</mat-label>
-            <input matInput formControlName="name" placeholder="Enter course name">
-            <mat-error *ngIf="courseForm.get('name')?.hasError('required')">
+            <mat-label i18n="@@courseForm.courseName">Course Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter course name" i18n-placeholder="@@courseForm.courseNamePlaceholder">
+            <mat-error *ngIf="courseForm.get('name')?.hasError('required')" i18n="@@courseForm.courseNameRequired">
               Course name is required
             </mat-error>
-            <mat-error *ngIf="courseForm.get('name')?.hasError('minlength')">
+            <mat-error *ngIf="courseForm.get('name')?.hasError('minlength')" i18n="@@courseForm.courseNameMinLength">
               Course name must be at least 2 characters
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description" placeholder="Enter course description" rows="3"></textarea>
+            <mat-label i18n="@@courseForm.description">Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter course description" rows="3" i18n-placeholder="@@courseForm.descriptionPlaceholder"></textarea>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Level</mat-label>
+            <mat-label i18n="@@courseForm.level">Level</mat-label>
             <mat-select formControlName="level">
               <mat-option *ngFor="let option of levelOptions" [value]="option.value">
                 {{ option.label }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="courseForm.get('level')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('level')?.hasError('required')" i18n="@@courseForm.levelRequired">
               Level is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Max Students</mat-label>
-            <input matInput type="number" formControlName="max_students" placeholder="Enter max students">
-            <mat-error *ngIf="courseForm.get('max_students')?.hasError('required')">
+            <mat-label i18n="@@courseForm.maxStudents">Max Students</mat-label>
+            <input matInput type="number" formControlName="max_students" placeholder="Enter max students" i18n-placeholder="@@courseForm.maxStudentsPlaceholder">
+            <mat-error *ngIf="courseForm.get('max_students')?.hasError('required')" i18n="@@courseForm.maxStudentsRequired">
               Max students is required
             </mat-error>
-            <mat-error *ngIf="courseForm.get('max_students')?.hasError('min')">
+            <mat-error *ngIf="courseForm.get('max_students')?.hasError('min')" i18n="@@courseForm.maxStudentsMin">
               Max students must be at least 1
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Price</mat-label>
-            <input matInput type="number" formControlName="price" placeholder="Enter price">
-            <mat-error *ngIf="courseForm.get('price')?.hasError('required')">
+            <mat-label i18n="@@courseForm.price">Price</mat-label>
+            <input matInput type="number" formControlName="price" placeholder="Enter price" i18n-placeholder="@@courseForm.pricePlaceholder">
+            <mat-error *ngIf="courseForm.get('price')?.hasError('required')" i18n="@@courseForm.priceRequired">
               Price is required
             </mat-error>
-            <mat-error *ngIf="courseForm.get('price')?.hasError('min')">
+            <mat-error *ngIf="courseForm.get('price')?.hasError('min')" i18n="@@courseForm.priceMin">
               Price must be at least 0
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Day of Week</mat-label>
+            <mat-label i18n="@@courseForm.dayOfWeek">Day of Week</mat-label>
             <mat-select formControlName="day_of_week">
               <mat-option *ngFor="let option of dayOptions" [value]="option.value">
                 {{ option.label }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="courseForm.get('day_of_week')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('day_of_week')?.hasError('required')" i18n="@@courseForm.dayOfWeekRequired">
               Day of week is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Start Time</mat-label>
-            <input matInput type="time" formControlName="start_time" placeholder="Select start time">
-            <mat-error *ngIf="courseForm.get('start_time')?.hasError('required')">
+            <mat-label i18n="@@courseForm.startTime">Start Time</mat-label>
+            <input matInput type="time" formControlName="start_time" placeholder="Select start time" i18n-placeholder="@@courseForm.startTimePlaceholder">
+            <mat-error *ngIf="courseForm.get('start_time')?.hasError('required')" i18n="@@courseForm.startTimeRequired">
               Start time is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>End Time</mat-label>
-            <input matInput type="time" formControlName="end_time" placeholder="Select end time">
-            <mat-error *ngIf="courseForm.get('end_time')?.hasError('required')">
+            <mat-label i18n="@@courseForm.endTime">End Time</mat-label>
+            <input matInput type="time" formControlName="end_time" placeholder="Select end time" i18n-placeholder="@@courseForm.endTimePlaceholder">
+            <mat-error *ngIf="courseForm.get('end_time')?.hasError('required')" i18n="@@courseForm.endTimeRequired">
               End time is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Start Date</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="start_date" placeholder="Select start date">
+            <mat-label i18n="@@courseForm.startDate">Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="start_date" placeholder="Select start date" i18n-placeholder="@@courseForm.startDatePlaceholder">
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
-            <mat-error *ngIf="courseForm.get('start_date')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('start_date')?.hasError('required')" i18n="@@courseForm.startDateRequired">
               Start date is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>End Date</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="end_date" placeholder="Select end date">
+            <mat-label i18n="@@courseForm.endDate">End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="end_date" placeholder="Select end date" i18n-placeholder="@@courseForm.endDatePlaceholder">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
-            <mat-error *ngIf="courseForm.get('end_date')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('end_date')?.hasError('required')" i18n="@@courseForm.endDateRequired">
               End date is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Status</mat-label>
+            <mat-label i18n="@@courseForm.status">Status</mat-label>
             <mat-select formControlName="status">
               <mat-option *ngFor="let option of statusOptions" [value]="option.value">
                 {{ option.label }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="courseForm.get('status')?.hasError('required')">
+            <mat-error *ngIf="courseForm.get('status')?.hasError('required')" i18n="@@courseForm.statusRequired">
               Status is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Location</mat-label>
-            <input matInput formControlName="location" placeholder="Enter location">
+            <mat-label i18n="@@courseForm.location">Location</mat-label>
+            <input matInput formControlName="location" placeholder="Enter location" i18n-placeholder="@@courseForm.locationPlaceholder">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Instructor ID</mat-label>
-            <input matInput type="number" formControlName="instructor_id" placeholder="Enter instructor ID">
+            <mat-label i18n="@@courseForm.instructorId">Instructor ID</mat-label>
+            <input matInput type="number" formControlName="instructor_id" placeholder="Enter instructor ID" i18n-placeholder="@@courseForm.instructorIdPlaceholder">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Min Age</mat-label>
-            <input matInput type="number" formControlName="age_group_min" placeholder="Enter minimum age">
+            <mat-label i18n="@@courseForm.minAge">Min Age</mat-label>
+            <input matInput type="number" formControlName="age_group_min" placeholder="Enter minimum age" i18n-placeholder="@@courseForm.minAgePlaceholder">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Max Age</mat-label>
-            <input matInput type="number" formControlName="age_group_max" placeholder="Enter maximum age">
+            <mat-label i18n="@@courseForm.maxAge">Max Age</mat-label>
+            <input matInput type="number" formControlName="age_group_max" placeholder="Enter maximum age" i18n-placeholder="@@courseForm.maxAgePlaceholder">
           </mat-form-field>
         </div>
 
         <div class="form-actions">
-          <button mat-button type="button" (click)="onCancel()">
+          <button mat-button type="button" (click)="onCancel()" i18n="@@courseForm.cancel">
             Cancel
           </button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading" i18n="@@courseForm.submitButton">
             {{ loading ? 'Saving...' : (courseId ? 'Update Course' : 'Create Course') }}
           </button>
         </div>

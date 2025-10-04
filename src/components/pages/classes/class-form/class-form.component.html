@@ -65,17 +65,35 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Start Time</mat-label>
-          <input matInput type="time" formControlName="start_time" placeholder="Select start time">
+          <input matInput 
+                 type="text" 
+                 formControlName="start_time" 
+                 placeholder="HH:MM (e.g., 09:30)"
+                 pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                 maxlength="5"
+                 (input)="onTimeInput($event, 'start_time')">
           <mat-error *ngIf="classForm.get('start_time')?.hasError('required')">
             Start time is required
+          </mat-error>
+          <mat-error *ngIf="classForm.get('start_time')?.hasError('pattern')">
+            Please enter time in HH:MM format (e.g., 09:30)
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>End Time</mat-label>
-          <input matInput type="time" formControlName="end_time" placeholder="Select end time">
+          <input matInput 
+                 type="text" 
+                 formControlName="end_time" 
+                 placeholder="HH:MM (e.g., 11:00)"
+                 pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                 maxlength="5"
+                 (input)="onTimeInput($event, 'end_time')">
           <mat-error *ngIf="classForm.get('end_time')?.hasError('required')">
             End time is required
+          </mat-error>
+          <mat-error *ngIf="classForm.get('end_time')?.hasError('pattern')">
+            Please enter time in HH:MM format (e.g., 11:00)
           </mat-error>
         </mat-form-field>
 

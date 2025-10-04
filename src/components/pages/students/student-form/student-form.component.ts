@@ -83,6 +83,7 @@ export class StudentFormComponent implements OnInit {
       emergency_contact_name: [''],
       emergency_contact_phone: [''],
       medical_notes: [''],
+      notes: [''],
       is_active: [true]
     });
   }
@@ -111,6 +112,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_name: studentData.emergency_contact_name,
           emergency_contact_phone: studentData.emergency_contact_phone,
           medical_notes: studentData.medical_notes,
+          notes: studentData.notes,
           is_active: studentData.is_active
         });
         this.studentForm.markAsPristine();
@@ -157,6 +159,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_name: formValue.emergency_contact_name,
           emergency_contact_phone: formValue.emergency_contact_phone,
           medical_notes: formValue.medical_notes,
+          notes: formValue.notes,
           is_active: formValue.is_active
         };
         
@@ -179,6 +182,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_name: formValue.emergency_contact_name,
           emergency_contact_phone: formValue.emergency_contact_phone,
           medical_notes: formValue.medical_notes,
+          notes: formValue.notes,
           is_active: formValue.is_active ?? true
         };
         

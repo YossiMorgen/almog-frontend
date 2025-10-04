@@ -9,6 +9,7 @@ export const SeasonSchema = z.object({
   is_active: z.boolean().default(false),
   registration_start_date: z.coerce.date().optional(),
   registration_end_date: z.coerce.date().optional(),
+  description: z.string().optional(),
   created_at: z.date().optional(),
   updated_at: z.date().optional(),
   created_by: z.number().int().positive().optional(),

@@ -1,0 +1,31 @@
+<mat-nav-list class="side-nav" [class.collapsed]="isCollapsed">
+  <div *ngFor="let section of navigationConfig" class="nav-section">
+    <!-- Section Header -->
+    <div class="section-header" (click)="toggleSection(section.id)">
+      <mat-icon>{{ section.icon }}</mat-icon>
+      <span *ngIf="!isCollapsed" class="section-label">{{ section.label }}</span>
+      <mat-icon *ngIf="!isCollapsed" class="expand-icon" [class.rotated]="!isSectionExpanded(section.id)">
+        expand_more
+      </mat-icon>
+    </div>
+
+    <!-- Section Items -->
+    <div class="section-content" [class.collapsed]="!isSectionExpanded(section.id)">
+      <mat-list-item 
+        *ngFor="let item of section.items" 
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        (click)="onNavigationClick($event)"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span *ngIf="!isCollapsed" matListItemTitle>{{ item.label }}</span>
+        
+        <!-- Tooltip for collapsed state -->
+        <span *ngIf="isCollapsed" matTooltip="{{ item.label }}" matTooltipPosition="right">
+          <mat-icon>{{ item.icon }}</mat-icon>
+        </span>
+      </mat-list-item>
+    </div>
+  </div>
+</mat-nav-list>

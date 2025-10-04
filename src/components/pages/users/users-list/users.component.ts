@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
   sortBy = 'email';
   sortOrder: 'asc' | 'desc' = 'asc';
   
-  displayedColumns: string[] = ['email', 'name', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['email', 'name', 'createdAt', 'notes', 'actions'];
 
   constructor(
     private usersService: UsersService,
