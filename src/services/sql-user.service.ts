@@ -5,7 +5,6 @@ import { timeout } from 'rxjs/operators';
 import { API_CONFIG } from '../config/api.config';
 import { User, CreateUser, UpdateUser } from '../models/user';
 import { AuthService } from './auth.service';
-import { LocaleService } from './locale.service';
 
 export interface UserResponse {
   success: boolean;
@@ -28,8 +27,7 @@ export class SqlUserService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private localeService: LocaleService
+    private authService: AuthService
   ) {}
 
   getCurrentUser(token: string): Observable<User> {
@@ -71,10 +69,7 @@ export class SqlUserService {
         if (response) {
           this.currentUserSubject.next(response);
           
-          // Set user's preferred language
-          if (response.language) {
-            this.localeService.setLocaleFromUser(response.language);
-          }
+          // User language will be handled by components that subscribe to currentUser$
         }
         observer.next(response);
         observer.complete();
@@ -193,10 +188,7 @@ export class SqlUserService {
         console.log('SqlUserService: User details fetched successfully');
         this.setCurrentUser(userResponse);
         
-        // Set user's preferred language
-        if (userResponse.language) {
-          this.localeService.setLocaleFromUser(userResponse.language);
-        }
+        // User language will be handled by components that subscribe to currentUser$
         
         return userResponse;
       }

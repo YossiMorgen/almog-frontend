@@ -6,11 +6,12 @@ import { AuthService } from '../../../services/auth.service';
 import { SqlUserService } from '../../../services/sql-user.service';
 import { LocaleService } from '../../../services/locale.service';
 import { ApiService } from '../../../services/api.service';
+import { FilterService } from '../../../services/filter.service';
 import { Router } from '@angular/router';
 import { User as FirebaseUser } from 'firebase/auth';
 import { User } from '../../../models/user';
 import { Tenant, UserTenants } from '../../../models/tenant';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -52,6 +53,7 @@ export class HeaderComponent {
   public currentLocale: string = 'en';
   public tenantSearchTerm: string = '';
   public filteredTenants: UserTenants[] = [];
+  public showFilters$: Observable<boolean>;
 
   constructor(
     public themeService: ThemeService, 
@@ -60,8 +62,10 @@ export class HeaderComponent {
     private localeService: LocaleService,
     private apiService: ApiService,
     private router: Router,
-    private tenantService: TenantService
+    private tenantService: TenantService,
+    private filterService: FilterService
   ) {
+    this.showFilters$ = this.filterService.showFilters$;
     this.localeService.currentLocale$.subscribe(locale => {
       this.currentLocale = locale;
     });
@@ -85,6 +89,10 @@ export class HeaderComponent {
         this.filteredTenants = [];
         this.currentTenant = null;
       }
+    });
+
+    this.tenantService.currentTenant$.subscribe((tenant) => {
+      this.currentTenant = tenant;
     });
 
     // Only call checkUserAndLogin if we don't have a user yet
@@ -196,5 +204,9 @@ export class HeaderComponent {
 
   onToggleSideNav(): void {
     this.toggleSideNav.emit();
+  }
+
+  onToggleFilters(): void {
+    this.filterService.toggleFilters();
   }
 }

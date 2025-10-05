@@ -49,6 +49,11 @@ export class StudentFormComponent implements OnInit {
     { value: 'other', label: 'Other' }
   ];
 
+  languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'he', label: 'Hebrew' }
+  ];
+
   studentForm!: FormGroup;
 
   constructor(
@@ -84,6 +89,7 @@ export class StudentFormComponent implements OnInit {
       emergency_contact_phone: [''],
       medical_notes: [''],
       notes: [''],
+      language: ['he'],
       is_active: [true]
     });
   }
@@ -113,6 +119,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_phone: studentData.emergency_contact_phone,
           medical_notes: studentData.medical_notes,
           notes: studentData.notes,
+          language: studentData.language || 'he',
           is_active: studentData.is_active
         });
         this.studentForm.markAsPristine();
@@ -160,6 +167,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_phone: formValue.emergency_contact_phone,
           medical_notes: formValue.medical_notes,
           notes: formValue.notes,
+          language: formValue.language,
           is_active: formValue.is_active
         };
         
@@ -183,6 +191,7 @@ export class StudentFormComponent implements OnInit {
           emergency_contact_phone: formValue.emergency_contact_phone,
           medical_notes: formValue.medical_notes,
           notes: formValue.notes,
+          language: formValue.language || 'he',
           is_active: formValue.is_active ?? true
         };
         

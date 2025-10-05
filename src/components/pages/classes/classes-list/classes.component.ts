@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ClassesService } from '../../../../services/classes.service';
+import { ClassesLocationsService } from '../../../../services/classes-locations.service';
+import { UsersService } from '../../../../services/users.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { Class } from '../../../../models/class';
+import { ClassesLocation } from '../../../../models/classesLocation';
+import { User } from '../../../../models/user';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -36,12 +40,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatTooltipModule
   ],
-  providers: [ClassesService],
+  providers: [ClassesService, ClassesLocationsService, UsersService],
   templateUrl: './classes.component.html',
   styleUrls: ['./classes.component.scss']
 })
 export class ClassesComponent implements OnInit {
   classes: Class[] = [];
+  locations: ClassesLocation[] = [];
+  instructors: User[] = [];
   pagination: PaginationResult<Class>['pagination'] | null = null;
   loading = false;
   error: string | null = null;
@@ -54,17 +60,43 @@ export class ClassesComponent implements OnInit {
   sortBy = 'class_date';
   sortOrder: 'asc' | 'desc' = 'asc';
   
-  displayedColumns: string[] = ['class_number', 'course_id', 'class_date', 'time', 'location', 'instructor_id', 'status', 'actions'];
+  displayedColumns: string[] = ['class_number', 'course_id', 'class_date', 'time', 'location_id', 'instructor_id', 'status', 'actions'];
 
   constructor(
     private classesService: ClassesService,
+    private classesLocationsService: ClassesLocationsService,
+    private usersService: UsersService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // TODO: Get current user when auth is ready
-    // this.currentUser = this.authService.getCurrentUser();
+    this.loadLocations();
+    this.loadInstructors();
     this.loadClasses();
+  }
+
+  loadLocations(): void {
+    this.classesLocationsService.getClassesLocations().subscribe({
+      next: (response: any) => {
+        this.locations = response.data?.data || [];
+      },
+      error: (error: any) => {
+        console.error('Error loading locations:', error);
+        this.locations = [];
+      }
+    });
+  }
+
+  loadInstructors(): void {
+    this.usersService.getInstructors().subscribe({
+      next: (response: any) => {
+        this.instructors = response.data?.data || [];
+      },
+      error: (error: any) => {
+        console.error('Error loading instructors:', error);
+        this.instructors = [];
+      }
+    });
   }
 
   loadClasses(): void {
@@ -159,20 +191,15 @@ export class ClassesComponent implements OnInit {
     return time || 'Not specified';
   }
 
-  getPageNumbers(): number[] {
-    if (!this.pagination) return [];
-    
-    const pages: number[] = [];
-    const totalPages = this.pagination.totalPages;
-    const currentPage = this.currentPage;
-    
-    const startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(totalPages, currentPage + 2);
-    
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-    
-    return pages;
+  getInstructorName(instructorId: number | undefined): string {
+    if (!instructorId) return 'Not assigned';
+    const instructor = this.instructors.find(i => i.id === instructorId);
+    return instructor ? (instructor.name || instructor.email) : `Instructor ID: ${instructorId}`;
+  }
+
+  getLocationName(locationId: number | undefined): string {
+    if (!locationId) return 'Not specified';
+    const location = this.locations.find(l => l.id === locationId);
+    return location ? location.name : `Location ID: ${locationId}`;
   }
 }

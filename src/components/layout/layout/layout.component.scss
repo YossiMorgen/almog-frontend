@@ -1,13 +1,42 @@
 .layout-container {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.filter-container {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 16px;
+  z-index: 999;
 }
 
 .layout-body {
   display: flex;
   flex: 1;
-  height: calc(100vh - 64px); // Subtract header height
+  overflow: hidden;
+}
+
+app-header {
+  flex: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+app-side-nav {
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .main-content {
@@ -16,6 +45,8 @@
   background-color: #f5f5f5;
   transition: margin-left 0.3s ease;
   overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
   
   &.side-nav-collapsed {
     margin-left: 0;

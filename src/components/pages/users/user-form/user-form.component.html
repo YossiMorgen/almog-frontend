@@ -52,6 +52,7 @@
               <textarea 
                 matInput 
                 [(ngModel)]="settingsJson" 
+                [ngModelOptions]="{standalone: true}"
                 placeholder='{"theme": "dark", "notifications": true}'
                 rows="8"
                 class="json-textarea">

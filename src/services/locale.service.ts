@@ -28,6 +28,19 @@ export class LocaleService {
     this.setLocale(userLanguage);
   }
 
+  setLocaleFromUserWithFallback(userLanguage: SupportedLocale | null, tenantLanguage?: SupportedLocale | null): void {
+    // Fallback hierarchy: user language → tenant language → default ('en')
+    let localeToSet: SupportedLocale = 'en'; // default fallback
+    
+    if (userLanguage) {
+      localeToSet = userLanguage;
+    } else if (tenantLanguage && ['en', 'he'].includes(tenantLanguage)) {
+      localeToSet = tenantLanguage;
+    }
+    
+    this.setLocale(localeToSet);
+  }
+
   private loadLocaleFromStorage(): void {
     const savedLocale = localStorage.getItem('preferred-locale') as SupportedLocale;
     if (savedLocale && ['en', 'he'].includes(savedLocale)) {
@@ -51,5 +64,10 @@ export class LocaleService {
 
   getDirection(): 'ltr' | 'rtl' {
     return this.getCurrentLocale() === 'he' ? 'rtl' : 'ltr';
+  }
+
+  updateLocaleOnTenantChange(userLanguage: SupportedLocale | null, tenantLanguage?: SupportedLocale | null): void {
+    // When tenant changes, re-evaluate locale with current user's language
+    this.setLocaleFromUserWithFallback(userLanguage, tenantLanguage);
   }
 }

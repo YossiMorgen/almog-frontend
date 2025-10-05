@@ -1,0 +1,83 @@
+<div class="page-header">
+  <h1 class="page-title">Class Location Details</h1>
+  <div class="header-actions">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Locations
+    </button>
+    <button mat-raised-button color="primary" (click)="editLocation()" *ngIf="location">
+      <mat-icon>edit</mat-icon>
+      Edit Location
+    </button>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+  <p>Loading location details...</p>
+</div>
+
+<div *ngIf="error" class="error-container">
+  <mat-icon color="warn">error</mat-icon>
+  <p>{{ error }}</p>
+</div>
+
+<mat-card *ngIf="location && !loading">
+  <mat-card-header>
+    <mat-card-title>{{ location.name }}</mat-card-title>
+    <mat-card-subtitle>
+      <span [class]="getStatusClass(location.is_active)">
+        {{ getStatusText(location.is_active) }}
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="location-details">
+      <div class="detail-section" *ngIf="location.description">
+        <h3>Description</h3>
+        <p>{{ location.description }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.address">
+        <h3>Address</h3>
+        <p>{{ location.address }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.city">
+        <h3>City</h3>
+        <p>{{ location.city }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.postal_code">
+        <h3>Postal Code</h3>
+        <p>{{ location.postal_code }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.phone">
+        <h3>Phone</h3>
+        <p>{{ location.phone }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.email">
+        <h3>Email</h3>
+        <p>{{ location.email }}</p>
+      </div>
+
+      <div class="detail-section">
+        <h3>Capacity</h3>
+        <p>{{ location.capacity }} students</p>
+      </div>
+
+      <div class="detail-section">
+        <h3>Created</h3>
+        <p>{{ location.created_at | date:'medium' }}</p>
+      </div>
+
+      <div class="detail-section" *ngIf="location.updated_at">
+        <h3>Last Updated</h3>
+        <p>{{ location.updated_at | date:'medium' }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

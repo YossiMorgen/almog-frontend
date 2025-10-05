@@ -23,8 +23,7 @@ export class TenantService {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private apiService: ApiService,
-
+    private apiService: ApiService
   ) {
     this.initializeFromStorage();
   }
@@ -57,7 +56,7 @@ export class TenantService {
 
       if (tenants.length === 1) {
         console.log('TenantService: Only one tenant, selecting it');
-        this.selectTenant(tenants[0]);
+        this.selectTenant(tenants[0] as UserTenants);
         return;
       }
 
@@ -68,7 +67,7 @@ export class TenantService {
         const tenant = tenants.find(t => t.id === urlTenantId);
         if (tenant) {
           console.log('TenantService: Found tenant from URL, selecting it');
-          this.selectTenant(tenant);
+          this.selectTenant(tenant as UserTenants);
           return;
         }
       }
@@ -78,7 +77,7 @@ export class TenantService {
       
       if (storedTenant && tenants.some(t => t.id === storedTenant.id)) {
         console.log('TenantService: Found valid stored tenant, selecting it');
-        this.selectTenant(storedTenant);
+        this.selectTenant(storedTenant as UserTenants);
         return;
       }
 
@@ -121,13 +120,14 @@ export class TenantService {
     const previousTenant = this.getCurrentTenant();
     this.currentTenantSubject.next(tenant);
     this.storeTenant(tenant);
-    this.updateUrlWithTenantId(tenant.id);
+    this.updateUrlWithTenantId(tenant.id as string);
+    
     
     const currentUrl = this.router.url;
     if (currentUrl === '/tenant-selection' || currentUrl === '/tenant-create') {
       this.router.navigate(['/dashboard']);
 
-    } else if(previousTenant?.id && previousTenant.id !== tenant.id) {
+    } else if(previousTenant?.id && previousTenant.id !== tenant.id as string) {
       window.location.reload();
     }
   }
@@ -237,6 +237,11 @@ export class TenantService {
     this.isInitializing = false;
   }
 
+  getCurrentTenantLanguage(): string | null {
+    const tenant = this.getCurrentTenant();
+    return tenant?.language || null;
+  }
+
   resetInitialization(): void {
     console.log('TenantService: Resetting initialization state');
     this.isInitializing = false;
@@ -255,7 +260,7 @@ export class TenantService {
       const response = await firstValueFrom(this.apiService.createTenant(tenantData));
       if (response?.success && response.data) {
         await this.refreshUserTenants();
-        this.selectTenant(response.data.tenant);
+        this.selectTenant(response.data.tenant as UserTenants);
         return response;
       }
       throw new Error('Failed to create tenant');

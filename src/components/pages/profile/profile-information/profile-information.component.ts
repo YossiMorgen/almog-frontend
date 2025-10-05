@@ -87,6 +87,7 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
   
   private extractUserRolesAndPermissions(): void {
     if (this.currentUser) {
+      console.log('currentUser', this.currentUser);
       this.userRoles = this.currentUser.roles?.map(role => role.name) || [];
       this.userPermissions = this.currentUser.permissions?.map(permission => permission.name) || [];
     }

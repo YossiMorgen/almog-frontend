@@ -1,6 +1,14 @@
 <div class="layout-container">
   <app-header (toggleSideNav)="toggleSideNav()"></app-header>
   
+  <!-- Filter Component -->
+  <div *ngIf="showFilters$ | async" class="filter-container">
+    <app-table-filter 
+      [filterType]="(currentFilterType$ | async) || ''"
+      [autoApply]="true">
+    </app-table-filter>
+  </div>
+  
   <div class="layout-body">
     <app-side-nav [isCollapsed]="isSideNavCollapsed"></app-side-nav>
     

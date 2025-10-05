@@ -103,7 +103,9 @@
 
           <mat-form-field appearance="outline">
             <mat-label i18n="@@courseForm.startTime">Start Time</mat-label>
-            <input matInput type="time" formControlName="start_time" placeholder="Select start time" i18n-placeholder="@@courseForm.startTimePlaceholder">
+            <input matInput [matTimepicker]="startTimePicker" formControlName="start_time" placeholder="Select start time" i18n-placeholder="@@courseForm.startTimePlaceholder">
+            <mat-timepicker-toggle matIconSuffix [for]="startTimePicker"/>
+            <mat-timepicker #startTimePicker interval="15m"/>
             <mat-error *ngIf="courseForm.get('start_time')?.hasError('required')" i18n="@@courseForm.startTimeRequired">
               Start time is required
             </mat-error>
@@ -111,7 +113,9 @@
 
           <mat-form-field appearance="outline">
             <mat-label i18n="@@courseForm.endTime">End Time</mat-label>
-            <input matInput type="time" formControlName="end_time" placeholder="Select end time" i18n-placeholder="@@courseForm.endTimePlaceholder">
+            <input matInput [matTimepicker]="endTimePicker" formControlName="end_time" placeholder="Select end time" i18n-placeholder="@@courseForm.endTimePlaceholder">
+            <mat-timepicker-toggle matIconSuffix [for]="endTimePicker"/>
+            <mat-timepicker #endTimePicker interval="15m"/>
             <mat-error *ngIf="courseForm.get('end_time')?.hasError('required')" i18n="@@courseForm.endTimeRequired">
               End time is required
             </mat-error>
@@ -151,12 +155,24 @@
 
           <mat-form-field appearance="outline">
             <mat-label i18n="@@courseForm.location">Location</mat-label>
-            <input matInput formControlName="location" placeholder="Enter location" i18n-placeholder="@@courseForm.locationPlaceholder">
+            <mat-select formControlName="location_id">
+              <mat-option *ngFor="let location of locations" [value]="location.id">
+                {{ location.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="courseForm.get('location_id')?.hasError('required')" i18n="@@courseForm.locationRequired">
+              Location is required
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label i18n="@@courseForm.instructorId">Instructor ID</mat-label>
-            <input matInput type="number" formControlName="instructor_id" placeholder="Enter instructor ID" i18n-placeholder="@@courseForm.instructorIdPlaceholder">
+            <mat-label i18n="@@courseForm.instructor">Instructor</mat-label>
+            <mat-select formControlName="instructor_id">
+              <mat-option [value]="null" i18n="@@courseForm.noInstructor">No Instructor</mat-option>
+              <mat-option *ngFor="let instructor of instructors" [value]="instructor.id">
+                {{ getInstructorDisplayName(instructor.id!) }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline">

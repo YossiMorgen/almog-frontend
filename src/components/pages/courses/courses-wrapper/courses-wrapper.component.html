@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="courses" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-courses 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-courses>
+  
+</app-table-wrapper>

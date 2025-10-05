@@ -4,8 +4,10 @@ import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormG
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClassesService } from '../../../../services/classes.service';
 import { CoursesService } from '../../../../services/courses.service';
+import { UsersService } from '../../../../services/users.service';
 import { Class, CreateClass, UpdateClass } from '../../../../models/class';
 import { Course } from '../../../../models/course';
+import { User } from '../../../../models/user';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-class-form',
@@ -31,8 +34,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatTimepickerModule,
   ],
-  providers: [ClassesService, CoursesService],
+  providers: [ClassesService, CoursesService, UsersService],
   templateUrl: './class-form.component.html',
   styleUrls: ['./class-form.component.scss']
 })
@@ -43,6 +47,7 @@ export class ClassFormComponent implements OnInit {
   error: string | null = null;
   classId: number | null = null;
   courses: Course[] = [];
+  instructors: User[] = [];
 
   statusOptions = [
     { value: 'scheduled', label: 'Scheduled' },
@@ -56,6 +61,7 @@ export class ClassFormComponent implements OnInit {
   constructor(
     private classesService: ClassesService,
     private coursesService: CoursesService,
+    private usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -63,23 +69,43 @@ export class ClassFormComponent implements OnInit {
   classForm!: FormGroup;
 
   ngOnInit(): void {
-    const timePattern = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-    
     this.classForm = this.formBuilder.group({
       course_id: [null as number | null, [Validators.required]],
       class_number: [null as number | null, [Validators.required, Validators.min(1)]],
       class_date: [null as Date | null, [Validators.required]],
-      start_time: ['', [Validators.required, Validators.pattern(timePattern)]],
-      end_time: ['', [Validators.required, Validators.pattern(timePattern)]],
-      location: [''],
+      start_time: ['', [Validators.required]],
+      end_time: ['', [Validators.required]],
+      location_id: [null as number | null],
       instructor_id: [null as number | null],
       status: ['scheduled', [Validators.required]],
       notes: ['']
     });
+    
+    this.loadInstructors();
+    
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.classId = +params['id'];
         this.loadClass();
+      }
+    });
+
+    // Listen for start time changes to auto-set end time
+    this.classForm.get('start_time')?.valueChanges.subscribe(startTime => {
+      if (startTime && !this.classId) {
+        this.onStartTimeChange(startTime);
+      }
+    });
+  }
+
+  loadInstructors(): void {
+    this.usersService.getInstructors().subscribe({
+      next: (response: any) => {
+        this.instructors = response.data?.data || [];
+      },
+      error: (error: any) => {
+        console.error('Error loading instructors:', error);
+        this.instructors = [];
       }
     });
   }
@@ -97,7 +123,7 @@ export class ClassFormComponent implements OnInit {
           class_date: new Date(classData.class_date),
           start_time: classData.start_time,
           end_time: classData.end_time,
-          location: classData.location,
+          location_id: classData.location_id,
           instructor_id: classData.instructor_id,
           status: classData.status,
           notes: classData.notes
@@ -133,7 +159,7 @@ export class ClassFormComponent implements OnInit {
           class_date: formValue.class_date!,
           start_time: formValue.start_time!,
           end_time: formValue.end_time!,
-          location: formValue.location,
+          location_id: formValue.location_id,
           instructor_id: formValue.instructor_id,
           status: formValue.status!,
           notes: formValue.notes
@@ -147,7 +173,7 @@ export class ClassFormComponent implements OnInit {
           class_date: formValue.class_date!,
           start_time: formValue.start_time!,
           end_time: formValue.end_time!,
-          location: formValue.location,
+          location_id: formValue.location_id,
           instructor_id: formValue.instructor_id,
           status: formValue.status!,
           notes: formValue.notes
@@ -176,27 +202,31 @@ export class ClassFormComponent implements OnInit {
     this.router.navigate(['/crm/classes']);
   }
 
-  onTimeInput(event: any, fieldName: string): void {
-    let value = event.target.value;
-    
-    // Remove any non-digit characters except colon
-    value = value.replace(/[^\d:]/g, '');
-    
-    // Auto-format as user types
-    if (value.length === 2 && !value.includes(':')) {
-      value = value + ':';
+  onStartTimeChange(startTime: string): void {
+    if (startTime && !this.classId) {
+      // Parse the start time and add 45 minutes
+      const [hours, minutes] = startTime.split(':').map(Number);
+      const startDate = new Date();
+      startDate.setHours(hours, minutes, 0, 0);
+      
+      // Add 45 minutes
+      const endDate = new Date(startDate.getTime() + 45 * 60 * 1000);
+      
+      // Format the end time as HH:MM
+      const endTime = `${endDate.getHours().toString().padStart(2, '0')}:${endDate.getMinutes().toString().padStart(2, '0')}`;
+      
+      // Only auto-set end time if it's not already set
+      const currentEndTime = this.classForm.get('end_time')?.value;
+      if (!currentEndTime) {
+        this.classForm.patchValue({ end_time: endTime });
+      }
     }
-    
-    // Limit to HH:MM format
-    if (value.length > 5) {
-      value = value.substring(0, 5);
-    }
-    
-    // Update the form control
-    this.classForm.get(fieldName)?.setValue(value);
-    
-    // Update the input value
-    event.target.value = value;
+  }
+
+  getInstructorDisplayName(instructorId: number | undefined): string {
+    if (!instructorId) return 'No instructor assigned';
+    const instructor = this.instructors.find(i => i.id === instructorId);
+    return instructor ? (instructor.name || instructor.email) : `Instructor ID: ${instructorId}`;
   }
 
   private getFormValidationErrors(): string {

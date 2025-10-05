@@ -39,7 +39,7 @@ export class TenantCreateComponent implements OnInit {
     this.tenantForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
       domain: ['', [Validators.maxLength(100)]],
-      language: ['', [Validators.required, Validators.pattern(/^en|he$/)]],
+      language: ['he', [Validators.pattern(/^en|he$/)]],
       subdomain: ['', [Validators.maxLength(50)]]
     });
   }

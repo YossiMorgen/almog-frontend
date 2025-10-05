@@ -12,6 +12,8 @@ import { tenantIdInterceptor } from '../interceptors/tenant-id.interceptor';
 import { tokenRefreshInterceptor } from '../interceptors/token-refresh.interceptor';
 import { firebaseConfig } from '../config/firebase.config';
 import { LocaleService } from '../services/locale.service';
+import { TenantService } from '../services/tenant.service';
+import { SqlUserService } from '../services/sql-user.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,13 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([firebaseAuthInterceptor, tenantIdInterceptor, tokenRefreshInterceptor])),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
-    {
-      provide: LOCALE_ID,
-      useFactory: () => {
-        const localeService = new LocaleService();
-        return localeService.getCurrentLocale();
-      }
-    },
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(ToastrModule.forRoot({
       timeOut: 3000,

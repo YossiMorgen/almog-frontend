@@ -49,7 +49,7 @@ export const NAVIGATION_CONFIG: NavigationSection[] = [
     id: 'academic',
     label: 'Academic',
     icon: 'school',
-    permissions: [PERMISSIONS.CLASSES.READ, PERMISSIONS.SEASONS.READ, PERMISSIONS.STUDENTS.READ, PERMISSIONS.COURSES.READ],
+    permissions: [PERMISSIONS.CLASSES.READ, PERMISSIONS.SEASONS.READ, PERMISSIONS.STUDENTS.READ, PERMISSIONS.COURSES.READ, PERMISSIONS.CLASSES_LOCATIONS.READ],
     items: [
       {
         id: 'seasons',
@@ -84,12 +84,20 @@ export const NAVIGATION_CONFIG: NavigationSection[] = [
         order: 4
       },
       {
+        id: 'classes-locations',
+        label: 'Class Locations',
+        icon: 'location_on',
+        route: '/crm/classes-locations',
+        permissions: [PERMISSIONS.CLASSES_LOCATIONS.READ],
+        order: 5
+      },
+      {
         id: 'course-enrollments',
         label: 'Enrollments',
         icon: 'assignment',
         route: '/crm/course-enrollments',
         permissions: [PERMISSIONS.STUDENTS.READ, PERMISSIONS.COURSES.READ],
-        order: 5
+        order: 6
       },
       {
         id: 'student-classes',
@@ -97,7 +105,7 @@ export const NAVIGATION_CONFIG: NavigationSection[] = [
         icon: 'group',
         route: '/crm/student-classes',
         permissions: [PERMISSIONS.STUDENTS.READ],
-        order: 6
+        order: 7
       }
     ],
     expanded: false,

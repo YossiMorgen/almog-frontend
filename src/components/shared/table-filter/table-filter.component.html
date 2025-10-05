@@ -1,0 +1,131 @@
+<mat-card class="filter-card">
+  <mat-card-header>
+    <mat-card-title class="filter-title">
+      <mat-icon>filter_list</mat-icon>
+      <span i18n="@@filter.title">Filters</span>
+      <span *ngIf="hasActiveFilters()" class="active-count">
+        ({{ getActiveFilterCount() }})
+      </span>
+    </mat-card-title>
+    
+    <div class="filter-actions">
+      <button 
+        mat-icon-button 
+        (click)="toggleExpansion()"
+        matTooltip="Toggle Filters"
+        i18n-matTooltip="@@filter.toggle">
+        <mat-icon>{{ isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+      
+      <button 
+        *ngIf="hasActiveFilters()"
+        mat-icon-button 
+        (click)="onResetFilters()"
+        matTooltip="Reset All Filters"
+        i18n-matTooltip="@@filter.reset">
+        <mat-icon>clear_all</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="isExpanded">
+    <div class="filter-content">
+      <!-- Active Filters Display -->
+      <div *ngIf="hasActiveFilters()" class="active-filters">
+        <div class="active-filters-label" i18n="@@filter.active">Active Filters:</div>
+        <mat-chip-listbox>
+          <mat-chip-option 
+            *ngFor="let field of filterFields" 
+            [disabled]="!getFieldValue(field.key)"
+            (removed)="onClearField(field.key)">
+            <mat-icon matChipAvatar>filter_alt</mat-icon>
+            {{ field.label }}: {{ getFieldDisplayValue(field.key) }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+
+      <!-- Filter Form -->
+      <form [formGroup]="filterForm" class="filter-form">
+        <div class="filter-grid">
+          <div *ngFor="let field of filterFields" class="filter-field">
+            
+            <!-- Text Input -->
+            <mat-form-field *ngIf="field.type === 'text'" appearance="outline">
+              <mat-label>{{ field.label }}</mat-label>
+              <input 
+                matInput 
+                [formControlName]="field.key"
+                [placeholder]="field.placeholder || ''">
+            </mat-form-field>
+
+            <!-- Number Input -->
+            <mat-form-field *ngIf="field.type === 'number'" appearance="outline">
+              <mat-label>{{ field.label }}</mat-label>
+              <input 
+                matInput 
+                type="number"
+                [formControlName]="field.key"
+                [attr.min]="field.min"
+                [attr.max]="field.max"
+                [step]="field.step || 1">
+            </mat-form-field>
+
+            <!-- Select Dropdown -->
+            <mat-form-field *ngIf="field.type === 'select'" appearance="outline">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.key">
+                <mat-option [value]="null">
+                  <em i18n="@@filter.all">All</em>
+                </mat-option>
+                <mat-option 
+                  *ngFor="let option of field.options" 
+                  [value]="option.value">
+                  {{ option.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Date Input -->
+            <mat-form-field *ngIf="field.type === 'date'" appearance="outline">
+              <mat-label>{{ field.label }}</mat-label>
+              <input 
+                matInput 
+                [matDatepicker]="picker"
+                [formControlName]="field.key">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Boolean Toggle -->
+            <div *ngIf="field.type === 'boolean'" class="boolean-field">
+              <mat-slide-toggle [formControlName]="field.key">
+                {{ field.label }}
+              </mat-slide-toggle>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Manual Apply Button (when autoApply is false) -->
+        <div *ngIf="!autoApply" class="filter-buttons">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="onApplyFilters()"
+            i18n="@@filter.apply">
+            Apply Filters
+          </button>
+          <button 
+            mat-button 
+            (click)="onResetFilters()"
+            i18n="@@filter.reset">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

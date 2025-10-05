@@ -7,7 +7,7 @@ export const TenantSchema = z.object({
   name: z.string().max(200),
   domain: z.string().max(100).optional(),
   subdomain: z.string().max(100).optional(),
-  language: z.enum(['en', 'he']).default('he'),
+  language: z.enum(['en', 'he']).optional().default('he'),
   roles: z.array(RoleSchema).optional(),
   permissions: z.array(PermissionSchema).optional(),
   roleCount: z.number().int().optional(),
@@ -34,10 +34,15 @@ export const UserTenantsResponseSchema = z.object({
     }),
   }),
 });
+
+// tenant omit roles and permissions
 export const UserTenantsSchema = z.object({
   id: z.string().uuid(),
   name: z.string().max(200),
-});
+  language: z.enum(['en', 'he']).optional().default('he'),
+  domain: z.string().max(100).optional(),
+  subdomain: z.string().max(50).optional(),
+}); 
 
 export const CreateTenantResponseSchema = z.object({
   success: z.boolean(),

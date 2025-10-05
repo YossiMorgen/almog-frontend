@@ -77,6 +77,14 @@ export const PERMISSIONS = {
     READ: 'seasons.read',
     UPDATE: 'seasons.update',
     DELETE: 'seasons.delete'
+  },
+
+  // Classes Locations Management
+  CLASSES_LOCATIONS: {
+    CREATE: 'classes_locations.create',
+    READ: 'classes_locations.read',
+    UPDATE: 'classes_locations.update',
+    DELETE: 'classes_locations.delete'
   }
 } as const;
 
@@ -143,7 +151,8 @@ export const PERMISSION_GROUPS = {
     PERMISSIONS.PAYMENTS.READ,
     PERMISSIONS.PRODUCTS.READ,
     PERMISSIONS.ORDERS.READ,
-    PERMISSIONS.SEASONS.READ
+    PERMISSIONS.SEASONS.READ,
+    PERMISSIONS.CLASSES_LOCATIONS.READ
   ]
 } as const;
 
@@ -215,6 +224,7 @@ export const COMMON_PATTERNS = {
   ORDER_CRUD: getCrudPermissions('ORDERS'),
   PAYMENT_CRUD: getCrudPermissions('PAYMENTS'),
   SEASON_CRUD: getCrudPermissions('SEASONS'),
+  CLASSES_LOCATIONS_CRUD: getCrudPermissions('CLASSES_LOCATIONS'),
 
   // Multi-role access patterns
   PAYMENT_OR_ADMIN: [
@@ -297,7 +307,12 @@ export function getPermissionDisplayName(permission: string): string {
     [PERMISSIONS.SEASONS.CREATE]: 'Create Seasons',
     [PERMISSIONS.SEASONS.READ]: 'View Seasons',
     [PERMISSIONS.SEASONS.UPDATE]: 'Update Seasons',
-    [PERMISSIONS.SEASONS.DELETE]: 'Delete Seasons'
+    [PERMISSIONS.SEASONS.DELETE]: 'Delete Seasons',
+    
+    [PERMISSIONS.CLASSES_LOCATIONS.CREATE]: 'Create Class Locations',
+    [PERMISSIONS.CLASSES_LOCATIONS.READ]: 'View Class Locations',
+    [PERMISSIONS.CLASSES_LOCATIONS.UPDATE]: 'Update Class Locations',
+    [PERMISSIONS.CLASSES_LOCATIONS.DELETE]: 'Delete Class Locations'
   };
   
   return permissionMap[permission] || permission;

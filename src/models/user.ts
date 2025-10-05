@@ -12,7 +12,7 @@ export const UserSchema = z.object({
   email: z.string().email(),
   name: z.string().max(200).optional(),
   picture: z.string().url().optional(),
-  language: z.enum(['en', 'he']).default('en'),
+  language: z.enum(['en', 'he']).optional().default('en'),
   settings: z.record(z.string(), z.any()).default({}),
   notes: z.string().optional(),
   permissions: z.array(UserPermissionSchema).optional(),

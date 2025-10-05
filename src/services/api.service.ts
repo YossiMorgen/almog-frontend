@@ -18,6 +18,7 @@ import { StudentClass, CreateStudentClass, UpdateStudentClass } from '../models/
 import { OrderItem, CreateOrderItem, UpdateOrderItem } from '../models/orderItem';
 import { PaymentInstallment, CreatePaymentInstallment, UpdatePaymentInstallment } from '../models/paymentInstallment';
 import { Tenant, CreateTenant, UserTenantsResponse, CreateTenantResponse } from '../models/tenant';
+import { ClassesLocation, CreateClassesLocation, UpdateClassesLocation } from '../models/classesLocation';
 
 export interface PaginationResult<T> {
   data: T[];
@@ -54,19 +55,16 @@ export class ApiService {
     private http: HttpClient
   ) {}
 
-  private buildParams(query: PaginationQuery = {}): HttpParams {
+  private buildParams(query: any = {}): HttpParams {
     let params = new HttpParams();
     
-    if (query.tenantId) {
-      params = params.set('tenantId', query.tenantId.toString());
+    if (query) {
+      Object.entries(query).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value + '');
+        }
+      });
     }
-    
-    if (query.page) params = params.set('page', query.page.toString());
-    if (query.limit) params = params.set('limit', query.limit.toString());
-    if (query.sortBy) params = params.set('sortBy', query.sortBy);
-    if (query.sortOrder) params = params.set('sortOrder', query.sortOrder);
-    if (query.search) params = params.set('search', query.search);
-    if (query.season_id) params = params.set('season_id', query.season_id.toString());
     
     return params;
   }
@@ -74,7 +72,7 @@ export class ApiService {
   private buildSingleResourceParams(tenantId?: number): HttpParams {
     let params = new HttpParams();
     
-    if (tenantId) {
+    if (tenantId !== undefined && tenantId !== null) {
       params = params.set('tenantId', tenantId.toString());
     }
     
@@ -384,12 +382,16 @@ export class ApiService {
     return this.http.get<ApiResponse<StudentHealthInsurance>>(`${this.baseUrl}/student-health-insurance/${id}`);
   }
 
-  getStudentHealthInsuranceByStudentId(studentId: number): Observable<ApiResponse<StudentHealthInsurance[]>> {
-    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/student/${studentId}`);
+  getStudentHealthInsuranceByStudentId(studentId: number, query: PaginationQuery = {}): Observable<ApiResponse<StudentHealthInsurance[]>> {
+    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/student/${studentId}`, {
+      params: this.buildParams(query)
+    });
   }
 
-  getStudentHealthInsuranceByHealthInsuranceId(healthInsuranceId: number): Observable<ApiResponse<StudentHealthInsurance[]>> {
-    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/health-insurance/${healthInsuranceId}`);
+  getStudentHealthInsuranceByHealthInsuranceId(healthInsuranceId: number, query: PaginationQuery = {}): Observable<ApiResponse<StudentHealthInsurance[]>> {
+    return this.http.get<ApiResponse<StudentHealthInsurance[]>>(`${this.baseUrl}/student-health-insurance/health-insurance/${healthInsuranceId}`, {
+      params: this.buildParams(query)
+    });
   }
 
   createStudentHealthInsurance(studentHealthInsurance: CreateStudentHealthInsurance): Observable<ApiResponse<StudentHealthInsurance>> {
@@ -404,11 +406,36 @@ export class ApiService {
     return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/student-health-insurance/${id}`);
   }
 
-  getUserTenants(): Observable<UserTenantsResponse> {
-    return this.http.get<UserTenantsResponse>(`${this.baseUrl}/user/tenants`);
+  getUserTenants(query: PaginationQuery = {}): Observable<UserTenantsResponse> {
+    return this.http.get<UserTenantsResponse>(`${this.baseUrl}/user/tenants`, {
+      params: this.buildParams(query)
+    });
   }
 
   createTenant(tenant: CreateTenant): Observable<CreateTenantResponse> {
     return this.http.post<CreateTenantResponse>(`${this.baseUrl}/user/tenants`, tenant);
+  }
+
+  // Classes Locations
+  getClassesLocations(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<ClassesLocation>>> {
+    return this.http.get<ApiResponse<PaginationResult<ClassesLocation>>>(`${this.baseUrl}/classes-locations`, {
+      params: this.buildParams(query)
+    });
+  }
+
+  getClassesLocation(id: number): Observable<ApiResponse<ClassesLocation>> {
+    return this.http.get<ApiResponse<ClassesLocation>>(`${this.baseUrl}/classes-locations/${id}`);
+  }
+
+  createClassesLocation(location: CreateClassesLocation): Observable<ApiResponse<ClassesLocation>> {
+    return this.http.post<ApiResponse<ClassesLocation>>(`${this.baseUrl}/classes-locations`, location);
+  }
+
+  updateClassesLocation(id: number, location: UpdateClassesLocation): Observable<ApiResponse<ClassesLocation>> {
+    return this.http.put<ApiResponse<ClassesLocation>>(`${this.baseUrl}/classes-locations/${id}`, location);
+  }
+
+  deleteClassesLocation(id: number): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/classes-locations/${id}`);
   }
 }

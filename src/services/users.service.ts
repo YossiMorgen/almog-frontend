@@ -1,44 +1,92 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiService, PaginationQuery, PaginationResult, ApiResponse } from './api.service';
-import { User, CreateUser, UpdateUser } from '../models/user';
+import { ApiService, ApiResponse, PaginationResult } from './api.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService
+  ) {}
 
-  getUsers(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<User>>> {
-    return this.apiService.getUsers(query);
+  getUsers(params?: {
+    page?: number;
+    limit?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    search?: string;
+    searchMode?: 'simple' | 'advanced';
+    roleFilter?: string;
+  }): Observable<ApiResponse<PaginationResult<User>>> {
+    let httpParams = new HttpParams();
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          httpParams = httpParams.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<ApiResponse<PaginationResult<User>>>('http://localhost:3040/api/users', {
+      params: httpParams
+    });
+  }
+
+  getUsersByRole(roleName: string, params?: {
+    page?: number;
+    limit?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    search?: string;
+  }): Observable<ApiResponse<PaginationResult<User>>> {
+    return this.getUsers({
+      ...params,
+      roleFilter: roleName
+    });
+  }
+
+  getInstructors(params?: {
+    page?: number;
+    limit?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    search?: string;
+  }): Observable<ApiResponse<PaginationResult<User>>> {
+    return this.getUsersByRole('instructor', params);
   }
 
   getUser(id: number): Observable<ApiResponse<User>> {
     return this.apiService.getUser(id);
   }
 
-  createUser(user: CreateUser): Observable<ApiResponse<User>> {
+  createUser(user: any): Observable<ApiResponse<User>> {
     return this.apiService.createUser(user);
   }
 
-  updateUser(id: number, user: UpdateUser): Observable<ApiResponse<User>> {
+  updateUser(id: number, user: any): Observable<ApiResponse<User>> {
     return this.apiService.updateUser(id, user);
   }
 
-  async getUsersAsync(query: PaginationQuery = {}): Promise<ApiResponse<PaginationResult<User>>> {
-    return this.apiService.getUsers(query).toPromise() as Promise<ApiResponse<PaginationResult<User>>>;
+  async updateUserAsync(id: number, user: any): Promise<User> {
+    return new Promise((resolve, reject) => {
+      this.updateUser(id, user).subscribe({
+        next: (response) => resolve(response.data),
+        error: (error) => reject(error)
+      });
+    });
   }
 
-  async getUserAsync(id: number): Promise<ApiResponse<User>> {
-    return this.apiService.getUser(id).toPromise() as Promise<ApiResponse<User>>;
-  }
-
-  async createUserAsync(user: CreateUser): Promise<ApiResponse<User>> {
-    return this.apiService.createUser(user).toPromise() as Promise<ApiResponse<User>>;
-  }
-
-  async updateUserAsync(id: number, user: UpdateUser): Promise<ApiResponse<User>> {
-    return this.apiService.updateUser(id, user).toPromise() as Promise<ApiResponse<User>>;
+  async createUserAsync(user: any): Promise<User> {
+    return new Promise((resolve, reject) => {
+      this.createUser(user).subscribe({
+        next: (response) => resolve(response.data),
+        error: (error) => reject(error)
+      });
+    });
   }
 }
-

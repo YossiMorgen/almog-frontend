@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { API_CONFIG } from '../config/api.config';
-import { from, switchMap, catchError } from 'rxjs';
+import { from, switchMap } from 'rxjs';
 
 export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
   
@@ -35,10 +35,6 @@ export const firebaseAuthInterceptor: HttpInterceptorFn = (req, next) => {
       }
       
       console.log('⚠️ No token available for request:', req.url);
-      return next(req);
-    }),
-    catchError(error => {
-      console.log('❌ Token retrieval failed for:', req.url, error);
       return next(req);
     })
   );

@@ -82,6 +82,11 @@
   
   <span class="spacer"></span>
   
+  <!-- Filter Toggle Button -->
+  <button *ngIf="showFilters$ | async" mat-icon-button (click)="onToggleFilters()" matTooltip="Toggle Filters" i18n-matTooltip="@@header.toggleFilters" class="filter-toggle">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  
   <!-- Theme Toggle (moved to dropdown but keeping for mobile) -->
   <button mat-icon-button (click)="toggleTheme()" matTooltip="Toggle Theme" i18n-matTooltip="@@header.toggleTheme" class="mobile-theme-toggle">
     <mat-icon>{{ (themeService.isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>

@@ -9,7 +9,7 @@ import { Course, CreateCourse, UpdateCourse } from '../models/course';
 export class CoursesService {
   constructor(private apiService: ApiService) {}
 
-  getCourses(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<Course>>> {
+  getCourses(query: any = {}): Observable<ApiResponse<PaginationResult<Course>>> {
     return this.apiService.getCourses(query);
   }
 

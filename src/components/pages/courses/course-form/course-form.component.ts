@@ -4,8 +4,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroupDirective, Validators, FormG
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../../../services/courses.service';
 import { SeasonsService } from '../../../../services/seasons.service';
+import { UsersService } from '../../../../services/users.service';
+import { ClassesLocationsService } from '../../../../services/classes-locations.service';
 import { Course, CreateCourse, UpdateCourse } from '../../../../models/course';
 import { Season } from '../../../../models/season';
+import { User } from '../../../../models/user';
+import { ClassesLocation } from '../../../../models/classesLocation';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-course-form',
@@ -30,9 +35,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatNativeDateModule,
     MatIconModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTimepickerModule
   ],
-  providers: [CoursesService, SeasonsService],
+  providers: [CoursesService, SeasonsService, UsersService, ClassesLocationsService],
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss']
 })
@@ -43,6 +49,8 @@ export class CourseFormComponent implements OnInit {
   error: string | null = null;
   courseId: number | null = null;
   seasons: Season[] = [];
+  instructors: User[] = [];
+  locations: ClassesLocation[] = [];
   preSelectedSeasonId: number | null = null;
 
   levelOptions = [
@@ -77,6 +85,8 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private seasonsService: SeasonsService,
+    private usersService: UsersService,
+    private classesLocationsService: ClassesLocationsService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -84,6 +94,8 @@ export class CourseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSeasons();
+    this.loadInstructors();
+    this.loadLocations();
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.courseId = +params['id'];
@@ -101,7 +113,7 @@ export class CourseFormComponent implements OnInit {
       max_students: [10, [Validators.required, Validators.min(1)]],
       price: [null as number | null, [Validators.required, Validators.min(0)]],
       instructor_id: [null as number | null],
-      location: [''],
+      location_id: [null as number | null, [Validators.required]],
       day_of_week: ['', [Validators.required]],
       start_time: ['', [Validators.required]],
       end_time: ['', [Validators.required]],
@@ -116,6 +128,21 @@ export class CourseFormComponent implements OnInit {
         const seasonId = parseInt(queryParams['season_id']);
         this.preSelectedSeasonId = seasonId;
         this.courseForm.patchValue({ season_id: seasonId });
+        this.onSeasonChange(seasonId);
+      }
+    });
+
+    // Listen for season selection changes
+    this.courseForm.get('season_id')?.valueChanges.subscribe(seasonId => {
+      if (seasonId && !this.courseId) {
+        this.onSeasonChange(seasonId);
+      }
+    });
+
+    // Listen for start time changes to auto-set end time
+    this.courseForm.get('start_time')?.valueChanges.subscribe(startTime => {
+      if (startTime && !this.courseId) {
+        this.onStartTimeChange(startTime);
       }
     });
   }
@@ -128,6 +155,30 @@ export class CourseFormComponent implements OnInit {
       error: (error: any) => {
         console.error('Error loading seasons:', error);
         this.seasons = [];
+      }
+    });
+  }
+
+  loadInstructors(): void {
+    this.usersService.getInstructors({ limit: 100 }).subscribe({
+      next: (response: any) => {
+        this.instructors = response.data?.data || [];
+      },
+      error: (error: any) => {
+        console.error('Error loading instructors:', error);
+        this.instructors = [];
+      }
+    });
+  }
+
+  loadLocations(): void {
+    this.classesLocationsService.getActiveClassesLocations({ limit: 100 }).subscribe({
+      next: (response: any) => {
+        this.locations = response.data?.data || [];
+      },
+      error: (error: any) => {
+        console.error('Error loading locations:', error);
+        this.locations = [];
       }
     });
   }
@@ -149,7 +200,7 @@ export class CourseFormComponent implements OnInit {
           max_students: courseData.max_students,
           price: courseData.price,
           instructor_id: courseData.instructor_id,
-          location: courseData.location,
+          location_id: courseData.location_id,
           day_of_week: courseData.day_of_week,
           start_time: courseData.start_time,
           end_time: courseData.end_time,
@@ -173,7 +224,6 @@ export class CourseFormComponent implements OnInit {
     this.courseForm.markAllAsTouched();
     
     if (!this.courseForm.valid) {
-      console.error('Form validation errors:', this.getFormValidationErrors());
       return;
     }
     
@@ -182,6 +232,26 @@ export class CourseFormComponent implements OnInit {
 
     try {
       const formValue = this.courseForm.value;
+      
+      // Format time values to HH:MM format
+      const formatTime = (timeValue: any): string => {
+        if (!timeValue) return '';
+        if (typeof timeValue === 'string') return timeValue;
+        if (timeValue instanceof Date) {
+          return `${timeValue.getHours().toString().padStart(2, '0')}:${timeValue.getMinutes().toString().padStart(2, '0')}`;
+        }
+        return '';
+      };
+
+      // Format date values to YYYY-MM-DD format
+      const formatDate = (dateValue: any): string => {
+        if (!dateValue) return '';
+        if (typeof dateValue === 'string') return dateValue;
+        if (dateValue instanceof Date) {
+          return dateValue.toISOString().split('T')[0];
+        }
+        return '';
+      };
       
       if (this.courseId) {
         const updatePayload: UpdateCourse = {
@@ -194,12 +264,12 @@ export class CourseFormComponent implements OnInit {
           max_students: formValue.max_students,
           price: formValue.price,
           instructor_id: formValue.instructor_id,
-          location: formValue.location,
+          location_id: formValue.location_id,
           day_of_week: formValue.day_of_week,
-          start_time: formValue.start_time,
-          end_time: formValue.end_time,
-          start_date: formValue.start_date,
-          end_date: formValue.end_date,
+          start_time: formatTime(formValue.start_time),
+          end_time: formatTime(formValue.end_time),
+          start_date: formatDate(formValue.start_date) as any,
+          end_date: formatDate(formValue.end_date) as any,
           status: formValue.status
         };
         
@@ -215,12 +285,12 @@ export class CourseFormComponent implements OnInit {
           max_students: formValue.max_students || 10,
           price: formValue.price!,
           instructor_id: formValue.instructor_id,
-          location: formValue.location,
+          location_id: formValue.location_id,
           day_of_week: formValue.day_of_week!,
-          start_time: formValue.start_time!,
-          end_time: formValue.end_time!,
-          start_date: formValue.start_date!,
-          end_date: formValue.end_date!,
+          start_time: formatTime(formValue.start_time),
+          end_time: formatTime(formValue.end_time),
+          start_date: formatDate(formValue.start_date) as any,
+          end_date: formatDate(formValue.end_date) as any,
           status: formValue.status || 'draft'
         };
         
@@ -228,7 +298,7 @@ export class CourseFormComponent implements OnInit {
       }
       
       this.resetForm();
-      this.router.navigate(['/crm/courses']);
+      // this.router.navigate(['/crm/courses']);
     } catch (error: any) {
       console.error('Error saving course:', error);
       this.error = this.courseId ? 'Failed to update course' : 'Failed to create course';
@@ -251,6 +321,53 @@ export class CourseFormComponent implements OnInit {
     if (!this.preSelectedSeasonId) return '';
     const season = this.seasons.find(s => s.id === this.preSelectedSeasonId);
     return season ? season.name : '';
+  }
+
+  getInstructorDisplayName(instructorId: number): string {
+    const instructor = this.instructors.find(i => i.id === instructorId);
+    if (!instructor) return '';
+    
+    if (instructor.name) {
+      return instructor.name;
+    }
+    
+    return instructor.email;
+  }
+
+  getLocationDisplayName(locationId: number): string {
+    const location = this.locations.find(l => l.id === locationId);
+    if (!location) return '';
+    
+    return location.name;
+  }
+
+  onSeasonChange(seasonId: number): void {
+    const selectedSeason = this.seasons.find(season => season.id === seasonId);
+    if (selectedSeason && !this.courseId) {
+      this.courseForm.patchValue({
+        start_date: new Date(selectedSeason.start_date),
+        end_date: new Date(selectedSeason.end_date)
+      });
+    }
+  }
+
+  onStartTimeChange(startTime: Date | string): void {
+    if (startTime && !this.courseId) {
+      
+      let startDate: Date;
+      
+      if (startTime instanceof Date) {
+        startDate = new Date(startTime);
+      } else {
+        const [hours, minutes] = startTime.split(':').map(Number);
+        startDate = new Date();
+        startDate.setHours(hours, minutes, 0, 0);
+      }
+      
+      const endDate = new Date(startDate.getTime() + 45 * 60 * 1000);
+      
+      this.courseForm.patchValue({ end_time: endDate });
+    }
   }
 
   private getFormValidationErrors(): string {
