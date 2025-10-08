@@ -68,7 +68,7 @@ export class ClassesLocationsFormComponent implements OnInit {
       city: [''],
       postal_code: [''],
       phone: [''],
-      email: ['', [Validators.email]],
+      email: ['', [Validators.email, Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
       capacity: [0, [Validators.required, Validators.min(0)]],
       is_active: [true]
     });

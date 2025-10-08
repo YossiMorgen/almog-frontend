@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { RolesService } from '../../../../services/roles.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { Role } from '../../../../models/role';
+import { RoleFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-roles',
@@ -40,7 +43,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent implements OnInit {
+export class RolesComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<RoleFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<RoleFilterParams>>();
+
   roles: Role[] = [];
   pagination: PaginationResult<Role>['pagination'] | null = null;
   loading = false;
@@ -48,20 +54,47 @@ export class RolesComponent implements OnInit {
   Math = Math;
   currentUser: any = null;
   
-  searchTerm = '';
   currentPage = 1;
   pageSize = 10;
   sortBy = 'name';
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['name', 'description', 'is_system', 'created_at', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private rolesService: RolesService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('roles');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadRoles();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<RoleFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'name';
+    this.sortOrder = filters.sortOrder || 'asc';
+    
     this.loadRoles();
   }
 
@@ -73,8 +106,7 @@ export class RolesComponent implements OnInit {
       page: this.currentPage,
       limit: this.pageSize,
       sortBy: this.sortBy,
-      sortOrder: this.sortOrder,
-      search: this.searchTerm || undefined
+      sortOrder: this.sortOrder
     };
 
     this.rolesService.getRoles(query).subscribe({
@@ -91,29 +123,34 @@ export class RolesComponent implements OnInit {
     });
   }
 
-  onSearch(): void {
-    this.currentPage = 1;
-    this.loadRoles();
-  }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadRoles();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadRoles();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadRoles();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createRole(): void {

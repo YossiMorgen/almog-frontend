@@ -89,4 +89,34 @@ export class UsersService {
       });
     });
   }
+
+  // User role management methods
+  assignRolesToUser(userId: number, roleIds: number[], tenantId: string): Observable<any> {
+    return this.http.post('http://localhost:3040/api/user-roles/assign', {
+      user_id: userId,
+      role_ids: roleIds
+    }, {
+      params: { tenantId }
+    });
+  }
+
+  updateUserRoles(userId: number, roleIds: number[], tenantId: string): Observable<any> {
+    return this.http.put(`http://localhost:3040/api/user-roles/${userId}`, {
+      role_ids: roleIds
+    }, {
+      params: { tenantId }
+    });
+  }
+
+  getUserRoles(userId: number, tenantId: string): Observable<any> {
+    return this.http.get(`http://localhost:3040/api/user-roles/${userId}`, {
+      params: { tenantId }
+    });
+  }
+
+  removeRoleFromUser(userId: number, roleId: number, tenantId: string): Observable<any> {
+    return this.http.delete(`http://localhost:3040/api/user-roles/${userId}/${roleId}`, {
+      params: { tenantId }
+    });
+  }
 }

@@ -87,13 +87,16 @@ export class CoursesComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.filterService.setFilterType('courses');
     
-    // Watch for filter changes from the wrapper
+    // Watch for season_id changes from route params only
     this.filterSubscription = this.route.queryParams.subscribe(params => {
       if (params['season_id']) {
         this.seasonId = parseInt(params['season_id']);
       }
-      this.loadCourses();
+      // Don't call loadCourses() here - it will be called by ngOnChanges when filters change
     });
+    
+    // Initial load with current filters
+    this.loadCourses();
   }
 
   ngOnDestroy(): void {

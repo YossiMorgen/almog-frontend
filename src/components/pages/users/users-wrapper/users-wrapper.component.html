@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="users" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-users 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-users>
+  
+</app-table-wrapper>

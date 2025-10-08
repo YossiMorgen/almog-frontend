@@ -1,8 +1,8 @@
 <div class="tenant-create-container">
   <mat-card class="form-wrapper">
     <div class="header">
-      <h1>Create New Organization</h1>
-      <p>Set up your organization to get started</p>
+      <h1>{{ isEditMode ? 'Edit Organization' : 'Create New Organization' }}</h1>
+      <p>{{ isEditMode ? 'Update your organization settings' : 'Set up your organization to get started' }}</p>
     </div>
 
     <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" class="tenant-form" *ngIf="tenantForm">
@@ -90,8 +90,8 @@
           color="primary"
           [disabled]="isSubmitting || tenantForm.invalid"
         >
-          <span *ngIf="isSubmitting">Creating...</span>
-          <span *ngIf="!isSubmitting">Create Organization</span>
+          <span *ngIf="isSubmitting">{{ isEditMode ? 'Updating...' : 'Creating...' }}</span>
+          <span *ngIf="!isSubmitting">{{ isEditMode ? 'Update Organization' : 'Create Organization' }}</span>
         </button>
       </div>
     </form>

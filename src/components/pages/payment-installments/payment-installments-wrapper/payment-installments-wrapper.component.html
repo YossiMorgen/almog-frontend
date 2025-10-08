@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="payment-installments" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-paymentinstallments 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-paymentinstallments>
+  
+</app-table-wrapper>

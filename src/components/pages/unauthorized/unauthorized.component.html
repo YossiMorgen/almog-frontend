@@ -1,0 +1,65 @@
+<div class="unauthorized-container">
+  <div class="unauthorized-background">
+    <div class="water-animation"></div>
+    <div class="bubbles">
+      <div class="bubble bubble-1"></div>
+      <div class="bubble bubble-2"></div>
+      <div class="bubble bubble-3"></div>
+      <div class="bubble bubble-4"></div>
+      <div class="bubble bubble-5"></div>
+    </div>
+  </div>
+  
+  <div class="unauthorized-content">
+    <div class="unauthorized-card">
+      <div class="unauthorized-header">
+        <div class="logo-container">
+          <div class="warning-icon">
+            <mat-icon>warning</mat-icon>
+          </div>
+        </div>
+        <h1 class="unauthorized-title">Access Denied</h1>
+        <p class="unauthorized-subtitle">You don't have the required permissions to access this page</p>
+      </div>
+      
+      <div class="unauthorized-message">
+        <p i18n="@@unauthorized.message">
+          Please contact your administrator if you believe this is an error, or try selecting a different organization.
+        </p>
+      </div>
+      
+      <div class="unauthorized-actions">
+        <button 
+          mat-raised-button
+          class="auth-button"
+          (click)="goBack()"
+        >
+          <mat-icon class="mr-2">arrow_back</mat-icon>
+          <span i18n="@@unauthorized.goBack">Go Back</span>
+        </button>
+        
+        <button 
+          mat-raised-button
+          class="auth-button"
+          (click)="goToTenantSelection()"
+        >
+          <mat-icon class="mr-2">business</mat-icon>
+          <span i18n="@@unauthorized.selectOrganization">Select Organization</span>
+        </button>
+        
+        <button 
+          mat-raised-button
+          class="auth-button"
+          (click)="goHome()"
+        >
+          <mat-icon class="mr-2">home</mat-icon>
+          <span i18n="@@unauthorized.goToDashboard">Go to Dashboard</span>
+        </button>
+      </div>
+      
+      <div class="unauthorized-footer">
+        <p class="footer-text">Need help? Contact your system administrator</p>
+      </div>
+    </div>
+  </div>
+</div>

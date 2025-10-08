@@ -23,3 +23,4 @@ export * from './student-classes.service';
 export * from './order-items.service';
 export * from './payment-installments.service';
 export * from './users.service';
+export * from './confirmation-dialog.service';

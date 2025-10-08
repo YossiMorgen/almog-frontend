@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="roles" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-roles 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-roles>
+  
+</app-table-wrapper>

@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../services/auth.service';
 import { SqlUserService } from '../../../services/sql-user.service';
 import { LocaleService } from '../../../services/locale.service';
 import { ApiService } from '../../../services/api.service';
 import { FilterService } from '../../../services/filter.service';
+import { FilterConfigService } from '../../../services/filter-config.service';
 import { Router } from '@angular/router';
 import { User as FirebaseUser } from 'firebase/auth';
 import { User } from '../../../models/user';
@@ -22,12 +23,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { TenantService } from '../../../services/tenant.service';
+import { NAVIGATION_CONFIG, NavigationSection } from '../../../config/navigation.config';
+import { PermissionService } from '../../../services/permission.service';
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule, 
     RouterLink,
+    RouterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -41,7 +45,7 @@ import { TenantService } from '../../../services/tenant.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, AfterViewInit {
   @Output() toggleSideNav = new EventEmitter<void>();
   
   public currentUser: User | null = null;
@@ -53,7 +57,10 @@ export class HeaderComponent {
   public currentLocale: string = 'en';
   public tenantSearchTerm: string = '';
   public filteredTenants: UserTenants[] = [];
-  public showFilters$: Observable<boolean>;
+  public hasFilters: boolean = false;
+  public isMobileSidebarOpen: boolean = false;
+  public mobileNavigationConfig: NavigationSection[] = [];
+  public expandedSections: { [key: string]: boolean } = {};
 
   constructor(
     public themeService: ThemeService, 
@@ -63,9 +70,11 @@ export class HeaderComponent {
     private apiService: ApiService,
     private router: Router,
     private tenantService: TenantService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private filterConfigService: FilterConfigService,
+    private permissionService: PermissionService,
+    private cdr: ChangeDetectorRef
   ) {
-    this.showFilters$ = this.filterService.showFilters$;
     this.localeService.currentLocale$.subscribe(locale => {
       this.currentLocale = locale;
     });
@@ -102,6 +111,25 @@ export class HeaderComponent {
       // If user is already loaded, try to restore selected tenant
       this.restoreSelectedTenant();
     }
+
+    // Load mobile navigation config
+    this.loadMobileNavigationConfig();
+    
+  }
+
+  ngAfterViewInit(): void {
+    // Initial filter visibility check - runs after view is fully initialized
+    // Use setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+      this.updateFilterVisibility();
+    });
+    
+    // Track route changes to update filter visibility after DOM is loaded
+    this.router.events.subscribe(() => {
+      setTimeout(() => {
+        this.updateFilterVisibility();
+      });
+    });
   }
 
   private async loadUser(): Promise<void> {
@@ -198,15 +226,138 @@ export class HeaderComponent {
     this.router.navigate(['/tenant-create']);
   }
 
+  manageOrganization(): void {
+    this.router.navigate(['/tenant-selection']);
+  }
+
+  editOrganization(): void {
+    if (this.currentTenant?.id) {
+      this.router.navigate(['/crm/edit-tenant', this.currentTenant.id]);
+    }
+  }
+
   getTenantDisplayName(): string {
     return this.currentTenant?.name || 'Select Tenant';
   }
 
   onToggleSideNav(): void {
-    this.toggleSideNav.emit();
+    // Check if we're on mobile
+    if (window.innerWidth <= 768) {
+      this.toggleMobileSidebar();
+    } else {
+      this.toggleSideNav.emit();
+    }
+  }
+
+  toggleMobileSidebar(): void {
+    this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
+  }
+
+  closeMobileSidebar(): void {
+    this.isMobileSidebarOpen = false;
+  }
+
+  onMobileSidebarClick(event: Event): void {
+    // Prevent the dropdown from closing when clicking inside
+    event.stopPropagation();
+  }
+
+  private loadMobileNavigationConfig(): void {
+    this.mobileNavigationConfig = NAVIGATION_CONFIG.filter(section => 
+      section.permissions?.every(permission => this.hasPermission(permission)) || true
+    ).map(section => ({
+      ...section,
+      items: section.items.filter(item => 
+        item.permissions?.every(permission => this.hasPermission(permission)) || true
+      )
+    }));
+    
+    // Initialize expanded state for each section
+    this.mobileNavigationConfig.forEach(section => {
+      this.expandedSections[section.id] = section.expanded || false;
+    });
+  }
+
+  private hasPermission(permission?: any): boolean {
+    if (!permission) return true;
+    // For now, return true - you can implement proper permission checking later
+    return true;
+  }
+
+  toggleMobileSection(sectionId: string): void {
+    this.expandedSections[sectionId] = !this.expandedSections[sectionId];
+  }
+
+  isMobileSectionExpanded(sectionId: string): boolean {
+    return this.expandedSections[sectionId];
+  }
+
+  onMobileNavigationClick(event: Event): void {
+    event.stopPropagation();
+    // Close mobile sidebar after navigation
+    this.closeMobileSidebar();
   }
 
   onToggleFilters(): void {
     this.filterService.toggleFilters();
+  }
+
+  private updateFilterVisibility(): void {
+    const currentUrl = this.router.url;
+    const routePath = this.extractRoutePathFromUrl(currentUrl);
+    
+    console.log('Current URL:', currentUrl);
+    console.log('Extracted route path:', routePath);
+    
+    if (routePath) {
+      const combinedFilters = this.filterConfigService.getCombinedFiltersForRoute(routePath);
+      this.hasFilters = combinedFilters.length > 0;
+      console.log('Combined filters for route:', combinedFilters);
+      console.log('Has filters:', this.hasFilters);
+      
+      // If filters are available, restore the saved state
+      if (this.hasFilters) {
+        const savedState = this.getSavedFilterState();
+        this.filterService.setShowFilters(savedState);
+        console.log('Restored saved filter state:', savedState);
+      }
+    } else {
+      this.hasFilters = false;
+      console.log('No route path found, hasFilters set to false');
+    }
+
+    if(!this.hasFilters) {
+      this.filterService.setShowFilters(false);
+      console.log('No filters found for route:', routePath, '- forcing filters to close');
+      // Trigger change detection to ensure the UI updates
+      this.cdr.detectChanges();
+    }
+  }
+
+  private getSavedFilterState(): boolean {
+    try {
+      const saved = localStorage.getItem('showFilters');
+      return saved ? JSON.parse(saved) : false;
+    } catch (error) {
+      console.error('Error reading saved filter state:', error);
+      return false;
+    }
+  }
+
+  private extractRoutePathFromUrl(url: string): string | null {
+    const path = url.split('?')[0];
+    
+    // Extract the path after /crm/
+    const crmIndex = path.indexOf('/crm/');
+    if (crmIndex === -1) {
+      return null;
+    }
+    
+    const routePath = path.substring(crmIndex + 5); // +5 to skip '/crm/'
+    const routeSegments = routePath.split('/').filter(segment => segment.length > 0);
+    const baseRoute = routeSegments[0];
+    
+    // Only return base route if it's exactly the base route (no additional segments)
+    return routeSegments.length === 1 ? baseRoute : null;
   }
 }

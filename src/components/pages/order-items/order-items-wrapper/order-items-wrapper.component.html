@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="order-items" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-order-items 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-order-items>
+  
+</app-table-wrapper>

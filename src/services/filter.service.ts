@@ -9,7 +9,7 @@ import { RouteFilterService } from './route-filter.service';
   providedIn: 'root'
 })
 export class FilterService {
-  private showFiltersSubject = new BehaviorSubject<boolean>(false);
+  private showFiltersSubject = new BehaviorSubject<boolean>(this.getInitialFilterState());
   private currentFilterTypeSubject = new BehaviorSubject<string>('');
 
   public showFilters$ = this.showFiltersSubject.asObservable();
@@ -117,20 +117,16 @@ export class FilterService {
     const shouldShowFilters = this.shouldShowFiltersForUrl(currentUrl);
     
     if (shouldShowFilters) {
-      this.showFiltersSubject.next(!this.showFiltersSubject.value);
+      const newState = !this.showFiltersSubject.value;
+      this.showFiltersSubject.next(newState);
+      this.saveFilterState(newState);
     }
   }
 
   setShowFilters(show: boolean): void {
-    // Only allow showing filters if we're on a route that should show filters
-    const currentUrl = this.router.url;
-    const shouldShowFilters = this.shouldShowFiltersForUrl(currentUrl);
-    
-    if (shouldShowFilters && show) {
-      this.showFiltersSubject.next(true);
-    } else if (!shouldShowFilters) {
-      this.showFiltersSubject.next(false);
-    }
+    // Always respect the show parameter - let the calling component decide
+    this.showFiltersSubject.next(show);
+    this.saveFilterState(show);
   }
 
   setFilterType(filterType: string): void {
@@ -169,5 +165,23 @@ export class FilterService {
     return Object.values(params).filter(value => 
       value !== null && value !== undefined && value !== ''
     ).length;
+  }
+
+  private getInitialFilterState(): boolean {
+    try {
+      const saved = localStorage.getItem('showFilters');
+      return saved ? JSON.parse(saved) : false;
+    } catch (error) {
+      console.error('Error reading filter state from localStorage:', error);
+      return false;
+    }
+  }
+
+  private saveFilterState(show: boolean): void {
+    try {
+      localStorage.setItem('showFilters', JSON.stringify(show));
+    } catch (error) {
+      console.error('Error saving filter state to localStorage:', error);
+    }
   }
 }

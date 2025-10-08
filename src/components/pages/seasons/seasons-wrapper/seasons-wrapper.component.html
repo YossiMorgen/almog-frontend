@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="seasons" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-seasons 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-seasons>
+  
+</app-table-wrapper>

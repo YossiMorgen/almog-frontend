@@ -226,7 +226,7 @@ export class ClassFormComponent implements OnInit {
   getInstructorDisplayName(instructorId: number | undefined): string {
     if (!instructorId) return 'No instructor assigned';
     const instructor = this.instructors.find(i => i.id === instructorId);
-    return instructor ? (instructor.name || instructor.email) : `Instructor ID: ${instructorId}`;
+    return instructor ? (instructor.first_name + ' ' + instructor.last_name || instructor.email) : `Instructor ID: ${instructorId}`;
   }
 
   private getFormValidationErrors(): string {

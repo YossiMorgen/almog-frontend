@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { StudentClassesService } from '../../../../services/student-classes.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { StudentClass } from '../../../../models/studentClass';
+import { StudentClassFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,20 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
+
+// Extended query interface for student classes with additional filter fields
+interface StudentClassPaginationQuery extends PaginationQuery {
+  class_id?: number;
+  student_id?: number;
+  attendance_status?: string;
+  marked_at_from?: string;
+  marked_at_to?: string;
+  created_from?: string;
+  created_to?: string;
+  updated_from?: string;
+  updated_to?: string;
+}
 
 @Component({
   selector: 'app-studentclasses',
@@ -40,7 +56,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './studentclasses.component.html',
   styleUrls: ['./studentclasses.component.scss']
 })
-export class StudentclassesComponent implements OnInit {
+export class StudentclassesComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<StudentClassFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<StudentClassFilterParams>>();
+
   studentClasses: StudentClass[] = [];
   pagination: PaginationResult<StudentClass>['pagination'] | null = null;
   loading = false;
@@ -55,26 +74,65 @@ export class StudentclassesComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['class_id', 'student_id', 'attendance_status', 'marked_at', 'notes', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private studentClassesService: StudentClassesService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('student-classes');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadStudentClasses();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<StudentClassFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'class_id';
+    this.sortOrder = filters.sortOrder || 'asc';
+    this.searchTerm = filters.search || '';
+    
     this.loadStudentClasses();
   }
 
   loadStudentClasses(): void {
     this.loading = true;
     this.error = null;
-
-    const query: PaginationQuery = {
+    
+    const query: StudentClassPaginationQuery = {
       page: this.currentPage,
       limit: this.pageSize,
       sortBy: this.sortBy,
       sortOrder: this.sortOrder,
-      search: this.searchTerm || undefined
+      search: this.searchTerm || undefined,
+      tenantId: undefined,
+      class_id: this.filters.class_id || undefined,
+      student_id: this.filters.student_id || undefined,
+      attendance_status: this.filters.attendance_status || undefined,
+      marked_at_from: this.filters.marked_at_from || undefined,
+      marked_at_to: this.filters.marked_at_to || undefined,
+      created_from: this.filters.created_from || undefined,
+      created_to: this.filters.created_to || undefined,
+      updated_from: this.filters.updated_from || undefined,
+      updated_to: this.filters.updated_to || undefined
     };
 
     this.studentClassesService.getStudentClasses(query).subscribe({
@@ -92,28 +150,40 @@ export class StudentclassesComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1;
-    this.loadStudentClasses();
+    this.filterChange.emit({
+      ...this.filters,
+      search: this.searchTerm,
+      page: 1
+    });
   }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadStudentClasses();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadStudentClasses();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadStudentClasses();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createStudentClass(): void {

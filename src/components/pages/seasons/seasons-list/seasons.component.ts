@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { SeasonsService } from '../../../../services/seasons.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { Season } from '../../../../models/season';
+import { SeasonFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seasons',
@@ -40,7 +43,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './seasons.component.html',
   styleUrls: ['./seasons.component.scss']
 })
-export class SeasonsComponent implements OnInit {
+export class SeasonsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<SeasonFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<SeasonFilterParams>>();
+
   seasons: Season[] = [];
   pagination: PaginationResult<Season>['pagination'] | null = null;
   loading = false;
@@ -55,13 +61,42 @@ export class SeasonsComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['name', 'year', 'start_date', 'end_date', 'description', 'is_active', 'created_at', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private seasonsService: SeasonsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('seasons');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadSeasons();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<SeasonFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'name';
+    this.sortOrder = filters.sortOrder || 'asc';
+    this.searchTerm = filters.search || '';
+    
     this.loadSeasons();
   }
 
@@ -92,28 +127,40 @@ export class SeasonsComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1;
-    this.loadSeasons();
+    this.filterChange.emit({
+      ...this.filters,
+      search: this.searchTerm,
+      page: 1
+    });
   }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadSeasons();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadSeasons();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadSeasons();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createSeason(): void {

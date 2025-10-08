@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="classes-locations" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-classes-locations-list 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-classes-locations-list>
+  
+</app-table-wrapper>

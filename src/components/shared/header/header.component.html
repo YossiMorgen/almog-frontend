@@ -1,6 +1,9 @@
 <mat-toolbar color="primary" [dir]="getDirection()">
   <!-- Side Nav Toggle Button -->
-  <button mat-icon-button (click)="onToggleSideNav()" class="side-nav-toggle">
+  <button mat-icon-button 
+          [matMenuTriggerFor]="mobileSidebarMenu" 
+          (click)="onToggleSideNav()" 
+          class="side-nav-toggle mobile-sidebar-trigger">
     <mat-icon>menu</mat-icon>
   </button>
   
@@ -44,6 +47,18 @@
           <mat-icon *ngIf="currentTenant?.id === tenant.id" class="check-icon">check</mat-icon>
         </button>
         
+        <!-- Manage Organization Button -->
+        <button mat-menu-item (click)="manageOrganization()" class="manage-organization-btn">
+          <mat-icon>settings</mat-icon>
+          <span i18n="@@header.manageOrganization">Manage your organization</span>
+        </button>
+        
+        <!-- Edit Organization Button -->
+        <button mat-menu-item (click)="editOrganization()" class="edit-organization-btn">
+          <mat-icon>edit</mat-icon>
+          <span i18n="@@header.editOrganization">Edit organization</span>
+        </button>
+        
         <!-- Create New Organization Button -->
         <button mat-menu-item (click)="createNewOrganization()" class="create-organization-btn">
           <mat-icon>add</mat-icon>
@@ -79,11 +94,41 @@
       </button>
     </div>
   </mat-menu>
+
+  <!-- Mobile Sidebar Dropdown Menu -->
+  <mat-menu #mobileSidebarMenu="matMenu" class="mobile-sidebar-menu" [hasBackdrop]="false">
+    <div class="mobile-sidebar-content" (click)="onMobileSidebarClick($event)">
+      <div *ngFor="let section of mobileNavigationConfig" class="mobile-nav-section">
+        <!-- Section Header -->
+        <div class="mobile-section-header" (click)="toggleMobileSection(section.id)">
+          <mat-icon>{{ section.icon }}</mat-icon>
+          <span class="section-label">{{ section.label }}</span>
+          <mat-icon class="expand-icon" [class.rotated]="!isMobileSectionExpanded(section.id)">
+            expand_more
+          </mat-icon>
+        </div>
+
+        <!-- Section Items -->
+        <div class="mobile-section-content" [class.collapsed]="!isMobileSectionExpanded(section.id)">
+          <button 
+            *ngFor="let item of section.items" 
+            mat-menu-item
+            class="mobile-nav-item"
+            [routerLink]="item.route"
+            (click)="onMobileNavigationClick($event)"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-menu>
   
   <span class="spacer"></span>
   
   <!-- Filter Toggle Button -->
-  <button *ngIf="showFilters$ | async" mat-icon-button (click)="onToggleFilters()" matTooltip="Toggle Filters" i18n-matTooltip="@@header.toggleFilters" class="filter-toggle">
+  <button *ngIf="hasFilters" mat-icon-button (click)="onToggleFilters()" matTooltip="Toggle Filters" i18n-matTooltip="@@header.toggleFilters" class="filter-toggle">
     <mat-icon>filter_list</mat-icon>
   </button>
   

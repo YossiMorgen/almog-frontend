@@ -59,6 +59,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Gender</mat-label>
             <mat-select formControlName="gender">
+              <mat-option value="">Select gender</mat-option>
               <mat-option *ngFor="let option of genderOptions" [value]="option.value">
                 {{ option.label }}
               </mat-option>

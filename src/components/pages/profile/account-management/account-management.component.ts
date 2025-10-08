@@ -45,7 +45,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   }
   
   getDisplayName(): string {
-    return this.currentUser?.name || this.firebaseUser?.displayName || 'User';
+    return this.currentUser?.first_name + ' ' + this.currentUser?.last_name || this.firebaseUser?.displayName || 'User';
   }
   
   getEmail(): string {
@@ -56,8 +56,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     if (this.firebaseUser?.metadata?.creationTime) {
       return new Date(this.firebaseUser.metadata.creationTime).toLocaleDateString();
     }
-    if (this.currentUser?.createdAt) {
-      return new Date(this.currentUser.createdAt).toLocaleDateString();
+    if (this.currentUser?.created_at) {
+      return new Date(this.currentUser.created_at).toLocaleDateString();
     }
     return 'Unknown';
   }

@@ -110,7 +110,7 @@ export class CourseFormComponent implements OnInit {
       level: ['beginner', [Validators.required]],
       age_group_min: [null as number | null],
       age_group_max: [null as number | null],
-      max_students: [10, [Validators.required, Validators.min(1)]],
+      max_students: [9, [Validators.required, Validators.min(1)]],
       price: [null as number | null, [Validators.required, Validators.min(0)]],
       instructor_id: [null as number | null],
       location_id: [null as number | null, [Validators.required]],
@@ -326,9 +326,13 @@ export class CourseFormComponent implements OnInit {
   getInstructorDisplayName(instructorId: number): string {
     const instructor = this.instructors.find(i => i.id === instructorId);
     if (!instructor) return '';
+
+    if (instructor.display_name) {
+      return instructor.display_name;
+    }
     
-    if (instructor.name) {
-      return instructor.name;
+    if (instructor.first_name && instructor.last_name) {
+      return instructor.first_name + ' ' + instructor.last_name;
     }
     
     return instructor.email;

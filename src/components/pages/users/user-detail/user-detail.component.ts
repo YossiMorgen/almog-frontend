@@ -89,7 +89,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   getDisplayName(user: User): string {
-    if (user.name) return user.name;
+    if (user.first_name && user.last_name) return user.first_name + ' ' + user.last_name;
     return user.email;
   }
 

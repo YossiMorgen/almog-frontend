@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService, PaginationQuery, PaginationResult, ApiResponse } from './api.service';
 import { Role, CreateRole, UpdateRole } from '../models/role';
+import { Permission } from '../models/permission';
 
 @Injectable({
   providedIn: 'root'

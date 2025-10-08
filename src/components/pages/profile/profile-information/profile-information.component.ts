@@ -54,7 +54,8 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar
   ) {
     this.profileForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(200)]],
+      first_name: ['', [Validators.required, Validators.maxLength(200)]],
+      last_name: ['', [Validators.required, Validators.maxLength(200)]],
       email: ['', [Validators.required, Validators.email]]
     });
   }
@@ -79,8 +80,10 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
   private populateForms(): void {
     if (this.currentUser) {
       this.profileForm.patchValue({
-        name: this.currentUser.name || '',
-        email: this.currentUser.email || ''
+        name: this.currentUser.first_name + ' ' + this.currentUser.last_name || '',
+        email: this.currentUser.email || '',
+        first_name: this.currentUser.first_name || '',
+        last_name: this.currentUser.last_name || ''
       });
     }
   }
@@ -100,7 +103,8 @@ export class ProfileInformationComponent implements OnInit, OnDestroy {
     try {
       const formData = this.profileForm.value;
       const updateData = {
-        name: formData.name,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
         email: formData.email
       };
       

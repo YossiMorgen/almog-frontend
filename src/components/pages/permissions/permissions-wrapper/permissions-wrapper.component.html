@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="permissions" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-permissions 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-permissions>
+  
+</app-table-wrapper>

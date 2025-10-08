@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TableFilterParams } from '../models/filter-schemas';
-import { DEFAULT_ROUTE_FILTERS, RouteFilterConfig, buildQueryParamsFromFilters } from '../config/route-filters.config';
+import { RouteFilterConfig, buildQueryParamsFromFilters, extractRouteKey } from '../config/route-filters.config';
+import { FilterConfigService, DynamicFilterConfig } from './filter-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,16 @@ import { DEFAULT_ROUTE_FILTERS, RouteFilterConfig, buildQueryParamsFromFilters }
 export class RouteFilterService {
   private currentRouteFiltersSubject = new BehaviorSubject<Partial<TableFilterParams>>({});
   private currentRouteConfigSubject = new BehaviorSubject<RouteFilterConfig | null>(null);
+  private currentDynamicFiltersSubject = new BehaviorSubject<DynamicFilterConfig[]>([]);
 
   public currentRouteFilters$ = this.currentRouteFiltersSubject.asObservable();
   public currentRouteConfig$ = this.currentRouteConfigSubject.asObservable();
+  public currentDynamicFilters$ = this.currentDynamicFiltersSubject.asObservable();
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private filterConfigService: FilterConfigService
   ) {
     this.initializeRouteTracking();
   }
@@ -34,11 +38,15 @@ export class RouteFilterService {
   }
 
   private updateRouteFilters(url: string): void {
-    const routePath = this.extractRoutePath(url);
-    const routeConfig = this.getRouteConfig(routePath);
+    const routePath = extractRouteKey(url);
+    const routeConfig = this.filterConfigService.getRouteConfig(routePath);
     
     if (routeConfig) {
       this.currentRouteConfigSubject.next(routeConfig);
+      
+      // Get dynamic filters for this route
+      const dynamicFilters = this.filterConfigService.getDynamicFiltersForRoute(routePath);
+      this.currentDynamicFiltersSubject.next(dynamicFilters);
       
       // Get current query params
       const currentParams = this.route.snapshot.queryParams;
@@ -52,25 +60,11 @@ export class RouteFilterService {
       this.updateUrlIfNeeded(mergedFilters, currentParams);
     } else {
       this.currentRouteConfigSubject.next(null);
+      this.currentDynamicFiltersSubject.next([]);
       this.currentRouteFiltersSubject.next({});
     }
   }
 
-  private extractRoutePath(url: string): string {
-    // Extract the route path from URL
-    const urlParts = url.split('?')[0].split('/');
-    const crmIndex = urlParts.indexOf('crm');
-    
-    if (crmIndex !== -1 && crmIndex + 1 < urlParts.length) {
-      return urlParts[crmIndex + 1];
-    }
-    
-    return '';
-  }
-
-  private getRouteConfig(routePath: string): RouteFilterConfig | null {
-    return DEFAULT_ROUTE_FILTERS[routePath] || null;
-  }
 
   private mergeFilters(defaultFilters: Partial<TableFilterParams>, currentParams: any): Partial<TableFilterParams> {
     const merged: Partial<TableFilterParams> = { ...defaultFilters };
@@ -119,6 +113,15 @@ export class RouteFilterService {
 
   getCurrentRouteConfig(): RouteFilterConfig | null {
     return this.currentRouteConfigSubject.value;
+  }
+
+  getCurrentDynamicFilters(): DynamicFilterConfig[] {
+    return this.currentDynamicFiltersSubject.value;
+  }
+
+  getFilterOptions(filterKey: string): Observable<any[]> {
+    const routePath = extractRouteKey(this.router.url);
+    return this.filterConfigService.getFilterOptions(routePath, filterKey);
   }
 
   updateFilters(filters: Partial<TableFilterParams>): void {

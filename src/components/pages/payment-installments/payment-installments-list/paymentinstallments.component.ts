@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { PaymentInstallmentsService } from '../../../../services/payment-installments.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { PaymentInstallment } from '../../../../models/paymentInstallment';
+import { PaymentInstallmentFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-paymentinstallments',
@@ -40,7 +43,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './paymentinstallments.component.html',
   styleUrls: ['./paymentinstallments.component.scss']
 })
-export class PaymentinstallmentsComponent implements OnInit {
+export class PaymentinstallmentsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<PaymentInstallmentFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<PaymentInstallmentFilterParams>>();
+
   paymentInstallments: PaymentInstallment[] = [];
   pagination: PaginationResult<PaymentInstallment>['pagination'] | null = null;
   loading = false;
@@ -55,13 +61,42 @@ export class PaymentinstallmentsComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['installment_number', 'amount', 'payment_method', 'payment_date', 'status', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private paymentInstallmentsService: PaymentInstallmentsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('payment-installments');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadPaymentInstallments();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<PaymentInstallmentFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'installment_number';
+    this.sortOrder = filters.sortOrder || 'asc';
+    this.searchTerm = filters.search || '';
+    
     this.loadPaymentInstallments();
   }
 
@@ -92,28 +127,40 @@ export class PaymentinstallmentsComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1;
-    this.loadPaymentInstallments();
+    this.filterChange.emit({
+      ...this.filters,
+      search: this.searchTerm,
+      page: 1
+    });
   }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadPaymentInstallments();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadPaymentInstallments();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadPaymentInstallments();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createPaymentInstallment(): void {

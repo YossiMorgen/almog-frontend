@@ -9,7 +9,7 @@ import { Permission, CreatePermission, UpdatePermission } from '../models/permis
 export class PermissionsService {
   constructor(private apiService: ApiService) {}
 
-  getPermissions(query: PaginationQuery = {}): Observable<ApiResponse<PaginationResult<Permission>>> {
+  getPermissions(query: any = {}): Observable<ApiResponse<PaginationResult<Permission>>> {
     return this.apiService.getPermissions(query);
   }
 

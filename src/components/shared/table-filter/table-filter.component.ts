@@ -14,10 +14,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { FilterField, FILTER_CONFIGS, TableFilterParams } from '../../../models/filter-schemas';
+import { FilterField, TableFilterParams } from '../../../models/filter-schemas';
 import { RouteFilterService } from '../../../services/route-filter.service';
+import { FilterConfigService } from '../../../services/filter-config.service';
 
 @Component({
   selector: 'app-table-filter',
@@ -51,17 +52,20 @@ export class TableFilterComponent implements OnInit, OnDestroy {
 
   filterForm: FormGroup;
   filterFields: FilterField[] = [];
+  resolvedOptions: { [key: string]: { value: any; label: string }[] } = {};
   isExpanded = false;
   private routeSubscription?: Subscription;
   private formSubscription?: Subscription;
   private urlChangeSubscription?: Subscription;
   private currentBaseUrl = '';
+  private isUpdatingFromUrl = false;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private routeFilterService: RouteFilterService
+    private routeFilterService: RouteFilterService,
+    private filterConfigService: FilterConfigService
   ) {
     this.filterForm = this.fb.group({});
   }
@@ -92,9 +96,25 @@ export class TableFilterComponent implements OnInit, OnDestroy {
   }
 
   private initializeFilterFields(): void {
-    if (this.filterType && FILTER_CONFIGS[this.filterType]) {
-      this.filterFields = FILTER_CONFIGS[this.filterType];
+    if (this.filterType) {
+      this.filterFields = this.filterConfigService.getCombinedFiltersForRoute(this.filterType);
+      this.resolveDynamicOptions();
     }
+  }
+
+  private resolveDynamicOptions(): void {
+    this.filterFields.forEach(field => {
+      if (field.type === 'select' && field.options && typeof field.options === 'object' && 'subscribe' in field.options) {
+        // This is an Observable
+        const observable = field.options as Observable<{ value: any; label: string }[]>;
+        observable.subscribe(options => {
+          this.resolvedOptions[field.key] = options;
+        });
+      } else if (field.type === 'select' && field.options && Array.isArray(field.options)) {
+        // This is a static array
+        this.resolvedOptions[field.key] = field.options as { value: any; label: string }[];
+      }
+    });
   }
 
   private buildForm(): void {
@@ -121,7 +141,9 @@ export class TableFilterComponent implements OnInit, OnDestroy {
           distinctUntilChanged()
         )
         .subscribe(() => {
-          this.applyFilters();
+          if (!this.isUpdatingFromUrl) {
+            this.applyFilters();
+          }
         });
     }
   }
@@ -164,6 +186,7 @@ export class TableFilterComponent implements OnInit, OnDestroy {
   }
 
   private updateFormFromFilters(filters: Partial<TableFilterParams>): void {
+    this.isUpdatingFromUrl = true;
     const formValue: { [key: string]: any } = {};
     
     this.filterFields.forEach(field => {
@@ -176,9 +199,11 @@ export class TableFilterComponent implements OnInit, OnDestroy {
     });
 
     this.filterForm.patchValue(formValue, { emitEvent: false });
+    this.isUpdatingFromUrl = false;
   }
 
   private updateFormFromParams(params: Params): void {
+    this.isUpdatingFromUrl = true;
     const formValue: { [key: string]: any } = {};
     
     this.filterFields.forEach(field => {
@@ -204,6 +229,7 @@ export class TableFilterComponent implements OnInit, OnDestroy {
     });
 
     this.filterForm.patchValue(formValue, { emitEvent: false });
+    this.isUpdatingFromUrl = false;
   }
 
   private applyFilters(): void {
@@ -283,8 +309,8 @@ export class TableFilterComponent implements OnInit, OnDestroy {
       return '';
     }
 
-    if (field.type === 'select' && field.options) {
-      const option = field.options.find(opt => opt.value === value);
+    if (field.type === 'select' && this.resolvedOptions[fieldKey]) {
+      const option = this.resolvedOptions[fieldKey].find(opt => opt.value === value);
       return option ? option.label : String(value);
     }
 

@@ -1,27 +1,11 @@
   <div class="page-header">
     <h1 class="page-title">Roles</h1>
-    <button mat-raised-button color="primary" (click)="createRole()">
+    <!-- <button mat-raised-button color="primary" (click)="createRole()">
       <mat-icon>add</mat-icon>
       Add New Role
-    </button>
+    </button> -->
   </div>
-
-  <mat-card class="search-card">
-    <mat-card-content>
-      <div class="search-container">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Search roles...</mat-label>
-          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <button mat-raised-button color="accent" (click)="onSearch()">
-          <mat-icon>search</mat-icon>
-          Search
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
+  
   <mat-card class="table-card">
     <mat-card-content>
       <div *ngIf="loading" class="loading-container">
@@ -65,9 +49,9 @@
             <button mat-icon-button (click)="viewRole(role)" matTooltip="View">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button mat-icon-button (click)="editRole(role)" matTooltip="Edit" [disabled]="role.is_system">
+            <!-- <button mat-icon-button (click)="editRole(role)" matTooltip="Edit" [disabled]="role.is_system">
               <mat-icon>edit</mat-icon>
-            </button>
+            </button> -->
           </td>
         </ng-container>
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { PaymentsService } from '../../../../services/payments.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { Payment } from '../../../../models/payment';
+import { PaymentFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payments',
@@ -40,7 +43,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './payments.component.html',
   styleUrls: ['./payments.component.scss']
 })
-export class PaymentsComponent implements OnInit {
+export class PaymentsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<PaymentFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<PaymentFilterParams>>();
+
   payments: Payment[] = [];
   pagination: PaginationResult<Payment>['pagination'] | null = null;
   loading = false;
@@ -55,13 +61,42 @@ export class PaymentsComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['payment_number', 'order_id', 'total_amount', 'paid_amount', 'remaining_amount', 'payment_status', 'due_date', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private paymentsService: PaymentsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('payments');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadPayments();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<PaymentFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'payment_number';
+    this.sortOrder = filters.sortOrder || 'asc';
+    this.searchTerm = filters.search || '';
+    
     this.loadPayments();
   }
 
@@ -92,28 +127,40 @@ export class PaymentsComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1;
-    this.loadPayments();
+    this.filterChange.emit({
+      ...this.filters,
+      search: this.searchTerm,
+      page: 1
+    });
   }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadPayments();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadPayments();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadPayments();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createPayment(): void {

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Observable } from 'rxjs';
 
 export const TableFilterSchema = z.object({
   search: z.string().optional().nullable(),
@@ -9,6 +10,7 @@ export const TableFilterSchema = z.object({
   status: z.string().optional().nullable(),
   level: z.string().optional().nullable(),
   season_id: z.number().optional().nullable(),
+  instructor_id: z.number().optional().nullable(),
   day_of_week: z.string().optional().nullable(),
   time: z.string().optional().nullable(),
   created_from: z.string().optional().nullable(),
@@ -28,22 +30,84 @@ export const CourseFilterSchema = TableFilterSchema.extend({
 
 export type CourseFilterParams = z.infer<typeof CourseFilterSchema>;
 
-export const StudentFilterSchema = TableFilterSchema.extend({
-  status: z.enum(['active', 'inactive', 'suspended', 'graduated']).optional().nullable(),
-  level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']).optional().nullable(),
-  age_min: z.number().min(0).optional().nullable(),
-  age_max: z.number().min(0).optional().nullable(),
-});
-
-export type StudentFilterParams = z.infer<typeof StudentFilterSchema>;
 
 export const ClassFilterSchema = TableFilterSchema.extend({
   status: z.enum(['scheduled', 'in_progress', 'completed', 'cancelled']).optional().nullable(),
   instructor_id: z.number().optional().nullable(),
   location_id: z.number().optional().nullable(),
+  course_id: z.number().optional().nullable(),
+  class_date_from: z.string().optional().nullable(),
+  class_date_to: z.string().optional().nullable(),
 });
 
 export type ClassFilterParams = z.infer<typeof ClassFilterSchema>;
+
+export const ClassesLocationFilterSchema = TableFilterSchema.extend({
+  city: z.string().optional().nullable(),
+  is_active: z.boolean().optional().nullable(),
+  capacity_min: z.number().min(0).optional().nullable(),
+  capacity_max: z.number().min(0).optional().nullable(),
+});
+
+export type ClassesLocationFilterParams = z.infer<typeof ClassesLocationFilterSchema>;
+
+export const CourseEnrollmentFilterSchema = TableFilterSchema.extend({
+  status: z.enum(['enrolled', 'waitlisted', 'dropped', 'completed']).optional().nullable(),
+  student_id: z.number().optional().nullable(),
+  course_id: z.number().optional().nullable(),
+  enrollment_date_from: z.string().optional().nullable(),
+  enrollment_date_to: z.string().optional().nullable(),
+});
+
+export type CourseEnrollmentFilterParams = z.infer<typeof CourseEnrollmentFilterSchema>;
+
+export const OrderItemFilterSchema = TableFilterSchema.extend({
+  order_id: z.number().optional().nullable(),
+  item_type: z.enum(['course', 'product']).optional().nullable(),
+  item_id: z.number().optional().nullable(),
+  quantity_min: z.number().min(0).optional().nullable(),
+  quantity_max: z.number().min(0).optional().nullable(),
+  unit_price_min: z.number().min(0).optional().nullable(),
+  unit_price_max: z.number().min(0).optional().nullable(),
+});
+
+export type OrderItemFilterParams = z.infer<typeof OrderItemFilterSchema>;
+
+export const OrderFilterSchema = TableFilterSchema.extend({
+  student_id: z.number().optional().nullable(),
+  status: z.enum(['pending', 'confirmed', 'cancelled', 'refunded']).optional().nullable(),
+  order_date_from: z.string().optional().nullable(),
+  order_date_to: z.string().optional().nullable(),
+  total_amount_min: z.number().min(0).optional().nullable(),
+  total_amount_max: z.number().min(0).optional().nullable(),
+});
+
+export type OrderFilterParams = z.infer<typeof OrderFilterSchema>;
+
+export const PaymentInstallmentFilterSchema = TableFilterSchema.extend({
+  payment_id: z.number().optional().nullable(),
+  status: z.enum(['pending', 'completed', 'failed', 'cancelled', 'refunded']).optional().nullable(),
+  payment_method: z.enum(['cash', 'check', 'credit_card', 'debit_card', 'bank_transfer', 'other']).optional().nullable(),
+  payment_date_from: z.string().optional().nullable(),
+  payment_date_to: z.string().optional().nullable(),
+  amount_min: z.number().min(0).optional().nullable(),
+  amount_max: z.number().min(0).optional().nullable(),
+});
+
+export type PaymentInstallmentFilterParams = z.infer<typeof PaymentInstallmentFilterSchema>;
+
+export const PaymentFilterSchema = TableFilterSchema.extend({
+  order_id: z.number().optional().nullable(),
+  payment_status: z.enum(['pending', 'partial', 'completed', 'overdue', 'cancelled', 'refunded']).optional().nullable(),
+  due_date_from: z.string().optional().nullable(),
+  due_date_to: z.string().optional().nullable(),
+  total_amount_min: z.number().min(0).optional().nullable(),
+  total_amount_max: z.number().min(0).optional().nullable(),
+  paid_amount_min: z.number().min(0).optional().nullable(),
+  paid_amount_max: z.number().min(0).optional().nullable(),
+});
+
+export type PaymentFilterParams = z.infer<typeof PaymentFilterSchema>;
 
 export const UserFilterSchema = TableFilterSchema.extend({
   role: z.string().optional().nullable(),
@@ -52,23 +116,61 @@ export const UserFilterSchema = TableFilterSchema.extend({
 
 export type UserFilterParams = z.infer<typeof UserFilterSchema>;
 
-export const OrderFilterSchema = TableFilterSchema.extend({
-  status: z.enum(['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']).optional().nullable(),
-  payment_status: z.enum(['pending', 'paid', 'partial', 'refunded']).optional().nullable(),
-  total_min: z.number().min(0).optional().nullable(),
-  total_max: z.number().min(0).optional().nullable(),
+export const PermissionFilterSchema = TableFilterSchema.extend({
+  module: z.string().optional().nullable(),
+  action: z.string().optional().nullable(),
 });
 
-export type OrderFilterParams = z.infer<typeof OrderFilterSchema>;
+export type PermissionFilterParams = z.infer<typeof PermissionFilterSchema>;
 
-export const PaymentFilterSchema = TableFilterSchema.extend({
-  status: z.enum(['pending', 'completed', 'failed', 'refunded']).optional().nullable(),
-  method: z.enum(['cash', 'credit_card', 'bank_transfer', 'check']).optional().nullable(),
-  amount_min: z.number().min(0).optional().nullable(),
-  amount_max: z.number().min(0).optional().nullable(),
+export const ProductFilterSchema = TableFilterSchema.extend({
+  category: z.string().optional().nullable(),
+  is_active: z.boolean().optional().nullable(),
+  price_min: z.number().min(0).optional().nullable(),
+  price_max: z.number().min(0).optional().nullable(),
+  stock_quantity_min: z.number().min(0).optional().nullable(),
+  stock_quantity_max: z.number().min(0).optional().nullable(),
 });
 
-export type PaymentFilterParams = z.infer<typeof PaymentFilterSchema>;
+export type ProductFilterParams = z.infer<typeof ProductFilterSchema>;
+
+export const RoleFilterSchema = TableFilterSchema.extend({
+  is_system: z.boolean().optional().nullable(),
+});
+
+export type RoleFilterParams = z.infer<typeof RoleFilterSchema>;
+
+export const SeasonFilterSchema = TableFilterSchema.extend({
+  year: z.number().optional().nullable(),
+  is_active: z.boolean().optional().nullable(),
+  start_date_from: z.string().optional().nullable(),
+  start_date_to: z.string().optional().nullable(),
+  end_date_from: z.string().optional().nullable(),
+  end_date_to: z.string().optional().nullable(),
+});
+
+export type SeasonFilterParams = z.infer<typeof SeasonFilterSchema>;
+
+export const StudentClassFilterSchema = TableFilterSchema.extend({
+  class_id: z.number().optional().nullable(),
+  student_id: z.number().optional().nullable(),
+  attendance_status: z.enum(['present', 'absent', 'late', 'excused']).optional().nullable(),
+  marked_at_from: z.string().optional().nullable(),
+  marked_at_to: z.string().optional().nullable(),
+});
+
+export type StudentClassFilterParams = z.infer<typeof StudentClassFilterSchema>;
+
+export const StudentFilterSchema = TableFilterSchema.extend({
+  gender: z.enum(['male', 'female', 'other']).optional().nullable(),
+  is_active: z.boolean().optional().nullable(),
+  parent_name: z.string().optional().nullable(),
+  student_code: z.string().optional().nullable(),
+  date_of_birth_from: z.string().optional().nullable(),
+  date_of_birth_to: z.string().optional().nullable(),
+});
+
+export type StudentFilterParams = z.infer<typeof StudentFilterSchema>;
 
 export const FilterFieldType = z.enum([
   'text',
@@ -86,119 +188,11 @@ export interface FilterField {
   key: string;
   label: string;
   type: FilterFieldTypeType;
-  options?: { value: any; label: string }[];
+  options?: { value: any; label: string }[] | Observable<{ value: any; label: string }[]>;
   placeholder?: string;
   min?: number;
   max?: number;
   step?: number;
 }
 
-export const FILTER_CONFIGS: Record<string, FilterField[]> = {
-  courses: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search courses...' },
-    { key: 'level', label: 'Level', type: 'select', options: [
-      { value: 'beginner', label: 'Beginner' },
-      { value: 'intermediate', label: 'Intermediate' },
-      { value: 'advanced', label: 'Advanced' },
-      { value: 'expert', label: 'Expert' }
-    ]},
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'draft', label: 'Draft' },
-      { value: 'open', label: 'Open' },
-      { value: 'full', label: 'Full' },
-      { value: 'in_progress', label: 'In Progress' },
-      { value: 'completed', label: 'Completed' },
-      { value: 'cancelled', label: 'Cancelled' }
-    ]},
-    { key: 'day_of_week', label: 'Day', type: 'select', options: [
-      { value: 'monday', label: 'Monday' },
-      { value: 'tuesday', label: 'Tuesday' },
-      { value: 'wednesday', label: 'Wednesday' },
-      { value: 'thursday', label: 'Thursday' },
-      { value: 'friday', label: 'Friday' },
-      { value: 'saturday', label: 'Saturday' },
-      { value: 'sunday', label: 'Sunday' }
-    ]},
-    { key: 'season_id', label: 'Season', type: 'number', min: 1 },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'draft', label: 'Draft' },
-      { value: 'open', label: 'Open' },
-      { value: 'full', label: 'Full' },
-      { value: 'in_progress', label: 'In Progress' },
-      { value: 'completed', label: 'Completed' },
-      { value: 'cancelled', label: 'Cancelled' }
-    ]},
-  ],
-  students: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search students...' },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'suspended', label: 'Suspended' },
-      { value: 'graduated', label: 'Graduated' }
-    ]},
-    { key: 'level', label: 'Level', type: 'select', options: [
-      { value: 'beginner', label: 'Beginner' },
-      { value: 'intermediate', label: 'Intermediate' },
-      { value: 'advanced', label: 'Advanced' },
-      { value: 'expert', label: 'Expert' }
-    ]},
-    { key: 'age_min', label: 'Min Age', type: 'number', min: 0 },
-    { key: 'age_max', label: 'Max Age', type: 'number', min: 0 },
-  ],
-  classes: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search classes...' },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'scheduled', label: 'Scheduled' },
-      { value: 'in_progress', label: 'In Progress' },
-      { value: 'completed', label: 'Completed' },
-      { value: 'cancelled', label: 'Cancelled' }
-    ]},
-    { key: 'instructor_id', label: 'Instructor', type: 'number', min: 1 },
-    { key: 'location_id', label: 'Location', type: 'number', min: 1 },
-  ],
-  users: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search users...' },
-    { key: 'role', label: 'Role', type: 'text', placeholder: 'Role name...' },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'suspended', label: 'Suspended' }
-    ]},
-  ],
-  orders: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search orders...' },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'pending', label: 'Pending' },
-      { value: 'confirmed', label: 'Confirmed' },
-      { value: 'shipped', label: 'Shipped' },
-      { value: 'delivered', label: 'Delivered' },
-      { value: 'cancelled', label: 'Cancelled' }
-    ]},
-    { key: 'payment_status', label: 'Payment Status', type: 'select', options: [
-      { value: 'pending', label: 'Pending' },
-      { value: 'paid', label: 'Paid' },
-      { value: 'partial', label: 'Partial' },
-      { value: 'refunded', label: 'Refunded' }
-    ]},
-    { key: 'total_min', label: 'Min Total', type: 'number', min: 0, step: 0.01 },
-    { key: 'total_max', label: 'Max Total', type: 'number', min: 0, step: 0.01 },
-  ],
-  payments: [
-    { key: 'search', label: 'Search', type: 'text', placeholder: 'Search payments...' },
-    { key: 'status', label: 'Status', type: 'select', options: [
-      { value: 'pending', label: 'Pending' },
-      { value: 'completed', label: 'Completed' },
-      { value: 'failed', label: 'Failed' },
-      { value: 'refunded', label: 'Refunded' }
-    ]},
-    { key: 'method', label: 'Method', type: 'select', options: [
-      { value: 'cash', label: 'Cash' },
-      { value: 'credit_card', label: 'Credit Card' },
-      { value: 'bank_transfer', label: 'Bank Transfer' },
-      { value: 'check', label: 'Check' }
-    ]},
-    { key: 'amount_min', label: 'Min Amount', type: 'number', min: 0, step: 0.01 },
-    { key: 'amount_max', label: 'Max Amount', type: 'number', min: 0, step: 0.01 },
-  ],
-};
+

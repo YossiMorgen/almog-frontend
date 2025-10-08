@@ -95,7 +95,8 @@ export class TenantSelectionComponent implements OnInit {
       }
 
       const request = {
-        invitation_token: invitation.id.toString(),
+        invitation_token: invitation.invitation_token,
+        tenant_id: invitation.tenant_id,
         firebase_uid: user.uid,
         first_name: user.displayName?.split(' ')[0] || '',
         last_name: user.displayName?.split(' ').slice(1).join(' ') || '',
@@ -109,6 +110,15 @@ export class TenantSelectionComponent implements OnInit {
       if (response?.success) {
         this.invitations = this.invitations.filter(inv => inv.id !== invitation.id);
         await this.loadTenants();
+        this.tenants$.subscribe(tenants => {
+          const tenant = tenants.find(t => t.id === invitation.tenant_id);
+          if (!tenant) {
+            console.error('Tenant not found');
+            return;
+          }
+          this.tenantService.selectTenant(tenant);
+          this.router.navigate(['/crm'], { queryParams: { tenantId: tenant.id } });
+        });
       }
     } catch (error) {
       console.error('Error accepting invitation:', error);

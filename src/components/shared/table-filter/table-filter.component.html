@@ -81,7 +81,7 @@
                   <em i18n="@@filter.all">All</em>
                 </mat-option>
                 <mat-option 
-                  *ngFor="let option of field.options" 
+                  *ngFor="let option of resolvedOptions[field.key]" 
                   [value]="option.value">
                   {{ option.label }}
                 </mat-option>

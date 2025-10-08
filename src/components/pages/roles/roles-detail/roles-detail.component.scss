@@ -91,6 +91,80 @@
   white-space: pre-wrap;
 }
 
+.permissions-container {
+  margin-top: 16px;
+}
+
+.permissions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.permission-chip {
+  margin: 4px;
+}
+
+.permission-chip mat-icon {
+  margin-right: 4px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.users-container {
+  margin-top: 16px;
+}
+
+.users-table-container {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.users-table {
+  width: 100%;
+  min-width: 600px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.user-email {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px;
+  color: #666;
+  text-align: center;
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+}
+
+.no-data p {
+  margin: 0;
+  font-size: 1rem;
+}
+
 @media (max-width: 768px) {
   .header-content {
     flex-direction: column;
@@ -105,5 +179,13 @@
 
   .info-grid {
     grid-template-columns: 1fr;
+  }
+
+  .permissions-grid {
+    justify-content: center;
+  }
+
+  .users-table {
+    min-width: 100%;
   }
 }

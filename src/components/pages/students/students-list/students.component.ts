@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { StudentsService } from '../../../../services/students.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { Student } from '../../../../models/student';
+import { StudentFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-students',
@@ -40,7 +43,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<StudentFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<StudentFilterParams>>();
+
   students: Student[] = [];
   pagination: PaginationResult<Student>['pagination'] | null = null;
   loading = false;
@@ -48,22 +54,47 @@ export class StudentsComponent implements OnInit {
   Math = Math;
   currentUser: any = null;
   
-  searchTerm = '';
   currentPage = 1;
   pageSize = 10;
   sortBy = 'first_name';
   sortOrder: 'asc' | 'desc' = 'asc';
   
   displayedColumns: string[] = ['student_code', 'name', 'email', 'phone', 'parent_name', 'notes', 'status', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private studentsService: StudentsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
-    // TODO: Get current user when auth is ready
-    // this.currentUser = this.authService.getCurrentUser();
+    this.filterService.setFilterType('students');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadStudents();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<StudentFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'first_name';
+    this.sortOrder = filters.sortOrder || 'asc';
+    
     this.loadStudents();
   }
 
@@ -75,8 +106,7 @@ export class StudentsComponent implements OnInit {
       page: this.currentPage,
       limit: this.pageSize,
       sortBy: this.sortBy,
-      sortOrder: this.sortOrder,
-      search: this.searchTerm || undefined
+      sortOrder: this.sortOrder
     };
 
     this.studentsService.getStudents(query).subscribe({
@@ -93,29 +123,34 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  onSearch(): void {
-    this.currentPage = 1;
-    this.loadStudents();
-  }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadStudents();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadStudents();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadStudents();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createStudent(): void {

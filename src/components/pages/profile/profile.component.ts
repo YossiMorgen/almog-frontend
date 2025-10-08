@@ -107,11 +107,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   
   getProfileImageUrl(): string {
-    return this.firebaseUser?.photoURL || this.currentUser?.picture || '/assets/default-avatar.png';
+    return this.firebaseUser?.photoURL || this.currentUser?.profile_picture_url || '/assets/default-avatar.png';
   }
   
   getDisplayName(): string {
-    return this.currentUser?.name || this.firebaseUser?.displayName || 'User';
+    return this.currentUser?.first_name + ' ' + this.currentUser?.last_name || this.firebaseUser?.displayName || 'User';
   }
   
   getEmail(): string {
@@ -122,8 +122,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.firebaseUser?.metadata?.creationTime) {
       return new Date(this.firebaseUser.metadata.creationTime).toLocaleDateString();
     }
-    if (this.currentUser?.createdAt) {
-      return new Date(this.currentUser.createdAt).toLocaleDateString();
+    if (this.currentUser?.created_at) {
+      return new Date(this.currentUser.created_at).toLocaleDateString();
     }
     return 'Unknown';
   }

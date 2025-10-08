@@ -76,7 +76,7 @@ export class StudentFormComponent implements OnInit {
       last_name: ['', [Validators.required, Validators.minLength(2)]],
       student_code: [''],
       date_of_birth: [null as Date | null],
-      gender: [''],
+      gender: ['', [Validators.required]],
       email: ['', [Validators.email]],
       phone: [''],
       address: [''],
@@ -148,8 +148,33 @@ export class StudentFormComponent implements OnInit {
     try {
       const formValue = this.studentForm.value;
       
+      // Helper function to clean form data
+      const cleanFormData = (data: any) => {
+        const cleaned = { ...data };
+        
+        // Convert Date to ISO string for date_of_birth
+        if (cleaned.date_of_birth instanceof Date) {
+          cleaned.date_of_birth = cleaned.date_of_birth.toISOString();
+        }
+        
+        // Convert empty strings to null for optional fields
+        const optionalFields = [
+          'student_code', 'gender', 'email', 'phone', 'address', 'city', 
+          'postal_code', 'parent_name', 'parent_email', 'parent_phone',
+          'emergency_contact_name', 'emergency_contact_phone', 'medical_notes', 'notes'
+        ];
+        
+        optionalFields.forEach(field => {
+          if (cleaned[field] === '') {
+            cleaned[field] = null;
+          }
+        });
+        
+        return cleaned;
+      };
+      
       if (this.studentId) {
-        const updatePayload: UpdateStudent = {
+        const updatePayload: UpdateStudent = cleanFormData({
           first_name: formValue.first_name,
           last_name: formValue.last_name,
           student_code: formValue.student_code,
@@ -169,11 +194,11 @@ export class StudentFormComponent implements OnInit {
           notes: formValue.notes,
           language: formValue.language,
           is_active: formValue.is_active
-        };
+        });
         
         await this.studentsService.updateStudentAsync(this.studentId, updatePayload);
       } else {
-        const createPayload: CreateStudent = {
+        const createPayload: CreateStudent = cleanFormData({
           first_name: formValue.first_name!,
           last_name: formValue.last_name!,
           student_code: formValue.student_code,
@@ -193,7 +218,7 @@ export class StudentFormComponent implements OnInit {
           notes: formValue.notes,
           language: formValue.language || 'he',
           is_active: formValue.is_active ?? true
-        };
+        });
         
         await this.studentsService.createStudentAsync(createPayload);
       }

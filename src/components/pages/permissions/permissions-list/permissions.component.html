@@ -1,27 +1,11 @@
   <div class="page-header">
     <h1 class="page-title">Permissions</h1>
-    <button mat-raised-button color="primary" (click)="createPermission()">
+    <!-- <button mat-raised-button color="primary" (click)="createPermission()">
       <mat-icon>add</mat-icon>
       Add New Permission
-    </button>
+    </button> -->
   </div>
-
-  <mat-card class="search-card">
-    <mat-card-content>
-      <div class="search-container">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Search permissions...</mat-label>
-          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <button mat-raised-button color="accent" (click)="onSearch()">
-          <mat-icon>search</mat-icon>
-          Search
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
+  
   <mat-card class="table-card">
     <mat-card-content>
       <div *ngIf="loading" class="loading-container">
@@ -61,9 +45,9 @@
             <button mat-icon-button (click)="viewPermission(permission)" matTooltip="View">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button mat-icon-button (click)="editPermission(permission)" matTooltip="Edit">
+            <!-- <button mat-icon-button (click)="editPermission(permission)" matTooltip="Edit">
               <mat-icon>edit</mat-icon>
-            </button>
+            </button> -->
           </td>
         </ng-container>
 

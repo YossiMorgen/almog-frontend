@@ -58,6 +58,10 @@ app-side-nav {
     flex-direction: column;
   }
   
+  app-side-nav {
+    display: none;
+  }
+  
   .main-content {
     padding: 16px;
     margin-left: 0 !important;

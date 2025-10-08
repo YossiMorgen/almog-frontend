@@ -5,6 +5,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { routes } from './app.routes';
 import { firebaseAuthInterceptor } from '../interceptors/firebase-auth.interceptor';
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
     importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(MatDialogModule),
     importProvidersFrom(ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',

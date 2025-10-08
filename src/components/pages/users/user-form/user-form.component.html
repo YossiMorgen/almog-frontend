@@ -1,19 +1,21 @@
-  <div class="page-header">
-    <h1 class="page-title">{{ userId ? 'Edit User' : 'Create New User' }}</h1>
-    <div class="header-actions">
-      <button mat-button (click)="onCancel()">
-        <mat-icon>arrow_back</mat-icon>
-        Back to Users
-      </button>
-    </div>
+<div class="page-header">
+  <h1 class="page-title">{{ isEditMode ? 'Edit User' : 'Send User Invitation' }}</h1>
+  <div class="header-actions">
+    <button mat-button (click)="onCancel()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Users
+    </button>
   </div>
+</div>
 
-  <mat-card>
-    <mat-card-content>
-      <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-        <div class="form-grid">
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+      <mat-tab-group>
+        <!-- Basic Information Tab -->
+        <mat-tab label="Basic Information">
           <div class="form-section">
-            <h3>Basic Information</h3>
+            <h3>User Details</h3>
             
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Email *</mat-label>
@@ -26,14 +28,30 @@
               </mat-error>
             </mat-form-field>
 
+
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="name" placeholder="Enter full name">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="first_name" placeholder="Enter first name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="last_name" placeholder="Enter last name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Display Name</mat-label>
+              <input matInput formControlName="display_name" placeholder="Enter display name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone" placeholder="Enter phone number">
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Profile Picture URL</mat-label>
-              <input matInput formControlName="picture" placeholder="Enter profile picture URL">
+              <input matInput formControlName="profile_picture_url" placeholder="Enter profile picture URL">
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
@@ -44,38 +62,66 @@
               </mat-select>
             </mat-form-field>
           </div>
+        </mat-tab>
 
+        <!-- Role Management Tab -->
+        <mat-tab label="Role Management">
           <div class="form-section">
-            <h3>User Settings (JSON)</h3>
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Settings JSON</mat-label>
-              <textarea 
-                matInput 
-                [(ngModel)]="settingsJson" 
-                [ngModelOptions]="{standalone: true}"
-                placeholder='{"theme": "dark", "notifications": true}'
-                rows="8"
-                class="json-textarea">
-              </textarea>
-              <mat-hint>Enter valid JSON for user settings</mat-hint>
-            </mat-form-field>
+            <h3>{{ isEditMode ? 'Update User Roles' : 'Assign Roles to Invitation' }}</h3>
+            
+
+            <h3>Available Roles</h3>
+            <div class="roles-container">
+              <div *ngFor="let role of availableRoles" class="role-item">
+                <mat-checkbox 
+                  [checked]="isRoleSelected(role.id!)"
+                  (change)="onRoleToggle(role.id!)">
+                  <div class="role-content">
+                    <strong>{{ role.name }}</strong>
+                    <p *ngIf="role.description">{{ role.description }}</p>
+                    <small class="role-meta">
+                      <span *ngIf="role.is_system" class="system-role">System Role</span>
+                    </small>
+                  </div>
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div *ngIf="selectedRoles.length > 0" class="selected-roles">
+              <h4>Selected Roles ({{ selectedRoles.length }})</h4>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let roleId of selectedRoles" 
+                          [removable]="true" 
+                          (removed)="onRoleToggle(roleId)">
+                  {{ getRoleName(roleId) }}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-listbox>
+            </div>
           </div>
-        </div>
+        </mat-tab>
 
-        <div class="form-actions">
-          <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
-            Cancel
-          </button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="loading || userForm.invalid">
-            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-            <span *ngIf="!loading">{{ userId ? 'Update User' : 'Create User' }}</span>
-          </button>
-        </div>
+      </mat-tab-group>
 
-        <div *ngIf="error" class="error-message">
-          <mat-icon>error</mat-icon>
-          {{ error }}
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading || userForm.invalid || selectedRoles.length === 0">
+          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+          <span *ngIf="!loading">
+            <span *ngIf="isEditMode">Update User</span>
+            <span *ngIf="!isEditMode">Send Invitation</span>
+          </span>
+        </button>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <mat-icon>error</mat-icon>
+        {{ error }}
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

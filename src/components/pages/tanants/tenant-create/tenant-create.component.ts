@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TenantService } from '../../../../services/tenant.service';
-import { CreateTenant, CreateTenantResponse } from '../../../../models/tenant';
+import { CreateTenant, CreateTenantResponse, UserTenants } from '../../../../models/tenant';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -28,11 +28,15 @@ export class TenantCreateComponent implements OnInit {
   tenantForm!: FormGroup;
   isSubmitting = false;
   error: string | null = null;
+  isEditMode = false;
+  tenantId: string | null = null;
+  currentTenant: UserTenants | null = null;
 
   constructor(
     private fb: FormBuilder,
     private tenantService: TenantService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,15 @@ export class TenantCreateComponent implements OnInit {
       domain: ['', [Validators.maxLength(100)]],
       language: ['he', [Validators.pattern(/^en|he$/)]],
       subdomain: ['', [Validators.maxLength(50)]]
+    });
+
+    // Check if we're in edit mode
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.isEditMode = true;
+        this.tenantId = params['id'];
+        this.loadTenantForEdit();
+      }
     });
   }
 
@@ -56,23 +69,56 @@ export class TenantCreateComponent implements OnInit {
         language: this.tenantForm.value.language?.trim() || undefined,
         settings: {}
       };
-      console.log('formData');
-      
 
-      this.tenantService.createTenant(formData)
-        .then((response: CreateTenantResponse) => {
-          this.tenantService.selectTenant(response.data.tenant);
-          this.router.navigate(['/crm'], { queryParams: { tenantId: response.data.tenant.id } });
-        })
-        .catch((error: any) => {
-          console.error('Error creating tenant:', error);
-          this.error = error.error?.error || 'Failed to create organization. Please try again.';
-        })
-        .finally(() => {
-          this.isSubmitting = false;
-        });
+      if (this.isEditMode && this.tenantId) {
+        this.updateTenant(formData);
+      } else {
+        this.createTenant(formData);
+      }
     } else {
       this.markFormGroupTouched();
+    }
+  }
+
+  private createTenant(formData: CreateTenant): void {
+    this.tenantService.createTenant(formData)
+      .then((response: CreateTenantResponse) => {
+        this.tenantService.selectTenant(response.data.tenant);
+        this.router.navigate(['/crm'], { queryParams: { tenantId: response.data.tenant.id } });
+      })
+      .catch((error: any) => {
+        console.error('Error creating tenant:', error);
+        this.error = error.error?.error || 'Failed to create organization. Please try again.';
+      })
+      .finally(() => {
+        this.isSubmitting = false;
+      });
+  }
+
+  private updateTenant(formData: CreateTenant): void {
+    // For now, we'll show an error since updateTenant doesn't exist yet
+    // TODO: Implement updateTenant method in tenant service
+    this.error = 'Update functionality is not yet implemented. Please contact support.';
+    this.isSubmitting = false;
+  }
+
+  private loadTenantForEdit(): void {
+    if (!this.tenantId) return;
+    
+    // Get current tenant from tenant service
+    this.currentTenant = this.tenantService.getCurrentTenant();
+    
+    if (this.currentTenant && this.currentTenant.id === this.tenantId) {
+      // Populate form with current tenant data
+      this.tenantForm.patchValue({
+        name: this.currentTenant.name,
+        domain: this.currentTenant.domain || '',
+        subdomain: this.currentTenant.subdomain || '',
+        language: this.currentTenant.language || 'he'
+      });
+    } else {
+      // If tenant not found, redirect to tenant selection
+      this.router.navigate(['/tenant-selection']);
     }
   }
 

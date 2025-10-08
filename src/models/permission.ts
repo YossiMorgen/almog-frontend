@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const PermissionSchema = z.object({
   id: z.number().int().positive().optional(),
+  tenant_id: z.string().uuid(),
   name: z.string().max(100).min(1),
   module: z.string().max(50).min(1),
   action: z.string().max(50).min(1),
@@ -9,12 +10,16 @@ export const PermissionSchema = z.object({
   created_at: z.date().optional(),
 });
 
-export const CreatePermissionSchema = PermissionSchema.omit({
+export const PermissionWithoutTenantSchema = PermissionSchema.extend({
+  tenant_id: z.string().uuid().optional(),
+});
+
+export const CreatePermissionSchema = PermissionWithoutTenantSchema.omit({
   id: true,
   created_at: true,
 });
 
-export const UpdatePermissionSchema = PermissionSchema.partial().omit({
+export const UpdatePermissionSchema = PermissionWithoutTenantSchema.partial().omit({
   id: true,
   created_at: true,
 });

@@ -1,0 +1,11 @@
+<app-table-wrapper 
+  filterType="products" 
+  (filterChange)="onFilterChange($event)"
+  (dataLoad)="onDataLoad($event)">
+  
+  <app-products 
+    [filters]="currentFilters"
+    (filterChange)="onFilterChange($event)">
+  </app-products>
+  
+</app-table-wrapper>

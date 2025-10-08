@@ -2,30 +2,25 @@
   max-width: 1200px;
 }
 
-.table th {
-  position: relative;
-}
-
-.table th:hover {
-  background-color: #f9fafb;
-}
-
-.table th::after {
-  content: '';
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #6b7280;
-  opacity: 0.5;
-}
-
-.table th:hover::after {
-  opacity: 1;
+.products-table {
+  width: 100%;
+  min-width: 800px;
+  
+  th.mat-header-cell,
+  td.mat-cell {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  
+  th.mat-header-cell {
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  tr.mat-row:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }
 
 .animate-pulse {

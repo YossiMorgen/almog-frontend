@@ -378,6 +378,22 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="header.manageOrganization" datatype="html">
+        <source>Manage your organization</source>
+        <target>Manage your organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.editOrganization" datatype="html">
+        <source>Edit organization</source>
+        <target>Edit organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="profile.settings.tab" datatype="html">
         <source>Settings</source>
         <target>Settings</target>
@@ -2408,6 +2424,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/components/shared/header/header.component.html</context>
           <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.confirm" datatype="html">
+        <source> Confirm </source>
+        <target> Confirm </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/components/shared/confirmation-dialog/confirmation-dialog.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
     </body>

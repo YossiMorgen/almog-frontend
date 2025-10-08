@@ -93,7 +93,7 @@
           <mat-select formControlName="instructor_id">
             <mat-option [value]="null">No instructor assigned</mat-option>
             <mat-option *ngFor="let instructor of instructors" [value]="instructor.id">
-              {{ instructor.name || instructor.email }}
+              {{instructor.display_name || instructor.first_name + ' ' + instructor.last_name || instructor.email }}
             </mat-option>
           </mat-select>
         </mat-form-field>

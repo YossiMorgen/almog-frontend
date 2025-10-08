@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { OrderItemsService } from '../../../../services/order-items.service';
+import { FilterService } from '../../../../services/filter.service';
 import { PaginationQuery, PaginationResult } from '../../../../services/api.service';
 import { OrderItem } from '../../../../models/orderItem';
+import { OrderItemFilterParams, TableFilterParams } from '../../../../models/filter-schemas';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +18,22 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Subscription } from 'rxjs';
+
+// Extended query interface for order items with additional filter fields
+interface OrderItemPaginationQuery extends PaginationQuery {
+  order_id?: number;
+  item_type?: string;
+  item_id?: number;
+  quantity_min?: number;
+  quantity_max?: number;
+  unit_price_min?: number;
+  unit_price_max?: number;
+  created_from?: string;
+  created_to?: string;
+  updated_from?: string;
+  updated_to?: string;
+}
 
 @Component({
   selector: 'app-order-items',
@@ -40,7 +58,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './order-items.component.html',
   styleUrls: ['./order-items.component.scss']
 })
-export class OrderItemsComponent implements OnInit {
+export class OrderItemsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() filters: Partial<OrderItemFilterParams> = {};
+  @Output() filterChange = new EventEmitter<Partial<OrderItemFilterParams>>();
+
   orderItems: OrderItem[] = [];
   pagination: PaginationResult<OrderItem>['pagination'] | null = null;
   loading = false;
@@ -55,26 +76,67 @@ export class OrderItemsComponent implements OnInit {
   sortOrder: 'asc' | 'desc' = 'desc';
   
   displayedColumns: string[] = ['order_id', 'item_type', 'item_id', 'quantity', 'unit_price', 'total_price', 'created_at', 'actions'];
+  
+  private filterSubscription?: Subscription;
 
   constructor(
     private orderItemsService: OrderItemsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
+    this.filterService.setFilterType('order-items');
+    
+    this.filterSubscription = this.route.queryParams.subscribe(params => {
+    });
+    
+    this.loadOrderItems();
+  }
+
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(): void {
+    if (this.filters) {
+      this.applyFilters(this.filters);
+    }
+  }
+
+  private applyFilters(filters: Partial<OrderItemFilterParams>): void {
+    this.currentPage = filters.page || 1;
+    this.pageSize = filters.limit || 10;
+    this.sortBy = filters.sortBy || 'created_at';
+    this.sortOrder = filters.sortOrder || 'desc';
+    this.searchTerm = filters.search || '';
+    
     this.loadOrderItems();
   }
 
   loadOrderItems(): void {
     this.loading = true;
     this.error = null;
-
-    const query: PaginationQuery = {
+    
+    const query: OrderItemPaginationQuery = {
       page: this.currentPage,
       limit: this.pageSize,
       sortBy: this.sortBy,
       sortOrder: this.sortOrder,
-      search: this.searchTerm || undefined
+      search: this.searchTerm || undefined,
+      tenantId: undefined,
+      order_id: this.filters.order_id || undefined,
+      item_type: this.filters.item_type || undefined,
+      item_id: this.filters.item_id || undefined,
+      quantity_min: this.filters.quantity_min || undefined,
+      quantity_max: this.filters.quantity_max || undefined,
+      unit_price_min: this.filters.unit_price_min || undefined,
+      unit_price_max: this.filters.unit_price_max || undefined,
+      created_from: this.filters.created_from || undefined,
+      created_to: this.filters.created_to || undefined,
+      updated_from: this.filters.updated_from || undefined,
+      updated_to: this.filters.updated_to || undefined
     };
 
     this.orderItemsService.getOrderItems(query).subscribe({
@@ -92,28 +154,40 @@ export class OrderItemsComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1;
-    this.loadOrderItems();
+    this.filterChange.emit({
+      ...this.filters,
+      search: this.searchTerm,
+      page: 1
+    });
   }
 
   onSort(field: string): void {
+    let newSortOrder: 'asc' | 'desc' = 'asc';
+    
     if (this.sortBy === field) {
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = field;
-      this.sortOrder = 'asc';
+      newSortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
-    this.loadOrderItems();
+    
+    this.filterChange.emit({
+      ...this.filters,
+      sortBy: field,
+      sortOrder: newSortOrder
+    });
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadOrderItems();
+    this.filterChange.emit({
+      ...this.filters,
+      page: page
+    });
   }
 
   onPageSizeChange(): void {
-    this.currentPage = 1;
-    this.loadOrderItems();
+    this.filterChange.emit({
+      ...this.filters,
+      limit: this.pageSize,
+      page: 1
+    });
   }
 
   createOrderItem(): void {

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard, PermissionGuard, SignedInGuard, TenantGuard, requirePermissions, requireAnyPermission } from '../guards';
 import { PERMISSIONS } from '../config/permissions.config';
 import { TableFilterParams } from '../models/filter-schemas';
-import { DEFAULT_ROUTE_FILTERS } from '../config/route-filters.config';
+import { FilterConfigService } from '../services/filter-config.service';
 
 /**
  * Route Configuration with Filter Support
@@ -18,7 +18,20 @@ import { DEFAULT_ROUTE_FILTERS } from '../config/route-filters.config';
  * 
  * Filter parameters are automatically parsed and validated using Zod schemas
  * and can be used with the TableFilterComponent for UI filtering.
+ * 
+ * Dynamic filter configurations are now provided by FilterConfigService
+ * which can fetch data from APIs (e.g., instructor lists, course lists, etc.)
  */
+
+// Helper function to get route data with filter configuration
+function getRouteDataWithFilters(routeKey: string, permissions: any) {
+  return {
+    permissions,
+    // Filter configuration is now handled by FilterConfigService
+    // Components should inject FilterConfigService to get dynamic filter configs
+    filterConfigKey: routeKey
+  };
+}
 export const routes: Routes = [
   { 
     path: 'login', 
@@ -63,6 +76,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       { 
+        path: 'edit-tenant/:id', 
+        loadComponent: () => import('../components/pages/tanants/tenant-create/tenant-create.component').then(m => m.TenantCreateComponent),
+        canActivate: [AuthGuard]
+      },
+      { 
         path: '', 
         loadComponent: () => import('../components/pages/crm-dashboard/crm-dashboard.component').then(m => m.CrmDashboardComponent),
         canActivate: [AuthGuard]
@@ -71,13 +89,9 @@ export const routes: Routes = [
       // Student Routes
       { 
         path: 'students', 
-        loadComponent: () => import('../components/pages/students/students-list/students.component').then(m => m.StudentsComponent),
+        loadComponent: () => import('../components/pages/students/students-wrapper/students-wrapper.component').then(m => m.StudentsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.STUDENTS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['students'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['students'].filterType
-        }
+        data: getRouteDataWithFilters('students', requirePermissions([PERMISSIONS.STUDENTS.READ]))
       },
       { 
         path: 'students/new', 
@@ -103,11 +117,7 @@ export const routes: Routes = [
         path: 'courses', 
         loadComponent: () => import('../components/pages/courses/courses-wrapper/courses-wrapper.component').then(m => m.CoursesWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.COURSES.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['courses'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['courses'].filterType
-        }
+        data: getRouteDataWithFilters('courses', requirePermissions([PERMISSIONS.COURSES.READ]))
       },
       { 
         path: 'courses/new', 
@@ -131,13 +141,9 @@ export const routes: Routes = [
       // Class Routes
       { 
         path: 'classes', 
-        loadComponent: () => import('../components/pages/classes/classes-list/classes.component').then(m => m.ClassesComponent),
+        loadComponent: () => import('../components/pages/classes/classes-wrapper/classes-wrapper.component').then(m => m.ClassesWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.CLASSES.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['classes'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['classes'].filterType
-        }
+        data: getRouteDataWithFilters('classes', requirePermissions([PERMISSIONS.CLASSES.READ]))
       },
       { 
         path: 'classes/new', 
@@ -161,13 +167,9 @@ export const routes: Routes = [
       // Classes Locations Routes
       { 
         path: 'classes-locations', 
-        loadComponent: () => import('../components/pages/classes-locations/classes-locations-list/classes-locations-list.component').then(m => m.ClassesLocationsListComponent),
+        loadComponent: () => import('../components/pages/classes-locations/classes-locations-wrapper/classes-locations-wrapper.component').then(m => m.ClassesLocationsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.CLASSES_LOCATIONS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['classes-locations'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['classes-locations'].filterType
-        }
+        data: getRouteDataWithFilters('classes-locations', requirePermissions([PERMISSIONS.CLASSES_LOCATIONS.READ]))
       },
       { 
         path: 'classes-locations/new', 
@@ -191,13 +193,9 @@ export const routes: Routes = [
       // User Routes (Admin only - requires multiple permissions)
       { 
         path: 'users', 
-        loadComponent: () => import('../components/pages/users/users-list/users.component').then(m => m.UsersComponent),
+        loadComponent: () => import('../components/pages/users/users-wrapper/users-wrapper.component').then(m => m.UsersWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.USERS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['users'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['users'].filterType
-        }
+        data: getRouteDataWithFilters('users', requirePermissions([PERMISSIONS.USERS.READ]))
       },
       { 
         path: 'users/new', 
@@ -221,13 +219,9 @@ export const routes: Routes = [
       // Product Routes
       { 
         path: 'products', 
-        loadComponent: () => import('../components/pages/products/products-list/products.component').then(m => m.ProductsComponent),
+        loadComponent: () => import('../components/pages/products/products-wrapper/products-wrapper.component').then(m => m.ProductsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.PRODUCTS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['products'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['products'].filterType
-        }
+        data: getRouteDataWithFilters('products', requirePermissions([PERMISSIONS.PRODUCTS.READ]))
       },
       { 
         path: 'products/new', 
@@ -251,13 +245,9 @@ export const routes: Routes = [
       // Order Routes
       { 
         path: 'orders', 
-        loadComponent: () => import('../components/pages/orders/orders-list/orders-list.component').then(m => m.OrdersListComponent),
+        loadComponent: () => import('../components/pages/orders/orders-wrapper/orders-wrapper.component').then(m => m.OrdersWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.ORDERS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['orders'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['orders'].filterType
-        }
+        data: getRouteDataWithFilters('orders', requirePermissions([PERMISSIONS.ORDERS.READ]))
       },
       { 
         path: 'orders/new', 
@@ -281,13 +271,9 @@ export const routes: Routes = [
       // Payment Routes (Accountant or Admin can access)
       { 
         path: 'payments', 
-        loadComponent: () => import('../components/pages/payments/payments-list/payments.component').then(m => m.PaymentsComponent),
+        loadComponent: () => import('../components/pages/payments/payments-wrapper/payments-wrapper.component').then(m => m.PaymentsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requireAnyPermission([PERMISSIONS.PAYMENTS.READ, PERMISSIONS.USERS.MANAGE_ROLES]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['payments'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['payments'].filterType
-        }
+        data: getRouteDataWithFilters('payments', requireAnyPermission([PERMISSIONS.PAYMENTS.READ, PERMISSIONS.USERS.MANAGE_ROLES]))
       },
       { 
         path: 'payments/new', 
@@ -311,43 +297,35 @@ export const routes: Routes = [
       // Role Routes (Admin only)
       { 
         path: 'roles', 
-        loadComponent: () => import('../components/pages/roles/roles-list/roles.component').then(m => m.RolesComponent),
+        loadComponent: () => import('../components/pages/roles/roles-wrapper/roles-wrapper.component').then(m => m.RolesWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['roles'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['roles'].filterType
-        }
+        data: getRouteDataWithFilters('roles', requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]))
       },
-      { 
-        path: 'roles/new', 
-        loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
-        canActivate: [PermissionGuard],
-        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
-      },
+      // { 
+      //   path: 'roles/new', 
+      //   loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
+      //   canActivate: [PermissionGuard],
+      //   data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      // },
       { 
         path: 'roles/:id', 
         loadComponent: () => import('../components/pages/roles/roles-detail/roles-detail.component').then(m => m.RolesDetailComponent),
         canActivate: [PermissionGuard],
         data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
       },
-      { 
-        path: 'roles/:id/edit', 
-        loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
-        canActivate: [PermissionGuard],
-        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
-      },
+      // { 
+      //   path: 'roles/:id/edit', 
+      //   loadComponent: () => import('../components/pages/roles/roles-form/roles-form.component').then(m => m.RolesFormComponent),
+      //   canActivate: [PermissionGuard],
+      //   data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      // },
 
       // Season Routes
       { 
         path: 'seasons', 
-        loadComponent: () => import('../components/pages/seasons/seasons-list/seasons.component').then(m => m.SeasonsComponent),
+        loadComponent: () => import('../components/pages/seasons/seasons-wrapper/seasons-wrapper.component').then(m => m.SeasonsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.SEASONS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['seasons'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['seasons'].filterType
-        }
+        data: getRouteDataWithFilters('seasons', requirePermissions([PERMISSIONS.SEASONS.READ]))
       },
       { 
         path: 'seasons/new', 
@@ -371,43 +349,35 @@ export const routes: Routes = [
       // Permission Routes (Super Admin only)
       { 
         path: 'permissions', 
-        loadComponent: () => import('../components/pages/permissions/permissions-list/permissions.component').then(m => m.PermissionsComponent),
+        loadComponent: () => import('../components/pages/permissions/permissions-wrapper/permissions-wrapper.component').then(m => m.PermissionsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['permissions'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['permissions'].filterType
-        }
+        data: getRouteDataWithFilters('permissions', requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]))
       },
-      {
-        path: 'permissions/new', 
-        loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
-        canActivate: [PermissionGuard],
-        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
-      },
+      // {
+      //   path: 'permissions/new', 
+      //   loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
+      //   canActivate: [PermissionGuard],
+      //   data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      // },
       { 
         path: 'permissions/:id', 
         loadComponent: () => import('../components/pages/permissions/permissions-detail/permissions-detail.component').then(m => m.PermissionsDetailComponent),
         canActivate: [PermissionGuard],
         data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
       },
-      { 
-        path: 'permissions/:id/edit', 
-        loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
-        canActivate: [PermissionGuard],
-        data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
-      },
+      // { 
+      //   path: 'permissions/:id/edit', 
+      //   loadComponent: () => import('../components/pages/permissions/permissions-form/permissions-form.component').then(m => m.PermissionsFormComponent),
+      //   canActivate: [PermissionGuard],
+      //   data: { permissions: requirePermissions([PERMISSIONS.USERS.MANAGE_ROLES]) }
+      // },
 
       // Course Enrollment Routes
       { 
         path: 'course-enrollments', 
-        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-list/courseenrollments.component').then(m => m.CourseenrollmentsComponent),
+        loadComponent: () => import('../components/pages/course-enrollments/course-enrollments-wrapper/course-enrollments-wrapper.component').then(m => m.CourseEnrollmentsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['course-enrollments'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['course-enrollments'].filterType
-        }
+        data: getRouteDataWithFilters('course-enrollments', requirePermissions([PERMISSIONS.COURSES.MANAGE_ENROLLMENTS]))
       },
       { 
         path: 'course-enrollments/new', 
@@ -431,13 +401,9 @@ export const routes: Routes = [
       // Student Class Routes (Attendance Management)
       { 
         path: 'student-classes', 
-        loadComponent: () => import('../components/pages/student-classes/student-classes-list/studentclasses.component').then(m => m.StudentclassesComponent),
+        loadComponent: () => import('../components/pages/student-classes/student-classes-wrapper/student-classes-wrapper.component').then(m => m.StudentClassesWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['student-classes'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['student-classes'].filterType
-        }
+        data: getRouteDataWithFilters('student-classes', requirePermissions([PERMISSIONS.CLASSES.MARK_ATTENDANCE]))
       },
       { 
         path: 'student-classes/new', 
@@ -461,13 +427,9 @@ export const routes: Routes = [
       // Order Item Routes
       { 
         path: 'order-items', 
-        loadComponent: () => import('../components/pages/order-items/order-items-list/orderitems.component').then(m => m.OrderItemsComponent),
+        loadComponent: () => import('../components/pages/order-items/order-items-wrapper/order-items-wrapper.component').then(m => m.OrderItemsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.ORDERS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['order-items'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['order-items'].filterType
-        }
+        data: getRouteDataWithFilters('order-items', requirePermissions([PERMISSIONS.ORDERS.READ]))
       },
       { 
         path: 'order-items/new', 
@@ -491,13 +453,9 @@ export const routes: Routes = [
       // Payment Installment Routes
       { 
         path: 'payment-installments', 
-        loadComponent: () => import('../components/pages/payment-installments/payment-installments-list/paymentinstallments.component').then(m => m.PaymentinstallmentsComponent),
+        loadComponent: () => import('../components/pages/payment-installments/payment-installments-wrapper/payment-installments-wrapper.component').then(m => m.PaymentInstallmentsWrapperComponent),
         canActivate: [PermissionGuard],
-        data: { 
-          permissions: requirePermissions([PERMISSIONS.PAYMENTS.READ]),
-          defaultFilters: DEFAULT_ROUTE_FILTERS['payment-installments'].defaultFilters,
-          filterType: DEFAULT_ROUTE_FILTERS['payment-installments'].filterType
-        }
+        data: getRouteDataWithFilters('payment-installments', requirePermissions([PERMISSIONS.PAYMENTS.READ]))
       },
       { 
         path: 'payment-installments/new', 

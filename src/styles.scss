@@ -16,12 +16,6 @@
 /* Toastr Styles */
 // @use 'ngx-toastr/toastr';
 
-/* Other pre-built theme options:
-@use '@angular/material/prebuilt-themes/deeppurple-amber.css';
-@use '@angular/material/prebuilt-themes/purple-green.css';
-@use '@angular/material/prebuilt-themes/pink-bluegrey.css';
-*/
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -77,20 +71,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   /* Tables */
   .mat-table {
-    background-color: #1f1f1f !important;
-    color: #ffffff !important;
+    background-color: #1f1f1f;
+    color: #ffffff;
   }
   
   .mat-header-cell {
-    color: #ffffff !important;
+    color: #ffffff;
+    background-color: #2a2a2a;
   }
   
   .mat-cell {
-    color: #ffffff !important;
+    color: #ffffff;
   }
   
   .mat-row:hover {
-    background-color: #2a2a2a !important;
+    background-color: #2a2a2a;
   }
   
   /* Dialogs */
