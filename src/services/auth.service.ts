@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User as FirebaseUser, onAuthStateChanged } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  User as FirebaseUser,
+  onAuthStateChanged,
+} from '@angular/fire/auth';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private authStateSubject = new BehaviorSubject<FirebaseUser | null>(null);
   public AuthSubject = new Subject<any>();
-  
+
   get firebaseUser(): FirebaseUser | null {
     return this.auth.currentUser;
   }
-  
+
   get firebaseUserObservable(): Observable<FirebaseUser | null> {
     return this.AuthSubject.asObservable();
   }
@@ -22,10 +29,7 @@ export class AuthService {
     return this.authStateSubject.asObservable();
   }
 
-  constructor(
-    private auth: Auth,
-    private router: Router
-  ) { 
+  constructor(private auth: Auth, private router: Router) {
     this.initializeAuthState();
     this.loadUserFromStorage();
   }
@@ -42,7 +46,6 @@ export class AuthService {
     });
   }
 
-
   async login(): Promise<void> {
     try {
       const provider = new GoogleAuthProvider();
@@ -53,13 +56,11 @@ export class AuthService {
         return;
       }
       const result = await signInWithPopup(this.auth, provider);
-      
-      
+
       // Verify the user is actually logged in
       if (!this.auth.currentUser) {
         throw new Error('Authentication failed - no user found after login');
       }
-      
     } catch (error: any) {
       console.error('❌ Login failed:', error);
       throw error;
@@ -96,7 +97,7 @@ export class AuthService {
         console.log('❌ No user found for token refresh');
         return undefined;
       }
-      
+
       // Force refresh the token
       const freshToken = await user.getIdToken(true);
       console.log('✅ Successfully refreshed Firebase token');
@@ -124,5 +125,4 @@ export class AuthService {
       }
     }
   }
-
 }

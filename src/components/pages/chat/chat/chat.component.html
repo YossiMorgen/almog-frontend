@@ -1,0 +1,85 @@
+<div class="chat-container">
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <div class="header-left">
+      <h1>Chat Assistant</h1>
+      <div
+        class="connection-status"
+        [ngClass]="{ connected: isConnected$ | async, disconnected: !(isConnected$ | async) }"
+      >
+        <span class="status-dot"></span>
+        <span class="status-text">{{ (isConnected$ | async) ? 'Connected' : 'Disconnected' }}</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="clear-button" (click)="clearChat()" [disabled]="!(messages$ | async)?.length">
+        <span class="clear-icon">🗑️</span>
+        Clear Chat
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages Container -->
+  <div class="messages-container" #messagesContainer>
+    <div *ngIf="!(messages$ | async)?.length" class="empty-state">
+      <div class="empty-content">
+        <div class="empty-icon">💬</div>
+        <h2>Start a conversation</h2>
+        <p>Ask me anything about your CRM system. I can help you with:</p>
+        <ul class="suggestion-list">
+          <li>Creating new students</li>
+          <li>Managing course enrollments</li>
+          <li>Processing payments</li>
+          <li>Generating reports</li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngFor="let message of messages$ | async" class="message-wrapper">
+      <app-chat-message
+        [message]="message"
+        (suggestionClick)="onSuggestionClick($event)"
+        (actionClick)="onActionClick($event)"
+      >
+      </app-chat-message>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading$ | async" class="loading-indicator">
+      <div class="typing-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="loading-text">Assistant is typing...</span>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-container">
+    <div class="input-wrapper">
+      <textarea
+        #messageInput
+        [(ngModel)]="newMessage"
+        (keydown)="onKeyPress($event)"
+        (input)="onInputChange()"
+        placeholder="Type your message here..."
+        [disabled]="isLoading$ | async"
+        rows="1"
+        class="message-input"
+      >
+      </textarea>
+      <button
+        class="send-button"
+        (click)="sendMessage()"
+        [disabled]="!newMessage.trim() || (isLoading$ | async)"
+        [ngClass]="{ disabled: !newMessage.trim() || (isLoading$ | async) }"
+      >
+        <span class="send-icon">📤</span>
+      </button>
+    </div>
+    <div class="input-footer">
+      <span class="input-hint">Press Enter to send, Shift+Enter for new line</span>
+    </div>
+  </div>
+</div>

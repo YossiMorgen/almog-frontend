@@ -40,6 +40,13 @@ export const NAVIGATION_CONFIG: NavigationSection[] = [
         icon: 'dashboard',
         route: '/crm',
         order: 2
+      },
+      {
+        id: 'chat',
+        label: 'Chat',
+        icon: 'chat',
+        route: '/crm/chat',
+        order: 3
       }
     ],
     expanded: false,

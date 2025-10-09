@@ -475,6 +475,13 @@ export const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { permissions: requirePermissions([PERMISSIONS.PAYMENTS.UPDATE]) }
       },
+
+      // Chat Routes
+      { 
+        path: 'chat', 
+        loadComponent: () => import('../components/pages/chat/chat/chat.component').then(m => m.ChatComponent),
+        canActivate: [AuthGuard]
+      },
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
